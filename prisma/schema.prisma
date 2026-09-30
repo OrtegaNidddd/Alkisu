@@ -1,0 +1,210 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// =============================================================
+// ENUMERACIONES
+// =============================================================
+
+enum Role {
+  ADMIN
+  ASESOR
+  JOYERO
+}
+
+enum OrderStatus {
+  CREADO
+  FABRICACION
+  CALIDAD
+  ENTREGADO
+}
+
+enum QuoteStatus {
+  BORRADOR
+  ENVIADA
+  APROBADA
+  RECHAZADA
+}
+
+enum PaymentMethod {
+  EFECTIVO
+  TRANSFERENCIA
+  TARJETA
+}
+
+enum MaterialType {
+  ORO_AMARILLO_18K
+  ORO_BLANCO_18K
+  ORO_ROSA_18K
+  ORO_14K
+  ORO_10K
+  PLATA_925
+  PIEDRA_PRECIOSA
+}
+
+enum MeasurementUnit {
+  GRAMOS
+  KILATES
+}
+
+// =============================================================
+// USUARIOS Y CLIENTES
+// =============================================================
+
+model User {
+  id             String               @id @default(uuid())
+  fullName       String
+  email          String               @unique
+  passwordHash   String
+  role           Role
+  assignedOrders Order[]              @relation("AssignedArtisan")
+  createdOrders  Order[]              @relation("OrderCreator")
+  createdQuotes  Quote[]
+  registeredPays Payment[]
+  statusChanges  OrderStatusHistory[]
+  auditLogs      AuditLog[]
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+}
+
+model Client {
+  id         String   @id @default(uuid())
+  fullName   String
+  phone      String
+  email      String?
+  documentId String?  @unique
+  quotes     Quote[]
+  orders     Order[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// =============================================================
+// COTIZACIONES (Inmutabilidad de precios)
+// =============================================================
+
+model Quote {
+  id          String      @id @default(uuid())
+  clientId    String
+  client      Client      @relation(fields: [clientId], references: [id])
+  createdById String
+  createdBy   User        @relation(fields: [createdById], references: [id])
+  status      QuoteStatus @default(BORRADOR)
+  totalAmount Decimal     @db.Decimal(12, 2)
+  validUntil  DateTime?
+  order       Order?
+  items       QuoteItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model QuoteItem {
+  id          String  @id @default(uuid())
+  quoteId     String
+  quote       Quote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Int     @default(1)
+  unitPrice   Decimal @db.Decimal(12, 2)
+  subtotal    Decimal @db.Decimal(12, 2)
+}
+
+// =============================================================
+// PEDIDOS Y FLUJO DE TALLER
+// =============================================================
+
+model Order {
+  id                String               @id @default(uuid())
+  quoteId           String?              @unique
+  quote             Quote?               @relation(fields: [quoteId], references: [id])
+  clientId          String
+  client            Client               @relation(fields: [clientId], references: [id])
+  artisanId         String?
+  artisan           User?                @relation("AssignedArtisan", fields: [artisanId], references: [id])
+  createdById       String
+  createdBy         User                 @relation("OrderCreator", fields: [createdById], references: [id])
+  status            OrderStatus          @default(CREADO)
+  description       String
+  totalPactado      Decimal              @db.Decimal(12, 2)
+  estimatedDelivery DateTime?
+  deliveryDate      DateTime?
+  materialsUsed     OrderMaterial[]
+  payments          Payment[]
+  statusHistory     OrderStatusHistory[]
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+}
+
+model OrderStatusHistory {
+  id         String      @id @default(uuid())
+  orderId    String
+  order      Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  fromStatus OrderStatus
+  toStatus   OrderStatus
+  note       String?
+  createdAt  DateTime    @default(now())
+}
+
+// =============================================================
+// FINANZAS Y ABONOS
+// =============================================================
+
+model Payment {
+  id             String        @id @default(uuid())
+  orderId        String
+  order          Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  registeredById String
+  registeredBy   User          @relation(fields: [registeredById], references: [id])
+  amount         Decimal       @db.Decimal(12, 2)
+  paymentMethod  PaymentMethod
+  referenceNotes String?
+  createdAt      DateTime      @default(now())
+}
+
+// =============================================================
+// INVENTARIO DE METALES Y PIEDRAS
+// =============================================================
+
+model Material {
+  id        String          @id @default(uuid())
+  name      String
+  type      MaterialType
+  unit      MeasurementUnit @default(GRAMOS)
+  stock     Decimal         @db.Decimal(10, 3)
+  minStock  Decimal         @db.Decimal(10, 3)
+  orders    OrderMaterial[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model OrderMaterial {
+  id         String   @id @default(uuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id])
+  quantity   Decimal  @db.Decimal(10, 3)
+  createdAt  DateTime @default(now())
+}
+
+// =============================================================
+// SEGURIDAD Y AUDITORÍA INMUTABLE
+// =============================================================
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  tableName String
+  recordId  String?
+  ipAddress String?
+  details   Json?
+  createdAt DateTime @default(now())
+}
