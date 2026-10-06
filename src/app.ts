@@ -5,7 +5,10 @@ import clientRoutes from './routes/client.routes';
 import orderRoutes from './routes/order.routes';
 import authRoutes from './routes/auth.routes';
 import quoteRoutes from './routes/quote.routes.js';
+import userRoutes from './routes/user.routes.js';
 import materialRoutes from './routes/material.routes.js';
+import auditRoutes from './routes/audit.routes.js';
+import dashboardRoutes from './routes/dashboard.routes.js';
 
 const app: Application = express();
 
@@ -19,9 +22,12 @@ app.get('/api/health', (req: Request, res: Response) => {
 
 // Rutas API
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/materials', materialRoutes);
+app.use('/api/audit', auditRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 export default app;
