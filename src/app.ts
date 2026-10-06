@@ -8,6 +8,7 @@ import materialRoutes from './routes/material.routes.js';
 import userRoutes from './routes/user.routes.js';
 import auditRoutes from './routes/audit.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
+import { errorHandler } from './middlewares/error.middleware.js';
 
 const app: Application = express();
 
@@ -27,5 +28,8 @@ app.use('/api/quotes', quoteRoutes);
 app.use('/api/materials', materialRoutes);
 app.use('/api/audit', auditRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+
+// Manejador centralizado de errores (Siempre al final)
+app.use(errorHandler);
 
 export default app;
