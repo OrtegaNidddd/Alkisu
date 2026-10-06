@@ -8,7 +8,12 @@ export interface AuthenticatedUser {
   role: Role;
 }
 
-export interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest<
+  P = Record<string, string>,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = any
+> extends Request<P, ResBody, ReqBody, ReqQuery> {
   user?: AuthenticatedUser;
 }
 
