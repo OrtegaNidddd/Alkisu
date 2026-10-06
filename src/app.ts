@@ -5,6 +5,7 @@ import clientRoutes from './routes/client.routes';
 import orderRoutes from './routes/order.routes';
 import authRoutes from './routes/auth.routes';
 import quoteRoutes from './routes/quote.routes.js';
+import materialRoutes from './routes/material.routes.js';
 
 const app: Application = express();
 
@@ -21,5 +22,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/quotes', quoteRoutes);
+app.use('/api/materials', materialRoutes);
 
 export default app;
