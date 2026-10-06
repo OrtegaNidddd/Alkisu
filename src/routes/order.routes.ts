@@ -2,12 +2,17 @@ import { Router } from 'express';
 import {
   handleCreateOrder,
   handleGetOrders,
-  handleGetOrderById,
-  handleUpdateStatus,
+  handleGetOrder,
   handleAddPayment,
+  handleUpdateStatus,
+  handleGetOrderMaterials,
   handleCancelOrder,
   handleRegisterMetalReturn,
 } from '../controllers/order.controller.js';
+import {
+  handleAddAttachment,
+  handleGetAttachments,
+} from '../controllers/attachment.controller.js';
 import { handleConsumeMaterial } from '../controllers/material.controller.js';
 import { authenticateToken, authorizeRoles } from '../middlewares/auth.middleware.js';
 import { validate } from '../middlewares/validate.middleware.js';
@@ -20,7 +25,7 @@ import { Role } from '@prisma/client';
 
 const router = Router();
 
-// Todas las rutas requieren autenticación
+// Todas las rutas requieren sesión activa
 router.use(authenticateToken);
 
 // Creación, cobros y cancelación: Administrador y Asesor
@@ -40,16 +45,15 @@ router.patch('/:id/cancel', authorizeRoles(Role.ADMIN, Role.ASESOR), handleCance
 
 // Consulta de pedidos: todos los roles
 router.get('/', handleGetOrders);
-router.get('/:id', handleGetOrderById);
+router.get('/:id', handleGetOrder);
 
-// Registro de consumo de material: Joyero y Administrador
+// Materiales utilizados y liquidación de metal/merma en el pedido
+router.get('/:id/materials', handleGetOrderMaterials);
 router.post(
-  '/:id/consume-material',
+  '/:id/materials',
   authorizeRoles(Role.ADMIN, Role.JOYERO),
   handleConsumeMaterial
 );
-
-// Liquidación de metales (devolución y mermas): Joyero y Administrador
 router.post(
   '/:id/metal-return',
   authorizeRoles(Role.ADMIN, Role.JOYERO),
@@ -59,5 +63,9 @@ router.post(
 
 // Avance de estados: Joyero (fabricación/calidad), Asesor y Admin
 router.patch('/:id/status', handleUpdateStatus);
+
+// Adjuntos del pedido
+router.post('/:id/attachments', authorizeRoles(Role.ADMIN, Role.ASESOR, Role.JOYERO), handleAddAttachment);
+router.get('/:id/attachments', handleGetAttachments);
 
 export default router;
