@@ -1,0 +1,58 @@
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../middlewares/auth.middleware.js';
+import * as quoteService from '../services/quote.service.js';
+
+export const handleCreateQuote = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { clientId, validUntil, items } = req.body;
+
+    if (!clientId || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: 'El cliente y al menos un ítem son obligatorios' });
+    }
+
+    const quote = await quoteService.createQuote({
+      clientId,
+      createdById: req.user!.id,
+      validUntil: validUntil ? new Date(validUntil) : undefined,
+      items,
+    });
+
+    res.status(201).json(quote);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message || 'Error al crear la cotización' });
+  }
+};
+
+export const handleGetQuotes = async (_req: AuthenticatedRequest, res: Response) => {
+  try {
+    const quotes = await quoteService.getQuotes();
+    res.json(quotes);
+  } catch (error: any) {
+    res.status(500).json({ error: 'Error al consultar cotizaciones' });
+  }
+};
+
+export const handleGetQuoteById = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const quote = await quoteService.getQuoteById(req.params.id);
+    if (!quote) return res.status(404).json({ error: 'Cotización no encontrada' });
+    res.json(quote);
+  } catch (error: any) {
+    res.status(500).json({ error: 'Error al consultar la cotización' });
+  }
+};
+
+export const handleApproveQuote = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const order = await quoteService.approveQuoteAndConvertToOrder(
+      req.params.id,
+      req.user!.id
+    );
+    res.status(200).json({
+      message: 'Cotización aprobada y pedido generado exitosamente',
+      order,
+    });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
