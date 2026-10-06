@@ -1,21 +1,34 @@
-import { Request, Response } from 'express';
-import * as clientService from '../services/client.service';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../middlewares/auth.middleware.js';
+import * as clientService from '../services/client.service.js';
 
-export const handleGetClients = async (_req: Request, res: Response) => {
+export const handleGetClients = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const clients = await clientService.getClients();
+    const search = req.query.search as string | undefined;
+    const clients = await clientService.getClients(search);
     res.json(clients);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener clientes' });
+    res.status(500).json({ error: 'Error al consultar clientes' });
   }
 };
 
-export const handleCreateClient = async (req: Request, res: Response) => {
+export const handleGetClientById = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const client = await clientService.getClientById(req.params.id);
+    if (!client) return res.status(404).json({ error: 'Cliente no encontrado' });
+    res.json(client);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al consultar ficha del cliente' });
+  }
+};
+
+export const handleCreateClient = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { fullName, phone, email, documentId } = req.body;
     if (!fullName || !phone) {
       return res.status(400).json({ error: 'Nombre y teléfono son obligatorios' });
     }
+
     const newClient = await clientService.createClient({
       fullName,
       phone,
@@ -25,39 +38,30 @@ export const handleCreateClient = async (req: Request, res: Response) => {
     res.status(201).json(newClient);
   } catch (error: any) {
     if (error.code === 'P2002') {
-      return res.status(400).json({ error: 'El documento ya está registrado' });
+      return res.status(400).json({ error: 'El documento o correo ya está registrado' });
     }
     res.status(500).json({ error: 'Error al registrar cliente' });
   }
 };
 
-export const handleUpdateClient = async (req: Request, res: Response) => {
+export const handleUpdateClient = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { id, fullName, phone, email, documentId } = req.body;
-    if (!fullName || !phone) {
-      return res.status(400).json({ error: 'Nombre y teléfono son obligatorios' });
-    }
-    const updatedClient = await clientService.updateClient(id, {
+    const { fullName, phone, email, documentId } = req.body;
+    const updated = await clientService.updateClient(req.params.id, {
       fullName,
       phone,
       email,
       documentId,
     });
-    res.status(200).json(updatedClient);
+
+    res.json({
+      message: 'Datos del cliente actualizados',
+      client: updated,
+    });
   } catch (error: any) {
     if (error.code === 'P2002') {
-      return res.status(400).json({ error: 'El documento ya está registrado' });
+      return res.status(400).json({ error: 'El documento o correo ya pertenece a otro cliente' });
     }
-    res.status(500).json({ error: 'Error al actualizar cliente' });
-  }
-};
-
-export const handleDeleteClient = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.body;
-    const deletedClient = await clientService.deleteClient(id);
-    res.status(200).json(deletedClient);
-  } catch (error: any) {
-    res.status(500).json({ error: 'Error al eliminar cliente' });
+    res.status(400).json({ error: error.message || 'Error al actualizar cliente' });
   }
 };
