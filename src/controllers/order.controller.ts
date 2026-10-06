@@ -82,3 +82,13 @@ export const handleUpdateStatus = async (req: AuthenticatedRequest, res: Respons
     res.status(400).json({ error: error.message });
   }
 };
+
+export const handleGetOrderMaterials = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const materials = await orderService.getOrderMaterials(req.params.id);
+    res.json(materials);
+  } catch (error: any) {
+    const status = error.message === 'Pedido no encontrado' ? 404 : 500;
+    res.status(status).json({ error: error.message || 'Error al consultar materiales del pedido' });
+  }
+};

@@ -192,3 +192,21 @@ export const getOrders = async () => {
     };
   });
 };
+
+// 6. Obtener lista de materiales consumidos en un pedido
+export const getOrderMaterials = async (orderId: string) => {
+  const order = await prisma.order.findUnique({
+    where: { id: orderId },
+    select: { id: true },
+  });
+
+  if (!order) throw new Error('Pedido no encontrado');
+
+  return await prisma.orderMaterial.findMany({
+    where: { orderId },
+    include: {
+      material: true,
+    },
+    orderBy: { createdAt: 'desc' },
+  });
+};
