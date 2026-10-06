@@ -163,35 +163,7 @@ export const updateOrderStatus = async (data: {
   ]);
 };
 
-// 5. Listar todos los pedidos con resumen financiero
-export const getOrders = async () => {
-  const orders = await prisma.order.findMany({
-    include: {
-      client: true,
-      artisan: { select: { id: true, fullName: true } },
-      payments: true,
-    },
-    orderBy: { createdAt: 'desc' },
-  });
 
-  return orders.map((order) => {
-    const totalAbonado = order.payments.reduce(
-      (acc, curr) => acc + Number(curr.amount),
-      0
-    );
-    const balance = Number(order.totalPactado) - totalAbonado;
-
-    return {
-      ...order,
-      financialSummary: {
-        totalPactado: Number(order.totalPactado),
-        totalAbonado,
-        saldoPendiente: balance,
-        estaLiquidado: balance <= 0,
-      },
-    };
-  });
-};
 
 // 6. Obtener lista de materiales consumidos en un pedido
 export const getOrderMaterials = async (orderId: string) => {
@@ -208,5 +180,222 @@ export const getOrderMaterials = async (orderId: string) => {
       material: true,
     },
     orderBy: { createdAt: 'desc' },
+  });
+};
+
+export interface OrderFilterParams {
+  status?: OrderStatus;
+  artisanId?: string;
+  clientId?: string;
+  page?: number;
+  limit?: number;
+}
+
+export const getOrders = async (filters: OrderFilterParams = {}) => {
+  const page = Math.max(Number(filters.page) || 1, 1);
+  const limit = Math.min(Math.max(Number(filters.limit) || 10, 1), 50);
+  const skip = (page - 1) * limit;
+
+  const whereClause: any = {};
+
+  if (filters.status) whereClause.status = filters.status;
+  if (filters.artisanId) whereClause.artisanId = filters.artisanId;
+  if (filters.clientId) whereClause.clientId = filters.clientId;
+
+  const [total, orders] = await Promise.all([
+    prisma.order.count({ where: whereClause }),
+    prisma.order.findMany({
+      where: whereClause,
+      skip,
+      take: limit,
+      include: {
+        client: { select: { id: true, fullName: true, phone: true } },
+        artisan: { select: { id: true, fullName: true } },
+        payments: { select: { amount: true } },
+        _count: { select: { materialsUsed: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    }),
+  ]);
+
+  // Formatear cada orden con su resumen financiero básico
+  const items = orders.map((order) => {
+    const totalAbonado = order.payments.reduce(
+      (acc, curr) => acc + Number(curr.amount),
+      0
+    );
+    const balance = Number(order.totalPactado) - totalAbonado;
+
+    return {
+      id: order.id,
+      description: order.description,
+      status: order.status,
+      client: order.client,
+      artisan: order.artisan,
+      totalPactado: Number(order.totalPactado),
+      totalAbonado,
+      saldoPendiente: balance,
+      estimatedDelivery: order.estimatedDelivery,
+      createdAt: order.createdAt,
+      materialsCount: order._count.materialsUsed,
+    };
+  });
+
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+    data: items,
+  };
+};
+
+export const cancelOrder = async (data: {
+  orderId: string;
+  userId: string;
+  reason: string;
+}) => {
+  const order = await prisma.order.findUnique({
+    where: { id: data.orderId },
+  });
+
+  if (!order) throw new Error('Pedido no encontrado');
+
+  if (order.status === OrderStatus.ENTREGADO) {
+    throw new Error('No se puede cancelar una joya que ya fue entregada al cliente');
+  }
+
+  if (order.status === OrderStatus.CANCELADO) {
+    throw new Error('El pedido ya se encuentra cancelado');
+  }
+
+  return await prisma.$transaction([
+    prisma.order.update({
+      where: { id: data.orderId },
+      data: { status: OrderStatus.CANCELADO },
+    }),
+    prisma.orderStatusHistory.create({
+      data: {
+        orderId: data.orderId,
+        userId: data.userId,
+        fromStatus: order.status,
+        toStatus: OrderStatus.CANCELADO,
+        note: `CANCELACIÓN: ${data.reason}`,
+      },
+    }),
+  ]);
+};
+
+export const registerMetalReturn = async (data: {
+  orderId: string;
+  materialId: string;
+  artisanId: string;
+  finalPieceWeight: number; // Peso de la joya terminada en gramos
+  scrapWeight: number;      // Limalla/retazos recuperados para bodega
+  notes?: string;
+  ipAddress?: string;
+}) => {
+  return await prisma.$transaction(async (tx) => {
+    // 1. Verificar la orden y sus consumos de este material
+    const order = await tx.order.findUnique({
+      where: { id: data.orderId },
+      include: {
+        materialsUsed: {
+          where: { materialId: data.materialId },
+        },
+      },
+    });
+
+    if (!order) throw new Error('Pedido no encontrado');
+
+    const totalEntregado = order.materialsUsed.reduce(
+      (acc, item) => acc + Number(item.quantity),
+      0
+    );
+
+    if (totalEntregado <= 0) {
+      throw new Error('Este pedido no tiene registros de consumo del material especificado');
+    }
+
+    const material = await tx.material.findUnique({
+      where: { id: data.materialId },
+    });
+
+    if (!material) throw new Error('Material no encontrado');
+
+    // 2. Cálculo del balance y la merma técnica
+    const pesoDevueltoTotal = data.finalPieceWeight + data.scrapWeight;
+
+    if (pesoDevueltoTotal > totalEntregado) {
+      throw new Error(
+        `El peso total devuelto (${pesoDevueltoTotal} ${material.unit}) excede el material entregado (${totalEntregado} ${material.unit})`
+      );
+    }
+
+    const merma = Number((totalEntregado - pesoDevueltoTotal).toFixed(3));
+    const porcentajeMerma = Number(((merma / totalEntregado) * 100).toFixed(2));
+    const mermaInusual = porcentajeMerma > 8.0; // Umbral de alerta estándar en taller (> 8%)
+
+    // 3. Reintegrar la limalla/retazos recuperados al inventario de bodega
+    let updatedMaterial = material;
+    if (data.scrapWeight > 0) {
+      updatedMaterial = await tx.material.update({
+        where: { id: data.materialId },
+        data: {
+          stock: {
+            increment: data.scrapWeight,
+          },
+        },
+      });
+    }
+
+    // 4. Registro inmutable en AuditLog de la liquidación de mesa
+    const audit = await tx.auditLog.create({
+      data: {
+        userId: data.artisanId,
+        action: 'LIQUIDACION_METAL_MERMA',
+        tableName: 'Order',
+        recordId: data.orderId,
+        ipAddress: data.ipAddress,
+        details: {
+          materialName: material.name,
+          unidad: material.unit,
+          metalEntregado: totalEntregado,
+          pesoJoyaFinal: data.finalPieceWeight,
+          limallaRetornada: data.scrapWeight,
+          mermaTecnica: merma,
+          porcentajeMerma: `${porcentajeMerma}%`,
+          alertaMermaInusual: mermaInusual,
+          observaciones: data.notes || 'Liquidación estándar de taller',
+        },
+      },
+    });
+
+    // 5. Dejar constancia en el historial de estados del pedido
+    await tx.orderStatusHistory.create({
+      data: {
+        orderId: data.orderId,
+        userId: data.artisanId,
+        fromStatus: order.status,
+        toStatus: order.status,
+        note: `Balance de metal cerrado: Joya ${data.finalPieceWeight}g, Limalla ${data.scrapWeight}g, Merma ${merma}g (${porcentajeMerma}%).`,
+      },
+    });
+
+    return {
+      balance: {
+        metalEntregado: totalEntregado,
+        pesoJoyaFinal: data.finalPieceWeight,
+        limallaRetornada: data.scrapWeight,
+        mermaTecnica: merma,
+        porcentajeMerma: `${porcentajeMerma}%`,
+        mermaInusual,
+      },
+      nuevoStockMaterial: Number(updatedMaterial.stock),
+      unidad: material.unit,
+      auditId: audit.id,
+    };
   });
 };
