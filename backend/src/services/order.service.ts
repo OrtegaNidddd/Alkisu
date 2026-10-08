@@ -209,9 +209,17 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
       skip,
       take: limit,
       include: {
-        client: { select: { id: true, fullName: true, phone: true } },
+        client: { select: { id: true, fullName: true, phone: true, documentId: true, email: true } },
         artisan: { select: { id: true, fullName: true } },
-        payments: { select: { amount: true } },
+        payments: {
+          include: { registeredBy: { select: { id: true, fullName: true } } },
+          orderBy: { createdAt: 'desc' },
+        },
+        statusHistory: {
+          include: { user: { select: { id: true, fullName: true } } },
+          orderBy: { createdAt: 'desc' },
+        },
+        materialsUsed: { include: { material: true } },
         _count: { select: { materialsUsed: true } },
       },
       orderBy: { createdAt: 'desc' },
@@ -230,7 +238,9 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
       id: order.id,
       description: order.description,
       status: order.status,
+      clientId: order.clientId,
       client: order.client,
+      artisanId: order.artisanId,
       artisan: order.artisan,
       totalPactado: Number(order.totalPactado),
       totalAbonado,
@@ -238,6 +248,15 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
       estimatedDelivery: order.estimatedDelivery,
       createdAt: order.createdAt,
       materialsCount: order._count.materialsUsed,
+      materialsUsed: order.materialsUsed.map((m) => ({
+        ...m,
+        quantity: Number(m.quantity),
+      })),
+      payments: order.payments.map((p) => ({
+        ...p,
+        amount: Number(p.amount),
+      })),
+      statusHistory: order.statusHistory,
     };
   });
 
