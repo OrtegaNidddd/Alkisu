@@ -58,6 +58,12 @@ async function main() {
   // 2. CLIENTES
   const clientsToSeed = [
     {
+      fullName: 'Cliente General (Mostrador)',
+      phone: '+57 300 000 0000',
+      email: 'general@alkisu.com',
+      documentId: '2222222222',
+    },
+    {
       fullName: 'Carolina Gómez Restrepo',
       phone: '+57 310 458 9201',
       email: 'carolina.gomez@empresa.com',

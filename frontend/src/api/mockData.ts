@@ -23,6 +23,13 @@ export const MOCK_USERS: User[] = [
 
 export const MOCK_CLIENTS: Client[] = [
   {
+    id: 'cli-defecto',
+    fullName: 'Cliente General (Mostrador)',
+    phone: '+57 300 000 0000',
+    email: 'general@alkisu.com',
+    documentId: '2222222222',
+  },
+  {
     id: 'cli-1',
     fullName: 'Carolina Gómez Restrepo',
     phone: '+57 310 458 9201',
