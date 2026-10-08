@@ -847,27 +847,19 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                     </span>
                   </div>
 
-                  {/* Resumen del cálculo de metal (Control de taller / inventario) */}
+                  {/* Resumen del cálculo de metal */}
                   <div className="p-3 bg-[#FAF1DA]/60 border border-[#eedab1] rounded-xl flex flex-col justify-center">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#A57525] block">
-                        Control Taller / Inventario
-                      </span>
-                      <span className="text-[9px] font-semibold text-[#176B52] bg-[#E5F4EE] px-1 rounded">
-                        Sin cobrar al cliente
-                      </span>
-                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#A57525] block">
+                      Metal Total a Despachar
+                    </span>
                     <div className="flex items-baseline space-x-1 mt-0.5">
                       <span className="text-base font-mono font-bold text-[#17201D]">
                         {formatGrams(grossGrams)}
                       </span>
-                      <span className="text-[11px] text-[#66736D]">brutos para fundición</span>
+                      <span className="text-[11px] text-[#66736D]">brutos</span>
                     </div>
-                    <span className="text-[10px] text-[#4D5753] mt-0.5 block font-mono">
+                    <span className="text-[10px] text-[#4D5753] mt-1 block font-mono">
                       {formatGrams(gramsNet)} netos + {formatGrams(metalWasteGrams)} merma
-                    </span>
-                    <span className="text-[9px] text-[#66736D] mt-1 block">
-                      Cobrado: {formatGrams(gramsNet)} netos (merma contemplada en $/g)
                     </span>
                   </div>
                 </div>
@@ -1266,15 +1258,8 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
 
             {/* Desglose por Componente con separador de miles */}
             <div className="space-y-2 text-xs border-b border-[#22332C] pb-4">
-              <div className="flex justify-between items-start text-[#9CA9A3]">
-                <div>
-                  <span>Metal Base ({formatGrams(gramsNet)} netos):</span>
-                  {includeMerma && grossGrams > 0 && (
-                    <span className="block text-[10px] text-[#66736D]">
-                      Control taller: {formatGrams(grossGrams)} brutos
-                    </span>
-                  )}
-                </div>
+              <div className="flex justify-between items-center text-[#9CA9A3]">
+                <span>Metal Base ({formatGrams(gramsNet)}):</span>
                 <span className="font-mono text-[#EDF5F2] font-semibold">
                   {formatCurrency(metalSubtotal)}
                 </span>
@@ -1312,31 +1297,6 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
               <span className="text-[10px] text-[#9CA9A3] mt-1 block">
                 Vigencia: {validUntilDays} días calendario
               </span>
-            </div>
-
-            {/* Regla de Pagos de Taller (50% / 50%) */}
-            <div className="p-3.5 bg-[#17201D] rounded-xl border border-[#2b3d35] space-y-2.5 text-xs">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#A57525] block">
-                Condiciones de Pago del Taller
-              </span>
-
-              <div className="flex justify-between items-center">
-                <span className="text-[#EDF5F2]">Anticipo para Fundición (50%):</span>
-                <span className="font-mono font-bold text-[#E6F5ED]">
-                  {formatCurrency(Math.round(grandTotal * 0.5))}
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-[#9CA9A3]">Saldo Contra Entrega (50%):</span>
-                <span className="font-mono font-semibold text-[#9CA9A3]">
-                  {formatCurrency(Math.round(grandTotal * 0.5))}
-                </span>
-              </div>
-
-              <p className="text-[10px] text-[#66736D] leading-tight pt-1">
-                * El anticipo es indispensable para fundir el metal y separar gemas de bodega.
-              </p>
             </div>
 
             {/* Botones de Acción con Alto Contraste */}
