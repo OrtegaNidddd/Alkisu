@@ -25,7 +25,8 @@ let currentOrders: Order[] = [...MOCK_ORDERS];
 let currentMaterials: Material[] = [...MOCK_MATERIALS];
 let currentQuotes: Quote[] = [...MOCK_QUOTES];
 
-const API_BASE = '/api';
+const rawBase = import.meta.env.VITE_API_URL || '/api';
+const API_BASE = rawBase.replace(/\/+$/, '');
 
 import { REAL_ROLE_TOKENS, DB_USERS } from '../hooks/useAuth';
 
@@ -107,7 +108,10 @@ export const apiClient = {
   // ---- PEDIDOS ----
   async getOrders(params?: { status?: OrderStatus; artisanId?: string; clientId?: string }): Promise<Order[]> {
     try {
-      const url = new URL(`${window.location.origin}${API_BASE}/orders`);
+      const fullUrl = API_BASE.startsWith('http')
+        ? `${API_BASE}/orders`
+        : `${window.location.origin}${API_BASE}/orders`;
+      const url = new URL(fullUrl);
       if (params?.status) url.searchParams.set('status', params.status);
       if (params?.artisanId) url.searchParams.set('artisanId', params.artisanId);
       if (params?.clientId) url.searchParams.set('clientId', params.clientId);

@@ -12,6 +12,10 @@ RUN npm ci
 # Copiar el código fuente
 COPY . .
 
+# Variables de entorno en tiempo de compilación para Vite
+ARG VITE_API_URL=/api
+ENV VITE_API_URL=$VITE_API_URL
+
 # Compilar para producción (genera directorio /dist)
 RUN npm run build
 
