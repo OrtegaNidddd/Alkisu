@@ -58,6 +58,6 @@ export const errorHandler = (
   console.error('[Error no controlado]:', err);
   return res.status(500).json({
     error: 'Ocurrió un error interno en el servidor',
-    message: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    message: err?.message || String(err),
   });
 };
