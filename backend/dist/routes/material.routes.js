@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import { handleCreateMaterial, handleGetMaterials, handleRestockMaterial, } from '../controllers/material.controller.js';
+import { authenticateToken, authorizeRoles } from '../middlewares/auth.middleware.js';
+import { Role } from '@prisma/client';
+const router = Router();
+router.use(authenticateToken);
+// Consultar stock (Admin, Asesor, Joyero)
+router.get('/', handleGetMaterials);
+// Dar de alta o ingresar stock inicial (Solo Administrador)
+router.post('/', authorizeRoles(Role.ADMIN), handleCreateMaterial);
+// Reabastecer material (Solo Administrador)
+router.patch('/:id/restock', authorizeRoles(Role.ADMIN), handleRestockMaterial);
+export default router;

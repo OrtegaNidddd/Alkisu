@@ -1,0 +1,51 @@
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import prisma from '../lib/prisma.js';
+export const registerUser = async (data) => {
+    const existingUser = await prisma.user.findUnique({
+        where: { email: data.email },
+    });
+    if (existingUser) {
+        throw new Error('El correo ya está registrado');
+    }
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(data.password, salt);
+    const user = await prisma.user.create({
+        data: {
+            fullName: data.fullName,
+            email: data.email,
+            passwordHash,
+            role: data.role,
+        },
+        select: {
+            id: true,
+            fullName: true,
+            email: true,
+            role: true,
+            createdAt: true,
+        },
+    });
+    return user;
+};
+export const loginUser = async (email, password) => {
+    const user = await prisma.user.findUnique({
+        where: { email },
+    });
+    if (!user) {
+        throw new Error('Credenciales inválidas');
+    }
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
+    if (!isMatch) {
+        throw new Error('Credenciales inválidas');
+    }
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET || 'secret_fallback', { expiresIn: '8h' });
+    return {
+        token,
+        user: {
+            id: user.id,
+            fullName: user.fullName,
+            email: user.email,
+            role: user.role,
+        },
+    };
+};
