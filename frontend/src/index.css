@@ -62,3 +62,29 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #9CA9A3;
 }
+
+/* Soporte táctil y desplazamiento suave en móviles para tablas y contenedores horizontales */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  scrollbar-gutter: stable;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  height: 5px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #EEF1F0;
+  border-radius: 9999px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #A5752580;
+  border-radius: 9999px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #A57525;
+}
+

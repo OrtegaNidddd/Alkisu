@@ -484,45 +484,47 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
               </div>
 
               <div className="bg-white border border-[#DDE3E0] rounded-xl overflow-hidden shadow-xs">
-                <table className="w-full text-xs text-left">
-                  <thead className="bg-[#F4F6F8] border-b border-[#DDE3E0] text-[#66736D] uppercase text-[10px] tracking-wider">
-                    <tr>
-                      <th className="py-3 px-4">Material / Gema</th>
-                      <th className="py-3 px-4">Tipo</th>
-                      <th className="py-3 px-4 text-right">Cantidad Entregada</th>
-                      <th className="py-3 px-4 text-right">Unidad</th>
-                      <th className="py-3 px-4 text-right">Fecha Despacho</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#DDE3E0]">
-                    {(order.materialsUsed || []).map((item) => (
-                      <tr key={item.id} className="hover:bg-[#F4F6F8]/50">
-                        <td className="py-3 px-4 font-semibold text-[#17201D]">
-                          {item.material?.name || 'Material'}
-                        </td>
-                        <td className="py-3 px-4 text-[#66736D]">
-                          {item.material?.type}
-                        </td>
-                        <td className="py-3 px-4 text-right font-mono font-bold text-[#17201D]">
-                          {formatGrams(item.quantity, '')}
-                        </td>
-                        <td className="py-3 px-4 text-right font-mono text-[#66736D]">
-                          {item.material?.unit}
-                        </td>
-                        <td className="py-3 px-4 text-right text-[#9CA9A3]">
-                          {formatDate(item.createdAt)}
-                        </td>
-                      </tr>
-                    ))}
-                    {(!order.materialsUsed || order.materialsUsed.length === 0) && (
+                <div className="overflow-x-auto w-full">
+                  <table className="w-full min-w-[550px] text-xs text-left">
+                    <thead className="bg-[#F4F6F8] border-b border-[#DDE3E0] text-[#66736D] uppercase text-[10px] tracking-wider">
                       <tr>
-                        <td colSpan={5} className="py-8 text-center text-[#9CA9A3]">
-                          No se han registrado consumos de bodega aún.
-                        </td>
+                        <th className="py-3 px-4 whitespace-nowrap">Material / Gema</th>
+                        <th className="py-3 px-4 whitespace-nowrap">Tipo</th>
+                        <th className="py-3 px-4 text-right whitespace-nowrap">Cantidad Entregada</th>
+                        <th className="py-3 px-4 text-right whitespace-nowrap">Unidad</th>
+                        <th className="py-3 px-4 text-right whitespace-nowrap">Fecha Despacho</th>
                       </tr>
-                    )}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-[#DDE3E0]">
+                      {(order.materialsUsed || []).map((item) => (
+                        <tr key={item.id} className="hover:bg-[#F4F6F8]/50">
+                          <td className="py-3 px-4 font-semibold text-[#17201D] whitespace-nowrap">
+                            {item.material?.name || 'Material'}
+                          </td>
+                          <td className="py-3 px-4 text-[#66736D] whitespace-nowrap">
+                            {item.material?.type}
+                          </td>
+                          <td className="py-3 px-4 text-right font-mono font-bold text-[#17201D] whitespace-nowrap">
+                            {formatGrams(item.quantity, '')}
+                          </td>
+                          <td className="py-3 px-4 text-right font-mono text-[#66736D] whitespace-nowrap">
+                            {item.material?.unit}
+                          </td>
+                          <td className="py-3 px-4 text-right text-[#9CA9A3] whitespace-nowrap">
+                            {formatDate(item.createdAt)}
+                          </td>
+                        </tr>
+                      ))}
+                      {(!order.materialsUsed || order.materialsUsed.length === 0) && (
+                        <tr>
+                          <td colSpan={5} className="py-8 text-center text-[#9CA9A3]">
+                            No se han registrado consumos de bodega aún.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
@@ -608,63 +610,65 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
               </div>
 
               <div className="bg-white border border-[#DDE3E0] rounded-xl overflow-hidden shadow-xs">
-                <table className="w-full text-xs text-left">
-                  <thead className="bg-[#F4F6F8] border-b border-[#DDE3E0] text-[#66736D] uppercase text-[10px] tracking-wider">
-                    <tr>
-                      <th className="py-3 px-4">Fecha</th>
-                      <th className="py-3 px-4">Método</th>
-                      <th className="py-3 px-4">Registrado Por</th>
-                      <th className="py-3 px-4">Referencia / Notas</th>
-                      <th className="py-3 px-4 text-right">Monto</th>
-                      <th className="py-3 px-4 text-center">Comprobante</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#DDE3E0]">
-                    {(order.payments || []).map((pay) => (
-                      <tr key={pay.id} className="hover:bg-[#F4F6F8]/50">
-                        <td className="py-3 px-4 text-[#17201D] font-mono">
-                          {formatDate(pay.createdAt)}
-                        </td>
-                        <td className="py-3 px-4">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EEF1F0] text-[#17201D]">
-                            {pay.paymentMethod}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4 text-[#66736D]">
-                          {pay.registeredBy?.fullName || 'Caja Alkisu'}
-                        </td>
-                        <td className="py-3 px-4 text-[#66736D]">
-                          {pay.referenceNotes || 'Abono a orden'}
-                        </td>
-                        <td className="py-3 px-4 text-right font-mono font-bold text-[#17734B]">
-                          {formatCurrency(pay.amount)}
-                        </td>
-                        <td className="py-3 px-4 text-center">
-                          <button
-                            onClick={() =>
-                              setReceiptPayment({
-                                ...pay,
-                                orderId: order.id,
-                                client: order.client,
-                              })
-                            }
-                            className="p-1 text-[#176B52] hover:bg-[#E5F4EE] rounded"
-                            title="Ver recibo imprimible"
-                          >
-                            <Printer className="w-4 h-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                    {(!order.payments || order.payments.length === 0) && (
+                <div className="overflow-x-auto w-full">
+                  <table className="w-full min-w-[600px] text-xs text-left">
+                    <thead className="bg-[#F4F6F8] border-b border-[#DDE3E0] text-[#66736D] uppercase text-[10px] tracking-wider">
                       <tr>
-                        <td colSpan={6} className="py-8 text-center text-[#9CA9A3]">
-                          No hay abonos registrados para esta joya.
-                        </td>
+                        <th className="py-3 px-4 whitespace-nowrap">Fecha</th>
+                        <th className="py-3 px-4 whitespace-nowrap">Método</th>
+                        <th className="py-3 px-4 whitespace-nowrap">Registrado Por</th>
+                        <th className="py-3 px-4 whitespace-nowrap">Referencia / Notas</th>
+                        <th className="py-3 px-4 text-right whitespace-nowrap">Monto</th>
+                        <th className="py-3 px-4 text-center whitespace-nowrap">Comprobante</th>
                       </tr>
-                    )}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-[#DDE3E0]">
+                      {(order.payments || []).map((pay) => (
+                        <tr key={pay.id} className="hover:bg-[#F4F6F8]/50">
+                          <td className="py-3 px-4 text-[#17201D] font-mono whitespace-nowrap">
+                            {formatDate(pay.createdAt)}
+                          </td>
+                          <td className="py-3 px-4 whitespace-nowrap">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EEF1F0] text-[#17201D]">
+                              {pay.paymentMethod}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4 text-[#66736D] whitespace-nowrap">
+                            {pay.registeredBy?.fullName || 'Caja Alkisu'}
+                          </td>
+                          <td className="py-3 px-4 text-[#66736D]">
+                            {pay.referenceNotes || 'Abono a orden'}
+                          </td>
+                          <td className="py-3 px-4 text-right font-mono font-bold text-[#17734B] whitespace-nowrap">
+                            {formatCurrency(pay.amount)}
+                          </td>
+                          <td className="py-3 px-4 text-center whitespace-nowrap">
+                            <button
+                              onClick={() =>
+                                setReceiptPayment({
+                                  ...pay,
+                                  orderId: order.id,
+                                  client: order.client,
+                                })
+                              }
+                              className="p-1 text-[#176B52] hover:bg-[#E5F4EE] rounded"
+                              title="Ver recibo imprimible"
+                            >
+                              <Printer className="w-4 h-4" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                      {(!order.payments || order.payments.length === 0) && (
+                        <tr>
+                          <td colSpan={6} className="py-8 text-center text-[#9CA9A3]">
+                            No hay abonos registrados para esta joya.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}

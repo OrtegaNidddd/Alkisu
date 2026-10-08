@@ -194,9 +194,6 @@ export const RegisterUserModal: React.FC<RegisterUserModalProps> = ({
                       <Shield className="w-3.5 h-3.5 text-[#A57525]" />
                       <span>Director / Administrador</span>
                     </div>
-                    <p className="text-[11px] text-[#66736D] mt-0.5">
-                      Acceso total a finanzas, autorizaciones de merma y gestión de personal.
-                    </p>
                   </div>
                 </label>
 
@@ -220,9 +217,6 @@ export const RegisterUserModal: React.FC<RegisterUserModalProps> = ({
                       <UserCheck className="w-3.5 h-3.5 text-[#2457A6]" />
                       <span>Asesor Comercial (Vitrina)</span>
                     </div>
-                    <p className="text-[11px] text-[#66736D] mt-0.5">
-                      Cotizador en vivo, abonos de caja, atención de clientes y entregas.
-                    </p>
                   </div>
                 </label>
 
@@ -246,9 +240,6 @@ export const RegisterUserModal: React.FC<RegisterUserModalProps> = ({
                       <Hammer className="w-3.5 h-3.5 text-[#17734B]" />
                       <span>Maestro Joyero (Taller de Orfebrería)</span>
                     </div>
-                    <p className="text-[11px] text-[#66736D] mt-0.5">
-                      Banco de trabajo, pesaje en balanza 0.001g y retorno de mermas.
-                    </p>
                   </div>
                 </label>
               </div>

@@ -79,7 +79,7 @@ export const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({
             variant="gold"
             onClick={() => onNavigateToTab('orders')}
           >
-            <span>Ver Tablero Kanban</span>
+            <span>Ver Tablero</span>
             <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </Button>
         </div>

@@ -490,7 +490,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
               variant="primary"
               onClick={() => onQuoteApproved('ord-101')}
             >
-              Ver en Tablero Kanban
+              Ver en Tablero
               <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           )}
@@ -1089,14 +1089,14 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                 </Badge>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs text-left">
+              <div className="overflow-x-auto w-full">
+                <table className="w-full min-w-[520px] text-xs text-left">
                   <thead className="bg-[#F4F6F8] text-[#66736D] uppercase text-[10px] tracking-wider font-semibold border-b border-[#DDE3E0]">
                     <tr>
                       <th className="py-2.5 px-3">Línea Presupuestada</th>
-                      <th className="py-2.5 px-3 text-center">Cant.</th>
-                      <th className="py-2.5 px-3 text-right">Precio Unitario</th>
-                      <th className="py-2.5 px-3 text-right">Subtotal</th>
+                      <th className="py-2.5 px-3 text-center whitespace-nowrap">Cant.</th>
+                      <th className="py-2.5 px-3 text-right whitespace-nowrap">Precio Unitario</th>
+                      <th className="py-2.5 px-3 text-right whitespace-nowrap">Subtotal</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#DDE3E0]">
@@ -1108,11 +1108,11 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                             Categoría: {item.category || 'general'}
                           </span>
                         </td>
-                        <td className="py-3 px-3 text-center font-mono">{item.quantity}</td>
-                        <td className="py-3 px-3 text-right font-mono text-[#66736D]">
+                        <td className="py-3 px-3 text-center font-mono whitespace-nowrap">{item.quantity}</td>
+                        <td className="py-3 px-3 text-right font-mono text-[#66736D] whitespace-nowrap">
                           {formatCurrency(item.unitPrice)}
                         </td>
-                        <td className="py-3 px-3 text-right font-mono font-bold text-[#17201D]">
+                        <td className="py-3 px-3 text-right font-mono font-bold text-[#17201D] whitespace-nowrap">
                           {formatCurrency(item.subtotal)}
                         </td>
                       </tr>
