@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useClients, useOrders } from '../../api/hooks';
 import { formatCurrency } from '../../utils/formatters';
 import { Button } from '../ui/Button';
-import { Users, Phone, Mail, FileText, Search, Plus } from 'lucide-react';
+import { Users, Phone, Mail, FileText, Search, Plus, UserPlus } from 'lucide-react';
 import { Client, Order } from '../../types';
+import { ClientModal } from './ClientModal';
 
 interface ClientsViewProps {
   onSelectOrder: (order: Order) => void;
@@ -18,6 +19,14 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
   const { data: orders = [] } = useOrders();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedClient, setSelectedClient] = useState<Client | null>(clients[0] || null);
+  const [isCreateClientModalOpen, setIsCreateClientModalOpen] = useState(false);
+
+  // Actualizar cliente seleccionado si llega la lista inicial y no había ninguno
+  React.useEffect(() => {
+    if (!selectedClient && clients.length > 0) {
+      setSelectedClient(clients[0]);
+    }
+  }, [clients, selectedClient]);
 
   const filteredClients = clients.filter(
     (c) =>
@@ -41,6 +50,11 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
             Historial de compras, pedidos activos y generación ágil de cotizaciones personalizadas.
           </p>
         </div>
+
+        <Button variant="primary" size="sm" onClick={() => setIsCreateClientModalOpen(true)}>
+          <UserPlus className="w-3.5 h-3.5 mr-1" />
+          Registrar Cliente
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -164,6 +178,13 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
           )}
         </div>
       </div>
+
+      {/* Modal para Registrar Cliente */}
+      <ClientModal
+        isOpen={isCreateClientModalOpen}
+        onClose={() => setIsCreateClientModalOpen(false)}
+        onClientCreated={(newClient) => setSelectedClient(newClient)}
+      />
     </div>
   );
 };
