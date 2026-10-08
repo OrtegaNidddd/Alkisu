@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useClients, useOrders } from '../../api/hooks';
 import { formatCurrency } from '../../utils/formatters';
 import { Button } from '../ui/Button';
-import { Users, Phone, Mail, FileText, Search, Plus, UserPlus } from 'lucide-react';
+import { Users, Phone, Mail, FileText, Search, Plus, UserPlus, Edit3 } from 'lucide-react';
 import { Client, Order } from '../../types';
 import { ClientModal } from './ClientModal';
 
@@ -19,25 +19,46 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
   const { data: orders = [] } = useOrders();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedClient, setSelectedClient] = useState<Client | null>(clients[0] || null);
-  const [isCreateClientModalOpen, setIsCreateClientModalOpen] = useState(false);
+  const [isClientModalOpen, setIsClientModalOpen] = useState(false);
+  const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
 
   // Actualizar cliente seleccionado si llega la lista inicial y no había ninguno
   React.useEffect(() => {
     if (!selectedClient && clients.length > 0) {
       setSelectedClient(clients[0]);
+    } else if (selectedClient && clients.length > 0) {
+      // Sincronizar datos frescos del cliente seleccionado si fue actualizado
+      const updated = clients.find((c) => c.id === selectedClient.id);
+      if (updated) {
+        setSelectedClient(updated);
+      }
     }
-  }, [clients, selectedClient]);
+  }, [clients]);
 
-  const filteredClients = clients.filter(
-    (c) =>
-      c.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.phone.includes(searchTerm) ||
-      (c.email && c.email.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filteredClients = clients.filter((c) => {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return true;
+    return (
+      c.fullName.toLowerCase().includes(term) ||
+      c.phone.toLowerCase().includes(term) ||
+      (c.documentId && c.documentId.toLowerCase().includes(term)) ||
+      (c.email && c.email.toLowerCase().includes(term))
+    );
+  });
 
   const clientOrders = selectedClient
     ? orders.filter((o) => o.clientId === selectedClient.id)
     : [];
+
+  const handleOpenCreateModal = () => {
+    setClientToEdit(null);
+    setIsClientModalOpen(true);
+  };
+
+  const handleOpenEditModal = (client: Client) => {
+    setClientToEdit(client);
+    setIsClientModalOpen(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -51,7 +72,7 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
           </p>
         </div>
 
-        <Button variant="primary" size="sm" onClick={() => setIsCreateClientModalOpen(true)}>
+        <Button variant="primary" size="sm" onClick={handleOpenCreateModal}>
           <UserPlus className="w-3.5 h-3.5 mr-1" />
           Registrar Cliente
         </Button>
@@ -64,7 +85,7 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
             <Search className="w-4 h-4 text-[#9CA9A3] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Buscar por nombre o teléfono..."
+              placeholder="Buscar por cédula, nombre o teléfono..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3 py-2 text-xs bg-[#F4F6F8] border border-[#DDE3E0] rounded-lg text-[#17201D] focus:outline-none focus:border-[#176B52]"
@@ -83,12 +104,21 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-xs font-bold text-[#17201D]">{c.fullName}</h4>
-                  <span className="text-[10px] text-[#66736D] font-mono">{c.documentId}</span>
+                  <h4 className="text-xs font-bold text-[#17201D] truncate">{c.fullName}</h4>
+                  <span className="text-[10px] text-[#176B52] font-mono bg-[#E5F4EE] px-1.5 py-0.5 rounded ml-2 flex-shrink-0">
+                    {c.documentId ? `CC ${c.documentId}` : 'Sin CC'}
+                  </span>
                 </div>
-                <p className="text-[11px] text-[#66736D]">{c.phone}</p>
+                <div className="flex items-center justify-between text-[11px] text-[#66736D]">
+                  <span>{c.phone}</span>
+                </div>
               </div>
             ))}
+            {filteredClients.length === 0 && (
+              <div className="py-6 text-center text-xs text-[#9CA9A3]">
+                No se encontraron clientes coincidentes.
+              </div>
+            )}
           </div>
         </div>
 
@@ -96,12 +126,16 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
         <div className="lg:col-span-2 space-y-4">
           {selectedClient ? (
             <div className="bg-white rounded-xl border border-[#DDE3E0] p-6 shadow-xs space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DDE3E0]">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-[#DDE3E0]">
                 <div>
                   <h3 className="font-serif text-lg font-bold text-[#17201D]">
                     {selectedClient.fullName}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-[#66736D] mt-1">
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-[#66736D] mt-1.5">
+                    <span className="flex items-center space-x-1 font-mono font-medium text-[#17201D] bg-[#F4F6F8] px-2 py-0.5 rounded border border-[#DDE3E0]">
+                      <FileText className="w-3.5 h-3.5 text-[#176B52]" />
+                      <span>{selectedClient.documentId ? `CC: ${selectedClient.documentId}` : 'Sin cédula registrada'}</span>
+                    </span>
                     <span className="flex items-center space-x-1">
                       <Phone className="w-3.5 h-3.5 text-[#176B52]" />
                       <span>{selectedClient.phone}</span>
@@ -115,15 +149,27 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
                   </div>
                 </div>
 
-                {onNewQuoteForClient && (
+                <div className="flex items-center space-x-2 flex-shrink-0">
                   <Button
-                    variant="primary"
+                    variant="outline"
                     size="sm"
-                    onClick={() => onNewQuoteForClient(selectedClient.id)}
+                    onClick={() => handleOpenEditModal(selectedClient)}
+                    className="border-[#DDE3E0] hover:bg-[#F4F6F8]"
                   >
-                    Nueva Cotización
+                    <Edit3 className="w-3.5 h-3.5 mr-1 text-[#176B52]" />
+                    Editar Cliente
                   </Button>
-                )}
+
+                  {onNewQuoteForClient && (
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => onNewQuoteForClient(selectedClient.id)}
+                    >
+                      Nueva Cotización
+                    </Button>
+                  )}
+                </div>
               </div>
 
               {/* Pedidos del Cliente */}
@@ -179,11 +225,17 @@ export const ClientsView: React.FC<ClientsViewProps> = ({
         </div>
       </div>
 
-      {/* Modal para Registrar Cliente */}
+      {/* Modal para Registrar / Editar Cliente */}
       <ClientModal
-        isOpen={isCreateClientModalOpen}
-        onClose={() => setIsCreateClientModalOpen(false)}
-        onClientCreated={(newClient) => setSelectedClient(newClient)}
+        isOpen={isClientModalOpen}
+        clientToEdit={clientToEdit}
+        onClose={() => {
+          setIsClientModalOpen(false);
+          setClientToEdit(null);
+        }}
+        onClientSaved={(saved) => {
+          setSelectedClient(saved);
+        }}
       />
     </div>
   );

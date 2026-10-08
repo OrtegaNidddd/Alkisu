@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
-import { UserPlus, AlertCircle, Phone, Mail, FileText, CheckCircle2 } from 'lucide-react';
-import { useCreateClient } from '../../api/hooks';
+import { UserPlus, Edit3, AlertCircle, Phone, Mail, FileText, CheckCircle2 } from 'lucide-react';
+import { useCreateClient, useUpdateClient } from '../../api/hooks';
 import { Client } from '../../types';
 
 interface ClientModalProps {
   isOpen: boolean;
   onClose: () => void;
+  clientToEdit?: Client | null;
+  onClientSaved?: (client: Client) => void;
   onClientCreated?: (client: Client) => void;
 }
 
 export const ClientModal: React.FC<ClientModalProps> = ({
   isOpen,
   onClose,
+  clientToEdit,
+  onClientSaved,
   onClientCreated,
 }) => {
+  const isEditing = Boolean(clientToEdit);
+
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -23,6 +29,26 @@ export const ClientModal: React.FC<ClientModalProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const createClientMutation = useCreateClient();
+  const updateClientMutation = useUpdateClient();
+
+  useEffect(() => {
+    if (isOpen) {
+      setError(null);
+      if (clientToEdit) {
+        setFullName(clientToEdit.fullName || '');
+        setPhone(clientToEdit.phone || '');
+        setEmail(clientToEdit.email || '');
+        setDocumentId(clientToEdit.documentId || '');
+      } else {
+        setFullName('');
+        setPhone('');
+        setEmail('');
+        setDocumentId('');
+      }
+    }
+  }, [isOpen, clientToEdit]);
+
+  const isPending = createClientMutation.isPending || updateClientMutation.isPending;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,25 +65,40 @@ export const ClientModal: React.FC<ClientModalProps> = ({
     }
 
     try {
-      const created = await createClientMutation.mutateAsync({
-        fullName: fullName.trim(),
-        phone: phone.trim(),
-        email: email.trim() || undefined,
-        documentId: documentId.trim() || undefined,
-      });
+      if (isEditing && clientToEdit) {
+        const updated = await updateClientMutation.mutateAsync({
+          id: clientToEdit.id,
+          data: {
+            fullName: fullName.trim(),
+            phone: phone.trim(),
+            email: email.trim() || undefined,
+            documentId: documentId.trim() || undefined,
+          },
+        });
 
-      // Limpiar formulario
-      setFullName('');
-      setPhone('');
-      setEmail('');
-      setDocumentId('');
-      onClose();
+        onClose();
+        if (onClientSaved) onClientSaved(updated);
+        if (onClientCreated) onClientCreated(updated);
+      } else {
+        const created = await createClientMutation.mutateAsync({
+          fullName: fullName.trim(),
+          phone: phone.trim(),
+          email: email.trim() || undefined,
+          documentId: documentId.trim() || undefined,
+        });
 
-      if (onClientCreated) {
-        onClientCreated(created);
+        // Limpiar formulario
+        setFullName('');
+        setPhone('');
+        setEmail('');
+        setDocumentId('');
+        onClose();
+
+        if (onClientSaved) onClientSaved(created);
+        if (onClientCreated) onClientCreated(created);
       }
     } catch (err: any) {
-      setError(err.message || 'Error al registrar el cliente');
+      setError(err.message || `Error al ${isEditing ? 'actualizar' : 'registrar'} el cliente`);
     }
   };
 
@@ -69,14 +110,16 @@ export const ClientModal: React.FC<ClientModalProps> = ({
       title={
         <div className="flex items-center space-x-2">
           <div className="p-2 rounded-lg bg-[#E5F4EE] text-[#176B52]">
-            <UserPlus className="w-5 h-5" />
+            {isEditing ? <Edit3 className="w-5 h-5" /> : <UserPlus className="w-5 h-5" />}
           </div>
           <div>
             <h3 className="text-base font-bold text-[#17201D] font-serif">
-              Registrar Nuevo Cliente
+              {isEditing ? 'Editar Datos del Cliente' : 'Registrar Nuevo Cliente'}
             </h3>
             <p className="text-xs text-[#66736D]">
-              Alta en el directorio comercial y vinculación a pedidos o cotizaciones
+              {isEditing
+                ? 'Actualice la información de contacto y documento de identidad'
+                : 'Alta en el directorio comercial y vinculación a pedidos o cotizaciones'}
             </p>
           </div>
         </div>
@@ -132,7 +175,7 @@ export const ClientModal: React.FC<ClientModalProps> = ({
                 type="text"
                 value={documentId}
                 onChange={(e) => setDocumentId(e.target.value)}
-                placeholder="ej. CC 1.020.345.678"
+                placeholder="ej. 2222222222"
                 className="w-full pl-8 pr-3 py-2 text-xs bg-[#F4F6F8] border border-[#DDE3E0] rounded-lg text-[#17201D] placeholder:text-[#9CA9A3] focus:outline-none focus:border-[#176B52]"
               />
             </div>
@@ -164,7 +207,7 @@ export const ClientModal: React.FC<ClientModalProps> = ({
             variant="outline"
             size="sm"
             onClick={onClose}
-            disabled={createClientMutation.isPending}
+            disabled={isPending}
           >
             Cancelar
           </Button>
@@ -172,10 +215,19 @@ export const ClientModal: React.FC<ClientModalProps> = ({
             type="submit"
             variant="primary"
             size="sm"
-            isLoading={createClientMutation.isPending}
+            isLoading={isPending}
           >
-            <UserPlus className="w-3.5 h-3.5 mr-1" />
-            Crear Cliente
+            {isEditing ? (
+              <>
+                <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
+                Guardar Cambios
+              </>
+            ) : (
+              <>
+                <UserPlus className="w-3.5 h-3.5 mr-1" />
+                Crear Cliente
+              </>
+            )}
           </Button>
         </div>
       </form>

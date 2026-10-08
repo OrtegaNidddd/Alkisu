@@ -774,6 +774,48 @@ export const apiClient = {
     return newClient;
   },
 
+  async updateClient(
+    id: string,
+    data: { fullName?: string; phone?: string; email?: string | null; documentId?: string | null }
+  ): Promise<Client> {
+    try {
+      const res = await fetch(`${API_BASE}/clients/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.getToken()}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        const updated = json.client || json.data || json;
+        const index = currentClients.findIndex((c) => c.id === id);
+        if (index !== -1) {
+          currentClients[index] = { ...currentClients[index], ...updated };
+        }
+        return updated;
+      }
+      const errJson = await res.json().catch(() => ({}));
+      if (errJson.error) throw new Error(errJson.error);
+    } catch (err: any) {
+      if (err.message && !err.message.includes('fetch')) throw err;
+      // Fallback
+    }
+
+    const index = currentClients.findIndex((c) => c.id === id);
+    if (index === -1) throw new Error('Cliente no encontrado');
+
+    const updatedClient: Client = {
+      ...currentClients[index],
+      ...data,
+      email: data.email !== undefined ? data.email : currentClients[index].email,
+      documentId: data.documentId !== undefined ? data.documentId : currentClients[index].documentId,
+    };
+    currentClients[index] = updatedClient;
+    return updatedClient;
+  },
+
   async getUsers(): Promise<User[]> {
     try {
       const res = await fetch(`${API_BASE}/users`, {

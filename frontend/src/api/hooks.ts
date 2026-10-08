@@ -219,6 +219,22 @@ export function useCreateClient() {
   });
 }
 
+export function useUpdateClient() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: { fullName?: string; phone?: string; email?: string | null; documentId?: string | null };
+    }) => apiClient.updateClient(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['clients'] });
+    },
+  });
+}
+
 export function useAuditLogs() {
   return useQuery({
     queryKey: ['auditLogs'],
