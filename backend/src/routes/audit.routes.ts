@@ -6,7 +6,7 @@ import { Role } from '@prisma/client';
 const router = Router();
 
 router.use(authenticateToken);
-// Exclusivo para el Administrador
-router.get('/', authorizeRoles(Role.ADMIN), handleGetAuditLogs);
+// Consulta de auditoría y trazabilidad
+router.get('/', authorizeRoles(Role.ADMIN, Role.ASESOR, Role.JOYERO), handleGetAuditLogs);
 
 export default router;
