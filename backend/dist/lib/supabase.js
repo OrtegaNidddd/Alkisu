@@ -4,4 +4,9 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!supabaseUrl || !supabaseKey) {
     console.warn('[Supabase] Faltan SUPABASE_URL o SUPABASE_SERVICE_ROLE_KEY en .env');
 }
-export const supabase = createClient(supabaseUrl || '', supabaseKey || '');
+export const supabase = createClient(supabaseUrl || '', supabaseKey || '', {
+    auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+    },
+});
