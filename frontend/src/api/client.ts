@@ -9,6 +9,8 @@ import {
 import {
   Order,
   Material,
+  MaterialType,
+  MeasurementUnit,
   Quote,
   DashboardMetrics,
   OrderStatus,
@@ -24,6 +26,7 @@ import {
 let currentOrders: Order[] = [...MOCK_ORDERS];
 let currentMaterials: Material[] = [...MOCK_MATERIALS];
 let currentQuotes: Quote[] = [...MOCK_QUOTES];
+let currentClients: Client[] = [...MOCK_CLIENTS];
 
 const rawBase = import.meta.env.VITE_API_URL || '/api';
 const API_BASE = rawBase.replace(/\/+$/, '');
@@ -440,6 +443,102 @@ export const apiClient = {
     return updated;
   },
 
+  async createMaterial(payload: {
+    name: string;
+    type: MaterialType;
+    unit: MeasurementUnit;
+    stock: number;
+    minStock: number;
+  }): Promise<Material> {
+    try {
+      const res = await fetch(`${API_BASE}/materials`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.getToken()}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        return {
+          ...json,
+          stock: Number(json.stock),
+          minStock: Number(json.minStock),
+          isLowStock: Number(json.stock) <= Number(json.minStock),
+        };
+      }
+      const errJson = await res.json().catch(() => ({}));
+      if (errJson.error) throw new Error(errJson.error);
+    } catch (err: any) {
+      if (err.message && !err.message.includes('fetch')) throw err;
+      // Fallback a modo memoria
+    }
+
+    const newMat: Material = {
+      id: `mat-${Date.now()}`,
+      name: payload.name,
+      type: payload.type,
+      unit: payload.unit,
+      stock: Number(payload.stock),
+      minStock: Number(payload.minStock),
+      isLowStock: Number(payload.stock) <= Number(payload.minStock),
+    };
+    currentMaterials.push(newMat);
+    return newMat;
+  },
+
+  async updateMaterial(
+    id: string,
+    payload: {
+      name?: string;
+      type?: MaterialType;
+      unit?: MeasurementUnit;
+      minStock?: number;
+      stock?: number;
+    }
+  ): Promise<Material> {
+    try {
+      const res = await fetch(`${API_BASE}/materials/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.getToken()}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        return {
+          ...json,
+          stock: Number(json.stock),
+          minStock: Number(json.minStock),
+          isLowStock: Number(json.stock) <= Number(json.minStock),
+        };
+      }
+      const errJson = await res.json().catch(() => ({}));
+      if (errJson.error) throw new Error(errJson.error);
+    } catch (err: any) {
+      if (err.message && !err.message.includes('fetch')) throw err;
+      // Fallback a modo memoria
+    }
+
+    const idx = currentMaterials.findIndex((m) => m.id === id);
+    if (idx === -1) throw new Error('Material no encontrado');
+
+    const updated: Material = {
+      ...currentMaterials[idx],
+      ...(payload.name !== undefined && { name: payload.name }),
+      ...(payload.type !== undefined && { type: payload.type }),
+      ...(payload.unit !== undefined && { unit: payload.unit }),
+      ...(payload.minStock !== undefined && { minStock: Number(payload.minStock) }),
+      ...(payload.stock !== undefined && { stock: Number(payload.stock) }),
+    };
+    updated.isLowStock = updated.stock <= updated.minStock;
+    currentMaterials[idx] = updated;
+    return updated;
+  },
+
   // ---- COTIZACIONES ----
   async getQuotes(): Promise<Quote[]> {
     try {
@@ -633,14 +732,14 @@ export const apiClient = {
       if (res.ok) {
         const json = await res.json();
         const list = Array.isArray(json) ? json : json.data;
-        if (Array.isArray(list) && list.length > 0) {
+        if (Array.isArray(list)) {
           return list;
         }
       }
     } catch {
       // Fallback
     }
-    return MOCK_CLIENTS;
+    return currentClients;
   },
 
   async createClient(data: { fullName: string; phone: string; email?: string; documentId?: string }): Promise<Client> {
@@ -654,18 +753,24 @@ export const apiClient = {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        return await res.json();
+        const created = await res.json();
+        currentClients.unshift(created);
+        return created;
       }
-    } catch {
+      const errJson = await res.json().catch(() => ({}));
+      if (errJson.error) throw new Error(errJson.error);
+    } catch (err: any) {
+      if (err.message && !err.message.includes('fetch')) throw err;
       // Fallback
     }
     const newClient: Client = {
       id: `cli-${Date.now()}`,
       fullName: data.fullName,
       phone: data.phone,
-      email: data.email,
-      documentId: data.documentId,
+      email: data.email || null,
+      documentId: data.documentId || null,
     };
+    currentClients.unshift(newClient);
     return newClient;
   },
 
@@ -682,5 +787,63 @@ export const apiClient = {
       // Fallback
     }
     return MOCK_USERS;
+  },
+
+  // ---- AUDITORÍA INMUTABLE ----
+  async getAuditLogs(): Promise<any[]> {
+    try {
+      const res = await fetch(`${API_BASE}/audit`, {
+        headers: { Authorization: `Bearer ${this.getToken()}` },
+      });
+      if (res.ok) {
+        const json = await res.json();
+        const list = json.data || json;
+        if (Array.isArray(list) && list.length > 0) {
+          return list;
+        }
+      }
+    } catch {
+      // Fallback
+    }
+
+    // Unificar eventos a partir de órdenes locales si el endpoint de auditoría no tiene datos aún
+    const localEntries: any[] = [];
+    currentOrders.forEach((o) => {
+      (o.statusHistory || []).forEach((sh) => {
+        localEntries.push({
+          id: sh.id || `sh-${o.id}-${sh.toStatus}`,
+          userId: sh.userId,
+          action: `TRANSICION_${sh.toStatus}`,
+          tableName: 'Order',
+          recordId: o.id,
+          orderId: o.id,
+          order: o,
+          fromStatus: sh.fromStatus,
+          toStatus: sh.toStatus,
+          note: sh.note,
+          createdAt: sh.createdAt,
+          user: sh.user,
+        });
+      });
+
+      (o.payments || []).forEach((p) => {
+        localEntries.push({
+          id: p.id || `pay-${o.id}-${p.amount}`,
+          userId: p.registeredById,
+          action: 'ABONO_ORDEN',
+          tableName: 'Payment',
+          recordId: p.id,
+          orderId: o.id,
+          order: o,
+          note: `Abono de $${p.amount.toLocaleString()} COP (${p.paymentMethod}) - ${p.referenceNotes || ''}`,
+          createdAt: p.createdAt,
+          user: p.registeredBy,
+        });
+      });
+    });
+
+    return localEntries.sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   },
 };

@@ -126,6 +126,46 @@ export function useRestockMaterial() {
   });
 }
 
+export function useCreateMaterial() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: {
+      name: string;
+      type: any;
+      unit: any;
+      stock: number;
+      minStock: number;
+    }) => apiClient.createMaterial(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['materials'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
+    },
+  });
+}
+
+export function useUpdateMaterial() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: {
+        name?: string;
+        type?: any;
+        unit?: any;
+        minStock?: number;
+        stock?: number;
+      };
+    }) => apiClient.updateMaterial(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['materials'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
+    },
+  });
+}
+
 export function useCreateQuote() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -167,3 +207,22 @@ export function useAddAttachment() {
     },
   });
 }
+
+export function useCreateClient() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { fullName: string; phone: string; email?: string; documentId?: string }) =>
+      apiClient.createClient(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['clients'] });
+    },
+  });
+}
+
+export function useAuditLogs() {
+  return useQuery({
+    queryKey: ['auditLogs'],
+    queryFn: () => apiClient.getAuditLogs(),
+  });
+}
+
