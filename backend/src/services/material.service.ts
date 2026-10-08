@@ -19,6 +19,68 @@ export const createMaterial = async (data: {
   });
 };
 
+export const updateMaterial = async (
+  id: string,
+  data: {
+    name?: string;
+    type?: MaterialType;
+    unit?: MeasurementUnit;
+    minStock?: number;
+    stock?: number;
+  },
+  userId?: string,
+  ipAddress?: string
+) => {
+  return await prisma.$transaction(async (tx) => {
+    const current = await tx.material.findUnique({ where: { id } });
+    if (!current) throw new Error('Material no encontrado');
+
+    const updated = await tx.material.update({
+      where: { id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.type !== undefined && { type: data.type }),
+        ...(data.unit !== undefined && { unit: data.unit }),
+        ...(data.minStock !== undefined && { minStock: data.minStock }),
+        ...(data.stock !== undefined && { stock: data.stock }),
+      },
+    });
+
+    if (userId) {
+      await tx.auditLog.create({
+        data: {
+          userId,
+          action: 'ACTUALIZACION_MATERIAL',
+          tableName: 'Material',
+          recordId: id,
+          ipAddress,
+          details: {
+            anterior: {
+              name: current.name,
+              type: current.type,
+              unit: current.unit,
+              minStock: Number(current.minStock),
+              stock: Number(current.stock),
+            },
+            nuevo: {
+              name: updated.name,
+              type: updated.type,
+              unit: updated.unit,
+              minStock: Number(updated.minStock),
+              stock: Number(updated.stock),
+            },
+          },
+        },
+      });
+    }
+
+    return {
+      ...updated,
+      isLowStock: Number(updated.stock) <= Number(updated.minStock),
+    };
+  });
+};
+
 export const getMaterials = async () => {
   const materials = await prisma.material.findMany({
     orderBy: { name: 'asc' },

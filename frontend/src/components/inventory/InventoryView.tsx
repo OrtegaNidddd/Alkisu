@@ -4,6 +4,7 @@ import { formatGrams } from '../../utils/formatters';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { RestockModal } from './RestockModal';
+import { MaterialFormModal } from './MaterialFormModal';
 import {
   Boxes,
   AlertTriangle,
@@ -12,12 +13,15 @@ import {
   CheckCircle2,
   TrendingDown,
   RefreshCw,
+  Edit3,
 } from 'lucide-react';
 import { useMaterials } from '../../api/hooks';
 
 export const InventoryView: React.FC = () => {
   const { data: materials = [], isLoading, refetch } = useMaterials();
   const [selectedMaterialForRestock, setSelectedMaterialForRestock] = useState<Material | null>(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [materialToEdit, setMaterialToEdit] = useState<Material | null>(null);
   const [activeFilter, setActiveFilter] = useState<'all' | 'critical'>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -45,10 +49,14 @@ export const InventoryView: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2.5">
           <Button variant="outline" size="sm" onClick={() => refetch()}>
             <RefreshCw className="w-3.5 h-3.5 mr-1" />
             Actualizar
+          </Button>
+          <Button variant="primary" size="sm" onClick={() => setIsCreateModalOpen(true)}>
+            <Plus className="w-3.5 h-3.5 mr-1" />
+            Agregar Material
           </Button>
         </div>
       </div>
@@ -137,72 +145,85 @@ export const InventoryView: React.FC = () => {
 
       {/* Tabla de Inventario */}
       <div className="bg-white rounded-xl border border-[#DDE3E0] overflow-hidden shadow-2xs">
-        <table className="w-full text-xs text-left">
-          <thead className="bg-[#F4F6F8] border-b border-[#DDE3E0] text-[#66736D] uppercase text-[10px] tracking-wider font-semibold">
-            <tr>
-              <th className="py-3 px-4">Material / Insumo</th>
-              <th className="py-3 px-4">Tipo de Metal / Piedra</th>
-              <th className="py-3 px-4 text-right">Stock Actual</th>
-              <th className="py-3 px-4 text-right">Stock Mínimo</th>
-              <th className="py-3 px-4 text-center">Estado</th>
-              <th className="py-3 px-4 text-center">Acción</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#DDE3E0]">
-            {filteredMaterials.map((mat) => {
-              const isLowStock = mat.stock <= mat.minStock;
-              return (
-                <tr
-                  key={mat.id}
-                  className={`hover:bg-[#F4F6F8]/70 transition-colors ${
-                    isLowStock ? 'bg-[#FFF4D6]/20' : ''
-                  }`}
-                >
-                  <td className="py-3.5 px-4 font-bold text-[#17201D]">
-                    {mat.name}
-                  </td>
-                  <td className="py-3.5 px-4 text-[#66736D] font-mono text-[11px]">
-                    {mat.type}
-                  </td>
-                  <td className="py-3.5 px-4 text-right font-mono font-bold text-sm text-[#17201D]">
-                    {formatGrams(mat.stock, mat.unit)}
-                  </td>
-                  <td className="py-3.5 px-4 text-right font-mono text-[#66736D]">
-                    {formatGrams(mat.minStock, mat.unit)}
-                  </td>
-                  <td className="py-3.5 px-4 text-center">
-                    {isLowStock ? (
-                      <Badge variant="warning" size="sm">
-                        Stock Crítico
-                      </Badge>
-                    ) : (
-                      <Badge variant="success" size="sm">
-                        Óptimo
-                      </Badge>
-                    )}
-                  </td>
-                  <td className="py-3.5 px-4 text-center">
-                    <Button
-                      size="sm"
-                      variant={isLowStock ? 'gold' : 'outline'}
-                      onClick={() => setSelectedMaterialForRestock(mat)}
-                    >
-                      <Plus className="w-3.5 h-3.5 mr-1" />
-                      Reabastecer
-                    </Button>
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[640px] text-xs text-left">
+            <thead className="bg-[#F4F6F8] border-b border-[#DDE3E0] text-[#66736D] uppercase text-[10px] tracking-wider font-semibold">
+              <tr>
+                <th className="py-3 px-4 whitespace-nowrap">Material / Insumo</th>
+                <th className="py-3 px-4 whitespace-nowrap">Tipo de Metal / Piedra</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Stock Actual</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Stock Mínimo</th>
+                <th className="py-3 px-4 text-center whitespace-nowrap">Estado</th>
+                <th className="py-3 px-4 text-center whitespace-nowrap">Acción</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#DDE3E0]">
+              {filteredMaterials.map((mat) => {
+                const isLowStock = mat.stock <= mat.minStock;
+                return (
+                  <tr
+                    key={mat.id}
+                    className={`hover:bg-[#F4F6F8]/70 transition-colors ${
+                      isLowStock ? 'bg-[#FFF4D6]/20' : ''
+                    }`}
+                  >
+                    <td className="py-3.5 px-4 font-bold text-[#17201D] whitespace-nowrap">
+                      {mat.name}
+                    </td>
+                    <td className="py-3.5 px-4 text-[#66736D] font-mono text-[11px] whitespace-nowrap">
+                      {mat.type}
+                    </td>
+                    <td className="py-3.5 px-4 text-right font-mono font-bold text-sm text-[#17201D] whitespace-nowrap">
+                      {formatGrams(mat.stock, mat.unit)}
+                    </td>
+                    <td className="py-3.5 px-4 text-right font-mono text-[#66736D] whitespace-nowrap">
+                      {formatGrams(mat.minStock, mat.unit)}
+                    </td>
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                      {isLowStock ? (
+                        <Badge variant="warning" size="sm">
+                          Stock Crítico
+                        </Badge>
+                      ) : (
+                        <Badge variant="success" size="sm">
+                          Óptimo
+                        </Badge>
+                      )}
+                    </td>
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                      <div className="flex items-center justify-center space-x-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setMaterialToEdit(mat)}
+                          className="p-1.5 text-[#66736D] hover:text-[#176B52] hover:bg-[#E5F4EE] rounded-lg transition"
+                          title="Editar material"
+                          aria-label={`Editar ${mat.name}`}
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
+                        <Button
+                          size="sm"
+                          variant={isLowStock ? 'gold' : 'outline'}
+                          onClick={() => setSelectedMaterialForRestock(mat)}
+                        >
+                          <Plus className="w-3.5 h-3.5 mr-1" />
+                          Reabastecer
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+              {filteredMaterials.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="py-12 text-center text-[#9CA9A3]">
+                    No se encontraron materiales que coincidan con la búsqueda.
                   </td>
                 </tr>
-              );
-            })}
-            {filteredMaterials.length === 0 && (
-              <tr>
-                <td colSpan={6} className="py-12 text-center text-[#9CA9A3]">
-                  No se encontraron materiales que coincidan con la búsqueda.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Modal de Reabastecimiento Rápido */}
@@ -210,6 +231,19 @@ export const InventoryView: React.FC = () => {
         material={selectedMaterialForRestock}
         isOpen={!!selectedMaterialForRestock}
         onClose={() => setSelectedMaterialForRestock(null)}
+      />
+
+      {/* Modal para Registrar Nuevo Material */}
+      <MaterialFormModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
+
+      {/* Modal para Editar Material Existente */}
+      <MaterialFormModal
+        isOpen={!!materialToEdit}
+        material={materialToEdit}
+        onClose={() => setMaterialToEdit(null)}
       />
     </div>
   );
