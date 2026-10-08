@@ -19,6 +19,23 @@ export const handleCreateMaterial = async (req, res) => {
         res.status(400).json({ error: error.message || 'Error al registrar material' });
     }
 };
+export const handleUpdateMaterial = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, type, unit, minStock, stock } = req.body;
+        const material = await materialService.updateMaterial(id, {
+            name,
+            type,
+            unit,
+            minStock: minStock !== undefined ? Number(minStock) : undefined,
+            stock: stock !== undefined ? Number(stock) : undefined,
+        }, req.user?.id, req.ip);
+        res.status(200).json(material);
+    }
+    catch (error) {
+        res.status(400).json({ error: error.message || 'Error al actualizar material' });
+    }
+};
 export const handleGetMaterials = async (_req, res) => {
     try {
         const materials = await materialService.getMaterials();

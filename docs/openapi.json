@@ -1,0 +1,3019 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Alkisu Jewelry Workshop API",
+    "version": "1.0.0",
+    "description": "API RESTful de gestión integral para **Alkisu - Taller de Joyería de Alta Gama**.\n\nPermite controlar el ciclo completo del taller de orfebrería:\n- Autenticación y roles estrictos (`ADMIN`, `ASESOR`, `JOYERO`).\n- Directorio y ficha financiera de clientes con acumulados.\n- Cotizaciones inmutables con conversión automática a pedidos de taller.\n- Flujo de producción de pedidos con control de estados, saldo y cobros.\n- Inventario de metales (oro 10k-18k, plata 925, gemas) con alertas automáticas de stock crítico por Brevo.\n- Liquidación técnica de metales en mesa: cálculo de mermas, reintegración de limalla y auditoría forense.\n- Almacenamiento CDN de bocetos, renders 3D y controles de calidad en Supabase Storage.\n- Dashboard de métricas financieras y operativas en tiempo real.\n",
+    "contact": {
+      "name": "Soporte Técnico Alkisu",
+      "email": "soporte@alkisu.com"
+    },
+    "license": {
+      "name": "Propiedad Privada - Alkisu Joyería",
+      "identifier": "Proprietary"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000",
+      "description": "Servidor de desarrollo local (Puerto 4000)"
+    },
+    {
+      "url": "https://api.alkisu.com",
+      "description": "Servidor de producción"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Sistema",
+      "description": "Endpoints de diagnóstico y estado del servicio"
+    },
+    {
+      "name": "Autenticación",
+      "description": "Registro e inicio de sesión para el personal del taller"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Administración de personal y asignación de roles"
+    },
+    {
+      "name": "Clientes",
+      "description": "Gestión del directorio de clientes y sus historiales comerciales"
+    },
+    {
+      "name": "Cotizaciones",
+      "description": "Cotizaciones detalladas de joyas con ítems y conversión a pedido"
+    },
+    {
+      "name": "Pedidos",
+      "description": "Órdenes de fabricación, cobros, avance de taller y liquidación de metal"
+    },
+    {
+      "name": "Materiales",
+      "description": "Inventario de metales preciosos, gemas y control de suministros"
+    },
+    {
+      "name": "Auditoría",
+      "description": "Pistas de auditoría inmutables para operaciones sensibles"
+    },
+    {
+      "name": "Dashboard",
+      "description": "Indicadores ejecutivos, operativos y financieros consolidados"
+    },
+    {
+      "name": "Archivos",
+      "description": "Carga y distribución de archivos multimedia en Supabase Storage"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "checkHealth",
+        "tags": [
+          "Sistema"
+        ],
+        "summary": "Verificación de estado del servidor (Health Check)",
+        "description": "Endpoint público para comprobar si el servicio está en línea y accesible.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Servidor activo y en funcionamiento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Servidor del Taller de Joyería activo"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Petición malformada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Falla en el servicio o dependencias críticas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "registerUser",
+        "tags": [
+          "Autenticación"
+        ],
+        "summary": "Registrar nuevo usuario en el sistema",
+        "description": "Crea una cuenta de operario o administrador en el taller. Requiere rol válido.",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos incompletos o el correo ya se encuentra registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "loginUser",
+        "tags": [
+          "Autenticación"
+        ],
+        "summary": "Iniciar sesión en el sistema",
+        "description": "Valida credenciales y genera un JSON Web Token con duración de 8 horas.",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Correo o contraseña no proporcionados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciales inválidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "operationId": "getUsers",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Listar personal del taller",
+        "description": "Retorna la lista de empleados. Permite filtrar por rol. Requiere rol **ADMIN** o **ASESOR**.",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Role"
+            },
+            "description": "Filtrar por tipo de rol (`ADMIN`, `ASESOR`, `JOYERO`)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Rol inválido suministrado en el filtro",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "operationId": "getUserById",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener perfil de un usuario por ID",
+        "description": "Consulta los datos de un empleado específico. Requiere rol **ADMIN** o **ASESOR**.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+            },
+            "description": "UUID del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información del usuario encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateUser",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Modificar información o rol de un usuario",
+        "description": "Actualiza el nombre o rol de un empleado. Exclusivo para rol **ADMIN**.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+            },
+            "description": "UUID del usuario a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string",
+                    "example": "Carlos Maestro Joyero"
+                  },
+                  "role": {
+                    "$ref": "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Usuario actualizado exitosamente"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Rol no admitido o parámetro inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/clients": {
+      "get": {
+        "operationId": "getClients",
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Buscar y listar clientes",
+        "description": "Retorna el directorio de clientes con conteo de pedidos y cotizaciones. Soporta filtro general por texto.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Búsqueda flexible por nombre, teléfono, documento o correo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Colección de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createClient",
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Crear ficha de cliente",
+        "description": "Registra un nuevo cliente para asociarle pedidos o cotizaciones. Requiere rol **ADMIN** o **ASESOR**.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cliente registrado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campos obligatorios faltantes o duplicados (documento/email)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/clients/{id}": {
+      "get": {
+        "operationId": "getClientById",
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Obtener ficha completa de un cliente",
+        "description": "Devuelve el expediente integral del cliente, incluyendo historial de pedidos, cotizaciones y balance acumulado facturado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            },
+            "description": "UUID del cliente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ficha integral del cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDetailResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Cliente no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateClient",
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Actualizar datos de un cliente",
+        "description": "Modifica teléfono, correo, documento o nombre del cliente. Requiere rol **ADMIN** o **ASESOR**.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            },
+            "description": "UUID del cliente"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Datos actualizados correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Datos del cliente actualizados"
+                    },
+                    "client": {
+                      "$ref": "#/components/schemas/Client"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Documento o correo duplicado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/quotes": {
+      "get": {
+        "operationId": "getQuotes",
+        "tags": [
+          "Cotizaciones"
+        ],
+        "summary": "Listar cotizaciones",
+        "description": "Retorna todas las cotizaciones con cliente asociado, creador y estado de vinculación a pedido.",
+        "responses": {
+          "200": {
+            "description": "Lista de cotizaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quote"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createQuote",
+        "tags": [
+          "Cotizaciones"
+        ],
+        "summary": "Crear nueva cotización",
+        "description": "Registra una cotización en estado BORRADOR con sus ítems desglosados y cálculo automático de total. Requiere rol **ADMIN** o **ASESOR**.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cotización creada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cliente inválido o sin ítems",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/quotes/{id}": {
+      "get": {
+        "operationId": "getQuoteById",
+        "tags": [
+          "Cotizaciones"
+        ],
+        "summary": "Obtener detalle de cotización",
+        "description": "Retorna la cotización completa con el detalle de ítems, precios unitarios y subtotales.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+            },
+            "description": "UUID de la cotización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cotización encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Cotización no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quotes/{id}/approve": {
+      "post": {
+        "operationId": "approveQuote",
+        "tags": [
+          "Cotizaciones"
+        ],
+        "summary": "Aprobar cotización y convertir automáticamente en pedido",
+        "description": "Transforma la cotización en un pedido de taller con precio pactado inmutable. Requiere rol **ADMIN** o **ASESOR**.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+            },
+            "description": "UUID de la cotización a aprobar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cotización aprobada y orden creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Cotización aprobada y pedido generado exitosamente"
+                    },
+                    "order": {
+                      "$ref": "#/components/schemas/Order"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cotización ya aprobada previamente o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "get": {
+        "operationId": "getOrders",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Consultar lista paginada de pedidos",
+        "description": "Obtiene pedidos con balance financiero (total pactado, abonado, saldo pendiente), cliente y artesano.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/OrderStatus"
+            },
+            "description": "Filtrar por estado del pedido"
+          },
+          {
+            "name": "artisanId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filtrar por joyero asignado"
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filtrar por cliente"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Número de página"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "maximum": 50
+            },
+            "description": "Cantidad de registros por página"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista paginada de pedidos con balance financiero",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrderListItem"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros de consulta inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createOrder",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Registrar nuevo pedido directo",
+        "description": "Crea una nueva orden de trabajo con precio acordado inmutable y crea el registro de historial inicial. Requiere rol **ADMIN** o **ASESOR**.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido registrado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en datos de entrada (validación de esquema Zod)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "operationId": "getOrderById",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Obtener detalle completo de un pedido",
+        "description": "Devuelve la ficha maestra de la orden, incluyendo historial de transiciones, desglose de abonos, materiales consumidos y balance financiero en tiempo real.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle completo del pedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Pedido no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/payments": {
+      "post": {
+        "operationId": "addPayment",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Registrar abono o pago a un pedido",
+        "description": "Registra un ingreso monetario para el pedido.\n\n**Regla de negocio:** Valida estrictamente que el monto abonado no exceda el saldo pendiente actual de la orden.\nRequiere rol **ADMIN** o **ASESOR**.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPaymentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Abono aplicado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "payment": {
+                      "$ref": "#/components/schemas/Payment"
+                    },
+                    "nuevoSaldo": {
+                      "type": "number",
+                      "example": 250000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El monto excede el saldo pendiente o faltan campos obligatorios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/status": {
+      "patch": {
+        "operationId": "updateOrderStatus",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Cambiar estado de producción del pedido",
+        "description": "Avanza el pedido a través de su ciclo de vida (`CREADO` -> `FABRICACION` -> `CALIDAD` -> `ENTREGADO`).\n\n**Reglas estrictas de taller:**\n1. Para avanzar a `FABRICACION`, el pedido DEBE tener un joyero (`artisanId`) asignado.\n2. Para cambiar a `ENTREGADO`, el saldo pendiente DEBE ser $0 (pagado en su totalidad).\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStatusDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado actualizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Estado actualizado a FABRICACION"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Violación de reglas de negocio (falta joyero o saldo pendiente al entregar)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/cancel": {
+      "patch": {
+        "operationId": "cancelOrder",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Cancelar un pedido",
+        "description": "Cancela el pedido y registra el motivo en la bitácora inmutable de estados.\n\n**Regla de negocio:** No es posible cancelar una joya que ya ha sido entregada al cliente.\nRequiere rol **ADMIN** o **ASESOR**.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelOrderDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido cancelado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Pedido cancelado correctamente y registrado en historial"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "La joya ya está entregada o el motivo no fue indicado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/materials": {
+      "get": {
+        "operationId": "getOrderMaterials",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Consultar insumos y metales consumidos en el pedido",
+        "description": "Retorna la lista de materias primas que han sido despachadas al joyero para la fabricación de este pedido.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de consumos de material",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderMaterial"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Pedido no encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "consumeMaterial",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Despachar y consumir materia prima en la orden",
+        "description": "Descuenta inventario de bodega y lo asigna a la mesa del artesano para este pedido.\n\nSi el inventario resultante queda por debajo del umbral mínimo (`minStock`), el sistema dispara automáticamente una **alerta asíncrona de reabastecimiento por correo electrónico con Brevo**.\nRequiere rol **ADMIN** o **JOYERO**.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsumeMaterialDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Material despachado y asignado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsumeMaterialResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Stock insuficiente en bodega o parámetros inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/metal-return": {
+      "post": {
+        "operationId": "registerMetalReturn",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Liquidación de metal, merma técnica y retorno de limalla",
+        "description": "Cierre técnico de mesa una vez finalizada la pieza de orfebrería.\n\n**Procedimiento:**\n1. Compara el total entregado vs. (peso joya terminada + limalla/retazos).\n2. Reintegra automáticamente la limalla limpia al inventario de bodega.\n3. Calcula la merma de fabricación en peso y porcentaje.\n4. Si la merma supera el **8.0%**, emite bandera de alerta de merma inusual.\n5. Guarda trazabilidad forense en `AuditLog` e historial de la orden.\nRequiere rol **ADMIN** o **JOYERO**.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetalReturnDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Liquidación técnica procesada y asentada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetalReturnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El peso devuelto excede lo entregado o no hay registros previos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/attachments": {
+      "get": {
+        "operationId": "getOrderAttachments",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Obtener adjuntos multimedia del pedido",
+        "description": "Consulta imágenes de diseño, renders técnicos o fotos de control de calidad vinculadas a la orden.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de adjuntos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderAttachment"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Vincular archivo multimedia al pedido",
+        "description": "Asocia una URL generada previamente en `/api/upload` a la orden de trabajo. Requiere rol **ADMIN**, **ASESOR** o **JOYERO**.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            },
+            "description": "UUID del pedido"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAttachmentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Adjunto registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderAttachment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros inválidos o tipo de adjunto incorrecto",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/materials": {
+      "get": {
+        "operationId": "getMaterials",
+        "tags": [
+          "Materiales"
+        ],
+        "summary": "Consultar inventario de metales y gemas",
+        "description": "Lista el inventario activo de oro, plata y gemas con su stock y stock mínimo configurado.",
+        "responses": {
+          "200": {
+            "description": "Listado de materiales",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Material"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createMaterial",
+        "tags": [
+          "Materiales"
+        ],
+        "summary": "Dar de alta nuevo material en bodega",
+        "description": "Registra una nueva referencia de metal precioso o gema con stock inicial. Exclusivo para rol **ADMIN**.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MaterialCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Material creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Material"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campos requeridos faltantes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/materials/{id}/restock": {
+      "patch": {
+        "operationId": "restockMaterial",
+        "tags": [
+          "Materiales"
+        ],
+        "summary": "Reabastecer stock de material",
+        "description": "Incrementa el inventario de bodega y genera un evento de auditoría. Exclusivo para rol **ADMIN**.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "e736502e-c529-4fb6-be7f-efdbad8236d1"
+            },
+            "description": "UUID del material"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RestockMaterialDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stock incrementado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Stock reabastecido exitosamente (+50 GRAMOS)"
+                    },
+                    "material": {
+                      "$ref": "#/components/schemas/Material"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cantidad inválida o menor a 0",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/audit": {
+      "get": {
+        "operationId": "getAuditLogs",
+        "tags": [
+          "Auditoría"
+        ],
+        "summary": "Consultar registros de auditoría inmutables",
+        "description": "Pistas de auditoría forense para fiscalizar despachos, liquidaciones y reabastecimientos. Exclusivo para rol **ADMIN**.",
+        "parameters": [
+          {
+            "name": "action",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por tipo de acción (ej. `LIQUIDACION_METAL_MERMA`, `DESPACHO_MATERIAL_PEDIDO`)"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filtrar por el usuario ejecutor"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registros de auditoría paginados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AuditLog"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/dashboard/stats": {
+      "get": {
+        "operationId": "getDashboardMetrics",
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Métricas ejecutivas, financieras y de taller",
+        "description": "Consolida en tiempo real la cartera por cobrar, pedidos en taller, entregas próximas de los siguientes 7 días y alertas de stock bajo. Requiere rol **ADMIN** o **ASESOR**.",
+        "responses": {
+          "200": {
+            "description": "Métricas globales consolidadas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardMetrics"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        }
+      }
+    },
+    "/api/upload": {
+      "post": {
+        "operationId": "uploadFile",
+        "tags": [
+          "Archivos"
+        ],
+        "summary": "Subir archivo o fotografía a Supabase Storage",
+        "description": "Sube un archivo multimedia a la nube (formato `multipart/form-data`).\n\n- Campo obligatorio: `file`\n- Tipos admitidos: JPG, PNG, WEBP, PDF\n- Peso máximo: 10 MB\n- Parámetro opcional: `folder` (`bocetos` | `pedidos` | `calidad`, por defecto `pedidos`)\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "file"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Archivo físico binario a transferir"
+                  },
+                  "folder": {
+                    "type": "string",
+                    "enum": [
+                      "bocetos",
+                      "pedidos",
+                      "calidad"
+                    ],
+                    "default": "pedidos",
+                    "description": "Carpeta destino en el bucket"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Archivo alojado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Archivo subido correctamente a Supabase Storage"
+                    },
+                    "filePath": {
+                      "type": "string",
+                      "example": "pedidos/1741234567890-a1b2c3d4.jpg"
+                    },
+                    "publicUrl": {
+                      "type": "string",
+                      "format": "uri",
+                      "example": "https://project.supabase.co/storage/v1/object/public/jewelry-assets/pedidos/1741234567890-a1b2c3d4.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ningún archivo enviado o tipo de archivo no permitido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Token JWT retornado en `/api/auth/login`. Ingrese `Bearer <token>` o el token directamente."
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Token de autenticación ausente, expirado o con firma no válida",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": "Acceso denegado: Token no proporcionado"
+            }
+          }
+        }
+      },
+      "ForbiddenError": {
+        "description": "El rol del usuario actual no cuenta con privilegios para realizar esta acción",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": "No tienes permisos para realizar esta acción"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Role": {
+        "type": "string",
+        "enum": [
+          "ADMIN",
+          "ASESOR",
+          "JOYERO"
+        ],
+        "example": "JOYERO"
+      },
+      "OrderStatus": {
+        "type": "string",
+        "enum": [
+          "CREADO",
+          "FABRICACION",
+          "CALIDAD",
+          "ENTREGADO",
+          "CANCELADO"
+        ],
+        "example": "FABRICACION"
+      },
+      "QuoteStatus": {
+        "type": "string",
+        "enum": [
+          "BORRADOR",
+          "ENVIADA",
+          "APROBADA",
+          "RECHAZADA"
+        ],
+        "example": "BORRADOR"
+      },
+      "PaymentMethod": {
+        "type": "string",
+        "enum": [
+          "EFECTIVO",
+          "TRANSFERENCIA",
+          "TARJETA"
+        ],
+        "example": "TRANSFERENCIA"
+      },
+      "MaterialType": {
+        "type": "string",
+        "enum": [
+          "ORO_AMARILLO_18K",
+          "ORO_BLANCO_18K",
+          "ORO_ROSA_18K",
+          "ORO_14K",
+          "ORO_10K",
+          "PLATA_925",
+          "PIEDRA_PRECIOSA"
+        ],
+        "example": "ORO_AMARILLO_18K"
+      },
+      "MeasurementUnit": {
+        "type": "string",
+        "enum": [
+          "GRAMOS",
+          "KILATES"
+        ],
+        "example": "GRAMOS"
+      },
+      "AttachmentType": {
+        "type": "string",
+        "enum": [
+          "BOCETO_REFERENCIA",
+          "RENDER_3D",
+          "CONTROL_CALIDAD",
+          "CERTIFICADO"
+        ],
+        "example": "BOCETO_REFERENCIA"
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Recurso no encontrado o parámetros inválidos"
+          }
+        }
+      },
+      "PaginationMeta": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "example": 45
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "limit": {
+            "type": "integer",
+            "example": 10
+          },
+          "totalPages": {
+            "type": "integer",
+            "example": 5
+          }
+        }
+      },
+      "RegisterDTO": {
+        "type": "object",
+        "required": [
+          "fullName",
+          "email",
+          "password",
+          "role"
+        ],
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "Andrés Salazar"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "andres.joyero@alkisu.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "SecretWorkshop2026*"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        }
+      },
+      "LoginDTO": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "admin@alkisu.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "AdminPassword123*"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token JWT válido por 8 horas",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+          },
+          "fullName": {
+            "type": "string",
+            "example": "Carlos Joyero Maestro"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "carlos@alkisu.com"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-03-01T10:00:00.000Z"
+          }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "fullName": {
+            "type": "string",
+            "example": "María Elena Restrepo"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+57 312 456 7890"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "email",
+            "example": "maria.restrepo@gmail.com"
+          },
+          "documentId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "1020304050"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ClientCreateDTO": {
+        "type": "object",
+        "required": [
+          "fullName",
+          "phone"
+        ],
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "María Elena Restrepo"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+57 312 456 7890"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "maria.restrepo@gmail.com"
+          },
+          "documentId": {
+            "type": "string",
+            "example": "1020304050"
+          }
+        }
+      },
+      "ClientUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "María Elena Restrepo de Gómez"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+57 310 999 8877"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "mrestrepo@nuevo.com"
+          },
+          "documentId": {
+            "type": "string",
+            "example": "1020304050"
+          }
+        }
+      },
+      "ClientDetailResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Client"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "orders": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "quotes": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "stats": {
+                "type": "object",
+                "properties": {
+                  "totalOrders": {
+                    "type": "integer",
+                    "example": 3
+                  },
+                  "totalQuotes": {
+                    "type": "integer",
+                    "example": 5
+                  },
+                  "totalFacturado": {
+                    "type": "number",
+                    "example": 12500000
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "QuoteItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "7b8c9d0e-1f2a-3b4c-5d6e-7f8a9b0c1d2e"
+          },
+          "description": {
+            "type": "string",
+            "example": "Anillo solitario Oro 18K con Diamante 0.50ct"
+          },
+          "quantity": {
+            "type": "integer",
+            "example": 1
+          },
+          "unitPrice": {
+            "type": "number",
+            "example": 4500000
+          },
+          "subtotal": {
+            "type": "number",
+            "example": 4500000
+          }
+        }
+      },
+      "QuoteItemInput": {
+        "type": "object",
+        "required": [
+          "description",
+          "quantity",
+          "unitPrice"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Argolla matrimonial clásica en Oro Amarillo 18K (talla 7)"
+          },
+          "quantity": {
+            "type": "integer",
+            "example": 1
+          },
+          "unitPrice": {
+            "type": "number",
+            "example": 1850000
+          }
+        }
+      },
+      "QuoteCreateDTO": {
+        "type": "object",
+        "required": [
+          "clientId",
+          "items"
+        ],
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-15T23:59:59.000Z"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteItemInput"
+            }
+          }
+        }
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "createdById": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+          },
+          "status": {
+            "$ref": "#/components/schemas/QuoteStatus"
+          },
+          "totalAmount": {
+            "type": "number",
+            "example": 4500000
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteItem"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrderCreateDTO": {
+        "type": "object",
+        "required": [
+          "clientId",
+          "description",
+          "totalPactado"
+        ],
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "artisanId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 5,
+            "example": "Anillo solitario en Oro Blanco 18K con zafiro azul corte oval"
+          },
+          "totalPactado": {
+            "type": "number",
+            "example": 3800000
+          },
+          "estimatedDelivery": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-20T18:00:00.000Z"
+          }
+        }
+      },
+      "OrderListItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "client": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            }
+          },
+          "artisan": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fullName": {
+                "type": "string"
+              }
+            }
+          },
+          "totalPactado": {
+            "type": "number",
+            "example": 3800000
+          },
+          "totalAbonado": {
+            "type": "number",
+            "example": 2000000
+          },
+          "saldoPendiente": {
+            "type": "number",
+            "example": 1800000
+          },
+          "estimatedDelivery": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "materialsCount": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      },
+      "OrderDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "totalPactado": {
+            "type": "number"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "artisan": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fullName": {
+                "type": "string"
+              }
+            }
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            }
+          },
+          "statusHistory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderStatusHistory"
+            }
+          },
+          "materialsUsed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderMaterial"
+            }
+          },
+          "financialSummary": {
+            "type": "object",
+            "properties": {
+              "totalPactado": {
+                "type": "number",
+                "example": 3800000
+              },
+              "totalAbonado": {
+                "type": "number",
+                "example": 3800000
+              },
+              "saldoPendiente": {
+                "type": "number",
+                "example": 0
+              },
+              "estaLiquidado": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "description": {
+            "type": "string"
+          },
+          "totalPactado": {
+            "type": "number"
+          },
+          "estimatedDelivery": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrderStatusHistory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8c9d0e1f-2a3b-4c5d-6e7f-8a9b0c1d2e3f"
+          },
+          "fromStatus": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "toStatus": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "Joya ensamblada y pasada a control de calidad"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AddPaymentDTO": {
+        "type": "object",
+        "required": [
+          "amount",
+          "paymentMethod"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "example": 1500000
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "referenceNotes": {
+            "type": "string",
+            "example": "Comprobante transferencia Bancolombia"
+          }
+        }
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e"
+          },
+          "orderId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "amount": {
+            "type": "number",
+            "example": 1500000
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "referenceNotes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateStatusDTO": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "note": {
+            "type": "string",
+            "example": "Se asigna joyero y pasa a mesa de fundición"
+          },
+          "artisanId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+            "description": "Requerido si se avanza a FABRICACION y la orden no tenía joyero asignado"
+          }
+        }
+      },
+      "CancelOrderDTO": {
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "properties": {
+          "reason": {
+            "type": "string",
+            "example": "Cliente desistió por viaje al exterior"
+          }
+        }
+      },
+      "ConsumeMaterialDTO": {
+        "type": "object",
+        "required": [
+          "materialId",
+          "quantity"
+        ],
+        "properties": {
+          "materialId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "e736502e-c529-4fb6-be7f-efdbad8236d1"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 12.5
+          }
+        }
+      },
+      "ConsumeMaterialResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Se despacharon 12.500 GRAMOS al pedido"
+          },
+          "consumoId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+          },
+          "remainingStock": {
+            "type": "number",
+            "example": 37.5
+          },
+          "isLowStock": {
+            "type": "boolean",
+            "example": false
+          },
+          "unit": {
+            "$ref": "#/components/schemas/MeasurementUnit"
+          },
+          "materialName": {
+            "type": "string",
+            "example": "Oro Blanco 18K"
+          }
+        }
+      },
+      "MetalReturnDTO": {
+        "type": "object",
+        "required": [
+          "materialId",
+          "finalPieceWeight",
+          "scrapWeight"
+        ],
+        "properties": {
+          "materialId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "e736502e-c529-4fb6-be7f-efdbad8236d1"
+          },
+          "finalPieceWeight": {
+            "type": "number",
+            "description": "Peso exacto de la joya terminada en gramos o kilates",
+            "example": 10.85
+          },
+          "scrapWeight": {
+            "type": "number",
+            "description": "Limalla y retazos limpios devueltos a bodega",
+            "example": 1.15
+          },
+          "notes": {
+            "type": "string",
+            "example": "Pulido y engaste de zafiro oval"
+          }
+        }
+      },
+      "MetalReturnResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Liquidación de metal y merma procesada exitosamente"
+          },
+          "balance": {
+            "type": "object",
+            "properties": {
+              "metalEntregado": {
+                "type": "number",
+                "example": 12.5
+              },
+              "pesoJoyaFinal": {
+                "type": "number",
+                "example": 10.85
+              },
+              "limallaRetornada": {
+                "type": "number",
+                "example": 1.15
+              },
+              "mermaTecnica": {
+                "type": "number",
+                "example": 0.5
+              },
+              "porcentajeMerma": {
+                "type": "string",
+                "example": "4%"
+              },
+              "mermaInusual": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "nuevoStockMaterial": {
+            "type": "number",
+            "example": 38.65
+          },
+          "unidad": {
+            "$ref": "#/components/schemas/MeasurementUnit"
+          },
+          "auditId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a"
+          }
+        }
+      },
+      "AddAttachmentDTO": {
+        "type": "object",
+        "required": [
+          "fileUrl",
+          "fileName"
+        ],
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://project.supabase.co/storage/v1/object/public/jewelry-assets/pedidos/anillo-render.png"
+          },
+          "fileName": {
+            "type": "string",
+            "example": "anillo-render-3d.png"
+          },
+          "fileType": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "description": {
+            "type": "string",
+            "example": "Render 3D para aprobación de garras del engaste"
+          }
+        }
+      },
+      "OrderAttachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b"
+          },
+          "orderId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "fileUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "fileType": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Material": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "e736502e-c529-4fb6-be7f-efdbad8236d1"
+          },
+          "name": {
+            "type": "string",
+            "example": "Oro Amarillo 18K (Granalla)"
+          },
+          "type": {
+            "$ref": "#/components/schemas/MaterialType"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/MeasurementUnit"
+          },
+          "stock": {
+            "type": "number",
+            "example": 120.45
+          },
+          "minStock": {
+            "type": "number",
+            "example": 25
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MaterialCreateDTO": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "unit",
+          "stock",
+          "minStock"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Oro Rosa 18K"
+          },
+          "type": {
+            "$ref": "#/components/schemas/MaterialType"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/MeasurementUnit"
+          },
+          "stock": {
+            "type": "number",
+            "example": 80
+          },
+          "minStock": {
+            "type": "number",
+            "example": 20
+          }
+        }
+      },
+      "RestockMaterialDTO": {
+        "type": "object",
+        "required": [
+          "quantity"
+        ],
+        "properties": {
+          "quantity": {
+            "type": "number",
+            "example": 50
+          }
+        }
+      },
+      "OrderMaterial": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c"
+          },
+          "orderId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "materialId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "e736502e-c529-4fb6-be7f-efdbad8236d1"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 12.5
+          },
+          "material": {
+            "$ref": "#/components/schemas/Material"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AuditLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d"
+          },
+          "action": {
+            "type": "string",
+            "example": "LIQUIDACION_METAL_MERMA"
+          },
+          "tableName": {
+            "type": "string",
+            "example": "Order"
+          },
+          "recordId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "ipAddress": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "127.0.0.1"
+          },
+          "details": {
+            "type": "object"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "role": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          }
+        }
+      },
+      "DashboardMetrics": {
+        "type": "object",
+        "properties": {
+          "financiero": {
+            "type": "object",
+            "properties": {
+              "totalFacturado": {
+                "type": "number",
+                "example": 45800000
+              },
+              "totalRecaudado": {
+                "type": "number",
+                "example": 31200000
+              },
+              "carteraPendiente": {
+                "type": "number",
+                "example": 14600000
+              }
+            }
+          },
+          "taller": {
+            "type": "object",
+            "properties": {
+              "pedidosActivos": {
+                "type": "integer",
+                "example": 8
+              },
+              "enFabricacion": {
+                "type": "integer",
+                "example": 5
+              },
+              "enControlCalidad": {
+                "type": "integer",
+                "example": 2
+              },
+              "entregasProximos7Dias": {
+                "type": "integer",
+                "example": 3
+              }
+            }
+          },
+          "inventario": {
+            "type": "object",
+            "properties": {
+              "materialesCriticosCount": {
+                "type": "integer",
+                "example": 1
+              },
+              "alertasStock": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "nombre": {
+                      "type": "string"
+                    },
+                    "stockActual": {
+                      "type": "number"
+                    },
+                    "stockMinimo": {
+                      "type": "number"
+                    },
+                    "unidad": {
+                      "$ref": "#/components/schemas/MeasurementUnit"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "comercial": {
+            "type": "object",
+            "properties": {
+              "cotizacionesPendientes": {
+                "type": "integer",
+                "example": 4
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

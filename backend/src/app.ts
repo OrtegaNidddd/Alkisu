@@ -12,11 +12,47 @@ import auditRoutes from './routes/audit.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
 import uploadRoutes from './routes/upload.route.js';
 import { errorHandler } from './middlewares/error.middleware.js';
-
+import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app: Application = express();
-const swaggerDocument = YAML.load(path.resolve(process.cwd(), 'docs/openapi.yaml'));
+
+// Carga resiliente de documentación OpenAPI sin bloquear el inicio del servidor
+let swaggerDocument: any = null;
+const possibleSwaggerPaths = [
+  path.resolve(process.cwd(), 'docs/openapi.yaml'),
+  path.resolve(process.cwd(), 'backend/docs/openapi.yaml'),
+  path.resolve(__dirname, '../docs/openapi.yaml'),
+  path.resolve(__dirname, '../../docs/openapi.yaml'),
+  path.resolve(__dirname, '../../../docs/openapi.yaml'),
+];
+
+for (const candidatePath of possibleSwaggerPaths) {
+  try {
+    if (fs.existsSync(candidatePath)) {
+      swaggerDocument = YAML.load(candidatePath);
+      if (swaggerDocument) break;
+    }
+  } catch (err) {
+    // Intentar con el siguiente candidatePath
+  }
+}
+
+if (!swaggerDocument) {
+  swaggerDocument = {
+    openapi: '3.0.0',
+    info: {
+      title: 'Alkisu API - Taller de Joyería',
+      version: '1.0.0',
+      description: 'Documentación técnica de los servicios del taller Alkisu',
+    },
+    paths: {},
+  };
+}
 
 app.use(cors());
 app.use(express.json());
