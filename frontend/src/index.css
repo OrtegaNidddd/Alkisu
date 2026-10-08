@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #176B52;
+  --color-brand-primary-hover: #125541;
+  --color-brand-nav: #17211D;
+  --color-brand-gold: #A57525;
+  --color-brand-gold-light: #C4913B;
+  --color-brand-logout-bg: #22332C;
+  --color-brand-logout-border: #3E564C;
+
+  --color-surface-white: #FFFFFF;
+  --color-surface-bg: #F4F6F8;
+  --color-surface-gray: #EEF1F0;
+  --color-surface-border: #DDE3E0;
+  --color-surface-green-light: #E5F4EE;
+
+  --color-text-main: #17201D;
+  --color-text-muted: #66736D;
+  --color-text-nav-label: #9CA9A3;
+  --color-text-on-dark: #EDF5F2;
+  --color-text-pure-black: #000000;
+
+  --color-status-success-text: #17734B;
+  --color-status-success-bg: #E6F5ED;
+  --color-status-warning-text: #9A6700;
+  --color-status-warning-bg: #FFF4D6;
+  --color-status-error-text: #B42318;
+  --color-status-error-bg: #FDECEA;
+  --color-status-info-text: #2457A6;
+  --color-status-info-bg: #EAF1FC;
+
+  --color-alert-notice: #FAF1DA;
+  --color-overlay-backdrop: rgba(17, 24, 21, 0.72);
+
+  --font-serif: "Outfit", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  font-family: var(--font-sans);
+  color: #17201D;
+  background-color: #F4F6F8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Custom scrollbars for clean jewelry aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F6F8;
+}
+::-webkit-scrollbar-thumb {
+  background: #DDE3E0;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA9A3;
+}
