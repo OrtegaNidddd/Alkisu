@@ -23,7 +23,7 @@ COPY src ./src
 COPY docs ./docs
 
 # Compilar TypeScript a JavaScript estándar
-RUN npx tsc
+RUN npm run build && ls -la dist/
 
 # ==========================================
 # STAGE 2: Runner de Producción
@@ -46,6 +46,8 @@ RUN npm ci --omit=dev && npx prisma generate
 # Copiar el build compilado y la especificación OpenAPI desde la etapa de compilación
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/docs ./docs
+
+RUN ls -la dist/
 
 # Cambiar permisos al usuario sin privilegios 'node' para endurecimiento de seguridad
 RUN chown -R node:node /app
