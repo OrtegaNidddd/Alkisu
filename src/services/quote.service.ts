@@ -38,6 +38,7 @@ export const getQuotes = async () => {
       client: { select: { id: true, fullName: true, phone: true } },
       createdBy: { select: { id: true, fullName: true } },
       order: { select: { id: true, status: true } },
+      items: true,
     },
     orderBy: { createdAt: 'desc' },
   });
