@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { QuoteItem, Client, Material } from '../../types';
 import { formatCurrency, formatGrams } from '../../utils/formatters';
 import { Button } from '../ui/Button';
@@ -20,6 +20,10 @@ import {
   Sparkle,
   Sparkles,
   Boxes,
+  Search,
+  Check,
+  X,
+  User,
 } from 'lucide-react';
 import {
   useQuotes,
@@ -81,29 +85,76 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
     );
   }, [materials]);
 
-  // Estados generales
-  const [selectedClientId, setSelectedClientId] = useState<string>(clients[0]?.id || 'cli-1');
-  const [pieceTitle, setPieceTitle] = useState<string>('Solitario de Compromiso en Oro 18k');
+  // Cliente por defecto con CC 2222222222
+  const [selectedClientId, setSelectedClientId] = useState<string>('cli-defecto');
+  const [isClientSearchOpen, setIsClientSearchOpen] = useState<boolean>(false);
+  const [clientSearchTerm, setClientSearchTerm] = useState<string>('');
+  const clientDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Manejar click outside para cerrar el selector de cliente
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (clientDropdownRef.current && !clientDropdownRef.current.contains(event.target as Node)) {
+        setIsClientSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Seleccionar automáticamente cliente con CC 2222222222
+  useEffect(() => {
+    if (clients.length > 0) {
+      const defaultClient = clients.find((c) => {
+        const doc = (c.documentId || '').replace(/\D/g, '');
+        return doc === '2222222222' || c.documentId === '2222222222';
+      });
+      if (defaultClient && (!selectedClientId || selectedClientId === 'cli-1' || selectedClientId === 'cli-defecto')) {
+        setSelectedClientId(defaultClient.id);
+      } else if (!selectedClientId && clients[0]) {
+        setSelectedClientId(clients[0].id);
+      }
+    }
+  }, [clients]);
+
+  const selectedClient = useMemo(() => {
+    return (
+      clients.find((c) => c.id === selectedClientId) ||
+      clients.find((c) => (c.documentId || '').replace(/\D/g, '') === '2222222222') ||
+      clients[0]
+    );
+  }, [clients, selectedClientId]);
+
+  const filteredClientsForQuote = useMemo(() => {
+    const q = clientSearchTerm.toLowerCase().trim();
+    if (!q) return clients;
+    return clients.filter((c) => {
+      const matchDoc = c.documentId?.toLowerCase().includes(q);
+      const matchName = c.fullName?.toLowerCase().includes(q);
+      return matchDoc || matchName;
+    });
+  }, [clients, clientSearchTerm]);
+
+  // Estados de cotización iniciando en 0
+  const [pieceTitle, setPieceTitle] = useState<string>('');
   const [validUntilDays, setValidUntilDays] = useState<number>(15);
   const [activeTab, setActiveTab] = useState<'calculator' | 'review'>('calculator');
   const [showFormulaExplanation, setShowFormulaExplanation] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // 1. Estado de Metal Base
+  // 1. Estado de Metal Base - Iniciando en 0
   const [selectedMetalId, setSelectedMetalId] = useState<string>('custom');
   const [customMetalName, setCustomMetalName] = useState<string>('Oro Amarillo 18k (Ley 750)');
-  const [gramsNet, setGramsNet] = useState<number>(8.5);
-  const [pricePerGram, setPricePerGram] = useState<number>(340000);
+  const [gramsNet, setGramsNet] = useState<number>(0);
+  const [pricePerGram, setPricePerGram] = useState<number>(0);
   const [includeMerma, setIncludeMerma] = useState<boolean>(true);
   const [mermaPercent, setMermaPercent] = useState<number>(6.0);
 
-  // Inicializar o sincronizar el primer metal cuando carguen materiales
+  // Sincronizar metal sin sobreescribir el precio en 0 al inicio
   useEffect(() => {
     if (metalsFromBackend.length > 0 && selectedMetalId === 'custom' && !customMetalName) {
       const first = metalsFromBackend[0];
       setSelectedMetalId(first.id);
-      const suggestedRate = DEFAULT_METAL_RATES[first.type] || 340000;
-      setPricePerGram(suggestedRate);
     }
   }, [metalsFromBackend]);
 
@@ -118,7 +169,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
     } else {
       const found = metalsFromBackend.find((m) => m.id === materialId);
       if (found) {
-        const suggestedRate = DEFAULT_METAL_RATES[found.type] || 340000;
+        const suggestedRate = DEFAULT_METAL_RATES[found.type] || 0;
         setPricePerGram(suggestedRate);
         if (found.type === 'PLATA_925') {
           setMermaPercent(8.0);
@@ -132,6 +183,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
   };
 
   // Cálculos de metal (siempre a 2 decimales)
+  // Control de taller e inventario: gramos brutos requeridos para fundición
   const grossGrams = useMemo(() => {
     if (!includeMerma) return Number(gramsNet.toFixed(2));
     return Number((gramsNet * (1 + mermaPercent / 100)).toFixed(2));
@@ -141,22 +193,13 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
     return Number(Math.max(0, grossGrams - gramsNet).toFixed(2));
   }, [grossGrams, gramsNet]);
 
+  // Regla comercial Alkisu: la merma se contempla en el precio por gramo, no se le cobra adicional al cliente
   const metalSubtotal = useMemo(() => {
-    return Math.round(grossGrams * (pricePerGram || 0));
-  }, [grossGrams, pricePerGram]);
+    return Math.round(gramsNet * (pricePerGram || 0));
+  }, [gramsNet, pricePerGram]);
 
-  // 2. Estado de Piedras / Gemas (conectadas a materiales del backend)
-  const [gems, setGems] = useState<GemItem[]>([
-    {
-      id: 'gem-1',
-      materialId: 'mat-5',
-      name: 'Esmeralda Colombiana Muzo 1.25ct Certificada',
-      quantity: 1,
-      carats: 1.25,
-      pricingMode: 'unit',
-      price: 4500000,
-    },
-  ]);
+  // 2. Estado de Piedras / Gemas (Iniciando vacías / 0)
+  const [gems, setGems] = useState<GemItem[]>([]);
 
   const gemsSubtotal = useMemo(() => {
     return gems.reduce((sum, g) => {
@@ -179,7 +222,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
         quantity: 1,
         carats: firstStone ? firstStone.stock : 0.5,
         pricingMode: 'unit',
-        price: 1500000,
+        price: 0,
       },
     ]);
   };
@@ -214,8 +257,8 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
     setGems(gems.filter((g) => g.id !== id));
   };
 
-  // 3. Estado de Mano de Obra (Solo personalizada)
-  const [craftsmanshipPrice, setCraftsmanshipPrice] = useState<number>(850000);
+  // 3. Estado de Mano de Obra (Iniciando en 0)
+  const [craftsmanshipPrice, setCraftsmanshipPrice] = useState<number>(0);
   const [craftsmanshipDescription, setCraftsmanshipDescription] = useState<string>(
     'Mano de obra y confección artesanal de taller'
   );
@@ -272,8 +315,8 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
         : customMetalName || 'Metal Precioso';
 
     const metalDesc = includeMerma
-      ? `${metalLabel} (${formatGrams(gramsNet)} netos + ${mermaPercent}% merma = ${formatGrams(grossGrams)} brutos @ ${formatCurrency(pricePerGram)}/g)`
-      : `${metalLabel} (${formatGrams(gramsNet)} netos sin merma @ ${formatCurrency(pricePerGram)}/g)`;
+      ? `${metalLabel} (${formatGrams(gramsNet)} netos @ ${formatCurrency(pricePerGram)}/g | Control taller: ${mermaPercent}% merma [${formatGrams(grossGrams)} brutos para fundición])`
+      : `${metalLabel} (${formatGrams(gramsNet)} netos @ ${formatCurrency(pricePerGram)}/g)`;
 
     list.push({
       description: metalDesc,
@@ -503,21 +546,89 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
           {/* Tarjeta de Datos Iniciales (Cliente, Nombre de la Joya y Pestañas) */}
           <div className="bg-white rounded-xl border border-[#DDE3E0] p-5 shadow-xs space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
+              <div className="relative" ref={clientDropdownRef}>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-[#17201D] mb-1.5">
                   Cliente Solicitante
                 </label>
-                <select
-                  value={selectedClientId}
-                  onChange={(e) => setSelectedClientId(e.target.value)}
-                  className="w-full px-3 py-2 text-xs border border-[#DDE3E0] rounded-lg focus:outline-none focus:border-[#176B52] bg-white font-medium"
+                {/* Botón trigger del selector */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsClientSearchOpen(!isClientSearchOpen);
+                    setClientSearchTerm('');
+                  }}
+                  className="w-full px-3 py-2 text-left text-xs border border-[#DDE3E0] rounded-lg focus:outline-none focus:border-[#176B52] bg-white font-medium flex items-center justify-between hover:bg-[#F4F6F8] transition"
                 >
-                  {clients.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.fullName} ({c.phone})
-                    </option>
-                  ))}
-                </select>
+                  <div className="flex flex-col truncate pr-2">
+                    <span className="font-bold text-[#17201D] truncate">
+                      {selectedClient ? selectedClient.fullName : 'Seleccionar cliente...'}
+                    </span>
+                    <span className="text-[10px] text-[#176B52] font-mono">
+                      {selectedClient?.documentId ? `CC: ${selectedClient.documentId}` : 'Sin documento'}
+                    </span>
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-[#9CA9A3] flex-shrink-0" />
+                </button>
+
+                {/* Menú desplegable con buscador por cédula / nombre */}
+                {isClientSearchOpen && (
+                  <div className="absolute z-30 left-0 right-0 mt-1 bg-white border border-[#DDE3E0] rounded-xl shadow-lg overflow-hidden animate-in fade-in duration-150">
+                    <div className="p-2 border-b border-[#DDE3E0] bg-[#F4F6F8]">
+                      <div className="relative">
+                        <Search className="w-3.5 h-3.5 text-[#9CA9A3] absolute left-2.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          autoFocus
+                          placeholder="Buscar por cédula o nombre..."
+                          value={clientSearchTerm}
+                          onChange={(e) => setClientSearchTerm(e.target.value)}
+                          className="w-full pl-8 pr-7 py-1.5 text-xs bg-white border border-[#DDE3E0] rounded-md text-[#17201D] focus:outline-none focus:border-[#176B52]"
+                        />
+                        {clientSearchTerm && (
+                          <button
+                            type="button"
+                            onClick={() => setClientSearchTerm('')}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 text-[#9CA9A3] hover:text-[#17201D]"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="max-h-56 overflow-y-auto divide-y divide-[#F4F6F8]">
+                      {filteredClientsForQuote.map((c) => {
+                        const isSelected = selectedClientId === c.id;
+                        return (
+                          <div
+                            key={c.id}
+                            onClick={() => {
+                              setSelectedClientId(c.id);
+                              setIsClientSearchOpen(false);
+                              setClientSearchTerm('');
+                            }}
+                            className={`px-3 py-2 text-xs cursor-pointer flex items-center justify-between hover:bg-[#F4F6F8] transition ${
+                              isSelected ? 'bg-[#E5F4EE]/60 font-bold' : ''
+                            }`}
+                          >
+                            <div className="truncate pr-2">
+                              <div className="text-[#17201D] font-medium truncate">{c.fullName}</div>
+                              <div className="text-[10px] text-[#176B52] font-mono mt-0.5">
+                                {c.documentId ? `CC: ${c.documentId}` : 'Sin documento'}
+                              </div>
+                            </div>
+                            {isSelected && <Check className="w-4 h-4 text-[#176B52] flex-shrink-0" />}
+                          </div>
+                        );
+                      })}
+                      {filteredClientsForQuote.length === 0 && (
+                        <div className="py-4 text-center text-xs text-[#9CA9A3]">
+                          No se encontraron clientes con esa cédula o nombre
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -736,19 +847,27 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                     </span>
                   </div>
 
-                  {/* Resumen del cálculo de metal (a 2 decimales) */}
+                  {/* Resumen del cálculo de metal (Control de taller / inventario) */}
                   <div className="p-3 bg-[#FAF1DA]/60 border border-[#eedab1] rounded-xl flex flex-col justify-center">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#A57525] block">
-                      Metal Total a Despachar
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#A57525] block">
+                        Control Taller / Inventario
+                      </span>
+                      <span className="text-[9px] font-semibold text-[#176B52] bg-[#E5F4EE] px-1 rounded">
+                        Sin cobrar al cliente
+                      </span>
+                    </div>
                     <div className="flex items-baseline space-x-1 mt-0.5">
                       <span className="text-base font-mono font-bold text-[#17201D]">
                         {formatGrams(grossGrams)}
                       </span>
-                      <span className="text-[11px] text-[#66736D]">brutos</span>
+                      <span className="text-[11px] text-[#66736D]">brutos para fundición</span>
                     </div>
-                    <span className="text-[10px] text-[#4D5753] mt-1 block font-mono">
+                    <span className="text-[10px] text-[#4D5753] mt-0.5 block font-mono">
                       {formatGrams(gramsNet)} netos + {formatGrams(metalWasteGrams)} merma
+                    </span>
+                    <span className="text-[9px] text-[#66736D] mt-1 block">
+                      Cobrado: {formatGrams(gramsNet)} netos (merma contemplada en $/g)
                     </span>
                   </div>
                 </div>
@@ -1147,8 +1266,15 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
 
             {/* Desglose por Componente con separador de miles */}
             <div className="space-y-2 text-xs border-b border-[#22332C] pb-4">
-              <div className="flex justify-between text-[#9CA9A3]">
-                <span>Metal Base ({formatGrams(grossGrams)}):</span>
+              <div className="flex justify-between items-start text-[#9CA9A3]">
+                <div>
+                  <span>Metal Base ({formatGrams(gramsNet)} netos):</span>
+                  {includeMerma && grossGrams > 0 && (
+                    <span className="block text-[10px] text-[#66736D]">
+                      Control taller: {formatGrams(grossGrams)} brutos
+                    </span>
+                  )}
+                </div>
                 <span className="font-mono text-[#EDF5F2] font-semibold">
                   {formatCurrency(metalSubtotal)}
                 </span>
