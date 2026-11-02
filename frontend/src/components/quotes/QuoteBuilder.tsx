@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { QuoteItem, Client, Material } from '../../types';
+import { Quote, QuoteItem, Client, Material } from '../../types';
 import { formatCurrency, formatGrams } from '../../utils/formatters';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
@@ -24,6 +24,10 @@ import {
   Check,
   X,
   User,
+  Upload,
+  Image as ImageIcon,
+  Edit3,
+  AlertCircle,
 } from 'lucide-react';
 import {
   useQuotes,
@@ -31,6 +35,9 @@ import {
   useMaterials,
   useCreateQuote,
   useApproveQuote,
+  useUpdateQuote,
+  useDeleteQuote,
+  useAddAttachment,
 } from '../../api/hooks';
 
 interface QuoteBuilderProps {
@@ -71,6 +78,43 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
 
   const createQuoteMutation = useCreateQuote();
   const approveQuoteMutation = useApproveQuote();
+  const updateQuoteMutation = useUpdateQuote();
+  const deleteQuoteMutation = useDeleteQuote();
+  const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null);
+
+  const addAttachmentMutation = useAddAttachment();
+
+  // Modo de vista: Editor de Cotización vs Listado de Borradores
+  const [viewMode, setViewMode] = useState<'editor' | 'drafts'>('editor');
+  const [draftSearch, setDraftSearch] = useState<string>('');
+  const [draftStatusFilter, setDraftStatusFilter] = useState<'ALL' | 'BORRADOR' | 'APROBADA'>('ALL');
+
+  // Estado del Boceto o Referencia Visual en la Cotización
+  const [sketchUrl, setSketchUrl] = useState<string | null>(null);
+  const [sketchFileName, setSketchFileName] = useState<string>('');
+  const sketchFileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSketchSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSketchFileName(file.name);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSketchUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Función para cargar un borrador existente en el cotizador para corregirlo
+  const handleLoadDraft = (quote: Quote) => {
+    setEditingQuoteId(quote.id);
+    setSelectedClientId(quote.clientId);
+    setPieceTitle(`Revisión Cotización #${quote.id.slice(0, 8).toUpperCase()}`);
+    setSuccessMessage(`Cotización #${quote.id.slice(0, 8).toUpperCase()} cargada para corrección. Al guardar o aprobar, se actualizará este mismo borrador.`);
+    setViewMode('editor');
+  };
+
 
   // Filtrado de materiales del backend: Metales vs Piedras
   const metalsFromBackend = useMemo(() => {
@@ -141,6 +185,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
   const [activeTab, setActiveTab] = useState<'calculator' | 'review'>('calculator');
   const [showFormulaExplanation, setShowFormulaExplanation] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // 1. Estado de Metal Base - Iniciando en 0
   const [selectedMetalId, setSelectedMetalId] = useState<string>('custom');
@@ -221,7 +266,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
         name: firstStone ? firstStone.name : 'Diamante Natural Brillante',
         quantity: 1,
         carats: firstStone ? firstStone.stock : 0.5,
-        pricingMode: 'unit',
+        pricingMode: 'carat',
         price: 0,
       },
     ]);
@@ -334,8 +379,8 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
       const sub = g.pricingMode === 'carat' ? Math.round(q * c * p) : Math.round(q * p);
       const desc =
         g.pricingMode === 'carat'
-          ? `${q}x ${g.name} (${c}ct c/u @ ${formatCurrency(p)}/ct)`
-          : `${q}x ${g.name} (${c > 0 ? `${c}ct c/u` : 'Gema'})`;
+          ? `${g.name} (${c}ct c/u @ ${formatCurrency(p)}/ct)`
+          : `${g.name} (${c > 0 ? `${c}ct c/u` : 'Gema'})`;
 
       list.push({
         description: desc,
@@ -389,15 +434,28 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
   const handleSaveDraft = async () => {
     setSuccessMessage(null);
     try {
-      const newQuote = await createQuoteMutation.mutateAsync({
-        clientId: selectedClientId,
-        items: compiledQuoteItems,
-        validUntil: new Date(Date.now() + validUntilDays * 24 * 60 * 60 * 1000).toISOString(),
-      });
-
-      setSuccessMessage(
-        `¡Cotización guardada como Borrador! Ref: #${newQuote.id.slice(0, 8).toUpperCase()}`
-      );
+      let savedQuote;
+      if (editingQuoteId) {
+        savedQuote = await updateQuoteMutation.mutateAsync({
+          id: editingQuoteId,
+          clientId: selectedClientId,
+          items: compiledQuoteItems,
+          validUntil: new Date(Date.now() + validUntilDays * 24 * 60 * 60 * 1000).toISOString(),
+        });
+        setSuccessMessage(
+          `¡Borrador #${savedQuote.id.slice(0, 8).toUpperCase()} corregido y actualizado!`
+        );
+      } else {
+        savedQuote = await createQuoteMutation.mutateAsync({
+          clientId: selectedClientId,
+          items: compiledQuoteItems,
+          validUntil: new Date(Date.now() + validUntilDays * 24 * 60 * 60 * 1000).toISOString(),
+        });
+        setSuccessMessage(
+          `¡Cotización guardada como Borrador! Ref: #${savedQuote.id.slice(0, 8).toUpperCase()}`
+        );
+      }
+      setEditingQuoteId(null);
       refetchQuotes();
     } catch (err: any) {
       console.error(err);
@@ -409,22 +467,53 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
   const handleSaveAndApprove = async () => {
     setSuccessMessage(null);
     try {
-      const newQuote = await createQuoteMutation.mutateAsync({
-        clientId: selectedClientId,
-        items: compiledQuoteItems,
-        validUntil: new Date(Date.now() + validUntilDays * 24 * 60 * 60 * 1000).toISOString(),
-      });
+      let targetQuoteId: string;
+      if (editingQuoteId) {
+        // Actualizar el borrador existente con las correcciones antes de aprobarlo
+        const updated = await updateQuoteMutation.mutateAsync({
+          id: editingQuoteId,
+          clientId: selectedClientId,
+          items: compiledQuoteItems,
+          validUntil: new Date(Date.now() + validUntilDays * 24 * 60 * 60 * 1000).toISOString(),
+        });
+        targetQuoteId = updated.id;
+      } else {
+        const newQuote = await createQuoteMutation.mutateAsync({
+          clientId: selectedClientId,
+          items: compiledQuoteItems,
+          validUntil: new Date(Date.now() + validUntilDays * 24 * 60 * 60 * 1000).toISOString(),
+        });
+        targetQuoteId = newQuote.id;
+      }
 
+      // Aprobar la cotización (cambia de BORRADOR a APROBADA y crea el pedido en taller)
       const approved = await approveQuoteMutation.mutateAsync({
-        id: newQuote.id,
+        id: targetQuoteId,
       });
 
+      setEditingQuoteId(null);
       setSuccessMessage(
         `¡Cotización aprobada y convertida en Pedido de Taller #${approved.order.id.slice(0, 8).toUpperCase()}!`
       );
       refetchQuotes();
 
-      if (onQuoteApproved) {
+      if (sketchUrl && approved.order?.id) {
+        try {
+          await addAttachmentMutation.mutateAsync({
+            orderId: approved.order.id,
+            file: {
+              fileName: sketchFileName || 'boceto_diseno.jpg',
+              fileUrl: sketchUrl,
+              fileType: 'BOCETO_REFERENCIA',
+              description: 'Boceto de diseño subido en cotización',
+            },
+          });
+        } catch (e) {
+          console.error('Error adjuntando boceto a la orden:', e);
+        }
+      }
+
+      if (onQuoteApproved && approved.order?.id) {
         onQuoteApproved(approved.order.id);
       }
     } catch (err: any) {
@@ -435,6 +524,39 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
 
   return (
     <div className="space-y-6">
+      
+      {/* Selector Principal de Vista: Crear vs Borradores */}
+      <div className="flex items-center space-x-3 border-b border-[#DDE3E0] pb-3">
+        <button
+          type="button"
+          onClick={() => setViewMode('editor')}
+          className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 ${
+            viewMode === 'editor'
+              ? 'bg-[#176B52] text-white shadow-sm'
+              : 'bg-white text-[#66736D] border border-[#DDE3E0] hover:bg-[#F4F6F8]'
+          }`}
+        >
+          <Plus className="w-4 h-4" />
+          <span>Editor de Cotización</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setViewMode('drafts')}
+          className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 ${
+            viewMode === 'drafts'
+              ? 'bg-[#176B52] text-white shadow-sm'
+              : 'bg-white text-[#66736D] border border-[#DDE3E0] hover:bg-[#F4F6F8]'
+          }`}
+        >
+          <FileText className="w-4 h-4" />
+          <span>Borradores & Cotizaciones Guardadas</span>
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/20 border border-white/30">
+            {quotes.filter((q) => q.status === 'BORRADOR').length} borradores
+          </span>
+        </button>
+      </div>
+
       {/* Encabezado */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -540,9 +662,207 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
         </div>
       )}
 
+      {errorMessage && (
+        <div className="p-4 bg-[#FDECEA] border border-[#f9c5c0] rounded-xl flex items-center justify-between text-xs text-[#B42318] animate-in fade-in">
+          <div className="flex items-center space-x-2">
+            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <span className="font-bold">{errorMessage}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setErrorMessage(null)}
+            className="text-[#B42318] hover:opacity-75 font-bold"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Formulario Principal de Configuración */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      {viewMode === 'drafts' ? (
+        <div className="space-y-4">
+          <div className="bg-white p-4 rounded-xl border border-[#DDE3E0] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center space-x-3 w-full sm:w-auto">
+              <div className="relative w-full sm:w-80">
+                <Search className="w-4 h-4 text-[#9CA9A3] absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Buscar por cliente o ID..."
+                  value={draftSearch}
+                  onChange={(e) => setDraftSearch(e.target.value)}
+                  className="w-full pl-9 pr-4 py-2 text-xs bg-[#F4F6F8] border border-[#DDE3E0] rounded-lg text-[#17201D] placeholder:text-[#9CA9A3] focus:outline-none focus:border-[#176B52]"
+                />
+              </div>
+
+              <div className="flex items-center space-x-1.5 bg-[#F4F6F8] p-1 rounded-lg border border-[#DDE3E0]">
+                <button
+                  type="button"
+                  onClick={() => setDraftStatusFilter('ALL')}
+                  className={`px-2.5 py-1 text-xs font-bold rounded-md transition ${
+                    draftStatusFilter === 'ALL' ? 'bg-white shadow-2xs text-[#17201D]' : 'text-[#66736D]'
+                  }`}
+                >
+                  Todas ({quotes.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDraftStatusFilter('BORRADOR')}
+                  className={`px-2.5 py-1 text-xs font-bold rounded-md transition ${
+                    draftStatusFilter === 'BORRADOR' ? 'bg-white shadow-2xs text-[#A57525]' : 'text-[#66736D]'
+                  }`}
+                >
+                  Borradores ({quotes.filter((q) => q.status === 'BORRADOR').length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDraftStatusFilter('APROBADA')}
+                  className={`px-2.5 py-1 text-xs font-bold rounded-md transition ${
+                    draftStatusFilter === 'APROBADA' ? 'bg-white shadow-2xs text-[#17734B]' : 'text-[#66736D]'
+                  }`}
+                >
+                  Aprobadas ({quotes.filter((q) => q.status === 'APROBADA').length})
+                </button>
+              </div>
+            </div>
+
+            <Button size="sm" variant="primary" onClick={() => setViewMode('editor')}>
+              <Plus className="w-4 h-4 mr-1.5" />
+              Nueva Cotización
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {quotes
+              .filter((q) => {
+                const matchesStatus = draftStatusFilter === 'ALL' || q.status === draftStatusFilter;
+                const matchesSearch =
+                  (q.client?.fullName || '').toLowerCase().includes(draftSearch.toLowerCase()) ||
+                  q.id.toLowerCase().includes(draftSearch.toLowerCase());
+                return matchesStatus && matchesSearch;
+              })
+              .map((q) => {
+                const isDraft = q.status === 'BORRADOR';
+                return (
+                  <div
+                    key={q.id}
+                    className="bg-white border border-[#DDE3E0] rounded-xl p-4 shadow-xs flex flex-col justify-between hover:border-[#176B52] transition space-y-3"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] font-mono font-bold text-[#A57525] uppercase tracking-wider">
+                          #{q.id.slice(0, 8).toUpperCase()}
+                        </span>
+                        <Badge variant={isDraft ? 'gold' : 'success'} size="sm">
+                          {q.status}
+                        </Badge>
+                      </div>
+
+                      <h4 className="text-sm font-bold text-[#17201D] line-clamp-1">
+                        {q.client?.fullName || 'Cliente Alkisu'}
+                      </h4>
+                      <p className="text-xs text-[#66736D] mt-0.5">
+                        {q.client?.phone} {q.client?.documentId ? `• CC: ${q.client.documentId}` : ''}
+                      </p>
+
+                      <div className="mt-3 p-2.5 rounded-lg bg-[#F4F6F8] text-xs space-y-1">
+                        <div className="flex justify-between font-bold text-[#17201D]">
+                          <span>Total Estimado:</span>
+                          <span className="font-mono text-[#176B52]">{formatCurrency(q.totalAmount)}</span>
+                        </div>
+                        <p className="text-[10px] text-[#66736D] line-clamp-2">
+                          {q.items?.map((it) => it.description).join(' | ') || 'Sin desglose detallado'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-[#DDE3E0] flex items-center justify-end space-x-2">
+                      {isDraft ? (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={async () => {
+                              if (confirm(`¿Eliminar el borrador #${q.id.slice(0, 8).toUpperCase()}?`)) {
+                                try {
+                                  if (editingQuoteId === q.id) {
+                                    setEditingQuoteId(null);
+                                  }
+                                  await deleteQuoteMutation.mutateAsync(q.id);
+                                  setSuccessMessage(`Borrador #${q.id.slice(0, 8).toUpperCase()} eliminado correctamente.`);
+                                } catch (err: any) {
+                                  setErrorMessage('Error al eliminar: ' + (err.message || 'Error'));
+                                }
+                              }
+                            }}
+                            title="Eliminar borrador"
+                            className="text-[#B42318] hover:bg-[#FDECEA]"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleLoadDraft(q)}
+                            title="Cargar esta cotización en el cotizador para modificarla"
+                          >
+                            <Edit3 className="w-3.5 h-3.5 mr-1" />
+                            Corregir
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="gold"
+                            onClick={async () => {
+                              try {
+                                const approved = await approveQuoteMutation.mutateAsync({ id: q.id });
+                                setSuccessMessage(`¡Cotización aprobada y convertida en Pedido #${approved.order.id.slice(0, 8).toUpperCase()}!`);
+                                refetchQuotes();
+                                if (onQuoteApproved) onQuoteApproved(approved.order.id);
+                              } catch (err: any) {
+                                alert('Error al aprobar: ' + (err.message || 'Error de servidor'));
+                              }
+                            }}
+                            isLoading={approveQuoteMutation.isPending}
+                          >
+                            <CheckCircle className="w-3.5 h-3.5 mr-1" />
+                            Aprobar
+                          </Button>
+                        </>
+                      ) : (
+                        <span className="text-[11px] font-bold text-[#17734B] flex items-center space-x-1">
+                          <CheckCircle className="w-3.5 h-3.5" />
+                          <span>Pedido Creado en Taller</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      ) : (
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
+          {editingQuoteId && (
+            <div className="p-3.5 bg-[#FAF1DA] border border-[#eedab1] rounded-xl flex items-center justify-between text-xs text-[#A57525] animate-in fade-in">
+              <div>
+                <span className="font-bold">Modo de corrección activo:</span> Estás editando el borrador{' '}
+                <strong className="font-mono">#{editingQuoteId.slice(0, 8).toUpperCase()}</strong>. Al guardar o aprobar se actualizará este mismo borrador sin duplicados.
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingQuoteId(null);
+                  setPieceTitle('Anillo Solitario Clásico');
+                  setSuccessMessage(null);
+                }}
+                className="underline hover:text-[#17201D] font-bold ml-3 flex-shrink-0"
+              >
+                Cancelar y crear nueva
+              </button>
+            </div>
+          )}
           {/* Tarjeta de Datos Iniciales (Cliente, Nombre de la Joya y Pestañas) */}
           <div className="bg-white rounded-xl border border-[#DDE3E0] p-5 shadow-xs space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -658,6 +978,89 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                   <option value={30}>30 días de vigencia</option>
                 </select>
               </div>
+            </div>
+
+            {/* Boceto o Diseño de Referencia de la Joya */}
+            <div className="pt-2 border-t border-[#EEF1F0]">
+              <input
+                ref={sketchFileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleSketchSelected}
+                className="hidden"
+              />
+
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#17201D] mb-2 flex items-center justify-between">
+                <span className="flex items-center space-x-1.5">
+                  <ImageIcon className="w-4 h-4 text-[#A57525]" />
+                  <span>Boceto / Diseño de Referencia para Taller</span>
+                </span>
+                {sketchUrl && (
+                  <span className="text-[10px] font-bold text-[#17734B] bg-[#E6F5ED] px-2 py-0.5 rounded-full">
+                    ✓ Boceto cargado
+                  </span>
+                )}
+              </label>
+
+              {!sketchUrl ? (
+                <button
+                  type="button"
+                  onClick={() => sketchFileInputRef.current?.click()}
+                  className="w-full py-4 px-4 border-2 border-dashed border-[#DDE3E0] hover:border-[#176B52] bg-[#F4F6F8]/60 hover:bg-[#E5F4EE]/30 rounded-xl transition text-center flex flex-col items-center justify-center cursor-pointer group"
+                >
+                  <div className="w-10 h-10 rounded-full bg-white shadow-2xs flex items-center justify-center text-[#176B52] mb-2 group-hover:scale-105 transition">
+                    <Upload className="w-5 h-5 text-[#176B52]" />
+                  </div>
+                  <span className="text-xs font-bold text-[#17201D] group-hover:text-[#176B52]">
+                    Agregar Boceto / Imagen de Referencia
+                  </span>
+                  <span className="text-[11px] text-[#66736D] mt-0.5">
+                    JPG, PNG o WEBP (se adjuntará automáticamente a la orden al ser aprobada)
+                  </span>
+                </button>
+              ) : (
+                <div className="flex items-center justify-between p-3 bg-[#FAF1DA]/40 border border-[#eedab1] rounded-xl">
+                  <div className="flex items-center space-x-3">
+                    <img
+                      src={sketchUrl}
+                      alt="Boceto cotización"
+                      className="w-14 h-14 object-cover rounded-lg border border-[#eedab1] shadow-2xs"
+                    />
+                    <div>
+                      <p className="text-xs font-bold text-[#17201D] line-clamp-1">
+                        {sketchFileName || 'Boceto de diseño'}
+                      </p>
+                      <p className="text-[10px] text-[#66736D]">
+                        Listo para vincular a la orden de fabricación
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => sketchFileInputRef.current?.click()}
+                    >
+                      <Upload className="w-3.5 h-3.5 mr-1" />
+                      Cambiar
+                    </Button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSketchUrl(null);
+                        setSketchFileName('');
+                        if (sketchFileInputRef.current) sketchFileInputRef.current.value = '';
+                      }}
+                      className="p-1.5 text-[#B42318] hover:bg-[#FDECEA] rounded-lg transition"
+                      title="Eliminar boceto"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Selector de Pestañas: Calculadora vs Líneas Compiladas */}
@@ -979,21 +1382,22 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                           <div className="w-full md:w-3/12">
                             <div className="flex items-center justify-between mb-1">
                               <label className="text-[10px] font-bold uppercase tracking-wider text-[#66736D]">
-                                Precio ({gem.pricingMode === 'unit' ? '$/Piedra' : '$/ct'})
+                                Modo & Precio
                               </label>
-                              <button
-                                type="button"
-                                onClick={() =>
+                              <select
+                                value={gem.pricingMode}
+                                onChange={(e) =>
                                   handleUpdateGem(
                                     gem.id,
                                     'pricingMode',
-                                    gem.pricingMode === 'unit' ? 'carat' : 'unit'
+                                    e.target.value as 'unit' | 'carat'
                                   )
                                 }
-                                className="text-[10px] text-[#2457A6] hover:underline font-semibold"
+                                className="text-[10px] font-bold text-[#176B52] bg-[#E5F4EE] border border-[#c1e7d4] rounded px-1.5 py-0.5 cursor-pointer focus:outline-none"
                               >
-                                {gem.pricingMode === 'unit' ? 'A $/ct' : 'A $/Ud'}
-                              </button>
+                                <option value="carat">$/Quilate (ct)</option>
+                                <option value="unit">$/Piedra fija</option>
+                              </select>
                             </div>
                             <input
                               type="number"
@@ -1002,11 +1406,20 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                               onChange={(e) =>
                                 handleUpdateGem(gem.id, 'price', Number(e.target.value) || 0)
                               }
+                              placeholder={gem.pricingMode === 'carat' ? 'Precio por quilate' : 'Precio fijo'}
                               className="w-full px-2.5 py-1.5 text-xs font-mono text-right border border-[#DDE3E0] rounded-lg bg-white font-bold"
                             />
-                            <span className="text-[9px] font-mono text-[#66736D] block text-right mt-0.5">
-                              {formatCurrency(gem.price)}
-                            </span>
+                            <div className="text-[9px] font-mono text-right mt-0.5">
+                              {gem.pricingMode === 'carat' ? (
+                                <span className="text-[#176B52] font-semibold block">
+                                  {gem.quantity} u × {gem.carats} ct × {formatCurrency(gem.price)}/ct = {formatCurrency(itemSubtotal)}
+                                </span>
+                              ) : (
+                                <span className="text-[#66736D] block">
+                                  {gem.quantity} u × {formatCurrency(gem.price)} = {formatCurrency(itemSubtotal)}
+                                </span>
+                              )}
+                            </div>
                           </div>
 
                           {/* Subtotal y Botón Eliminar */}
@@ -1360,6 +1773,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };
