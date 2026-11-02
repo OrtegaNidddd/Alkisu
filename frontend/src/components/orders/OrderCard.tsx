@@ -12,7 +12,7 @@ interface OrderCardProps {
 
 export const OrderCard: React.FC<OrderCardProps> = ({ order, onClick, onAdvanceStatus }) => {
   const sla = getDeliverySLA(order.estimatedDelivery);
-  const primaryAttachment = order.attachments?.[0];
+  const primaryAttachment = order.attachments?.find((a) => a.fileType === 'BOCETO_REFERENCIA') || order.attachments?.[0];
   const hasPendingBalance = (order.saldoPendiente ?? 0) > 0;
 
   return (

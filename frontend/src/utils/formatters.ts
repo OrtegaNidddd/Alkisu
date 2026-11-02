@@ -61,6 +61,13 @@ export function getDeliverySLA(deliveryDateStr: string | Date | null | undefined
   const now = new Date();
   now.setHours(0, 0, 0, 0);
   const target = new Date(deliveryDateStr);
+  if (isNaN(target.getTime())) {
+    return {
+      status: 'none',
+      label: 'Sin entrega pactada',
+      badgeClass: 'bg-surface-gray text-text-muted border-surface-border',
+    };
+  }
   target.setHours(0, 0, 0, 0);
 
   const diffTime = target.getTime() - now.getTime();
