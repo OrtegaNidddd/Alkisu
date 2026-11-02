@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { Role, User } from '../types';
 
 export const REAL_ROLE_TOKENS: Record<Role, string> = {
@@ -28,6 +28,29 @@ export const DB_USERS: Record<Role, User> = {
   },
 };
 
+export function isTokenExpired(token: string | null | undefined): boolean {
+  if (!token) return true;
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) return false;
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    const parsed = JSON.parse(jsonPayload);
+    if (parsed.exp && typeof parsed.exp === 'number') {
+      return Date.now() >= parsed.exp * 1000;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 interface AuthContextType {
   user: User | null;
   role: Role;
@@ -43,20 +66,60 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    const savedToken = localStorage.getItem('alkisu_token');
+    if (!savedToken || isTokenExpired(savedToken)) {
+      localStorage.removeItem('alkisu_user');
+      localStorage.removeItem('alkisu_token');
+      return null;
+    }
     const saved = localStorage.getItem('alkisu_user');
     if (saved) {
       try {
         return JSON.parse(saved);
       } catch {
-        // Fallback
+        return null;
       }
     }
     return null;
   });
 
   const [token, setToken] = useState<string>(() => {
-    return localStorage.getItem('alkisu_token') || '';
+    const saved = localStorage.getItem('alkisu_token') || '';
+    if (isTokenExpired(saved)) {
+      localStorage.removeItem('alkisu_token');
+      return '';
+    }
+    return saved;
   });
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('alkisu_user');
+    localStorage.removeItem('alkisu_token');
+    setCurrentUser(null);
+    setToken('');
+  }, []);
+
+  // Escuchar eventos globales de token expirado o 401
+  useEffect(() => {
+    const handleExpired = () => {
+      logout();
+    };
+
+    window.addEventListener('alkisu:auth_expired', handleExpired);
+
+    // Verificación de expiración periódica cada 15 segundos
+    const timer = setInterval(() => {
+      const current = localStorage.getItem('alkisu_token');
+      if (current && isTokenExpired(current)) {
+        logout();
+      }
+    }, 15000);
+
+    return () => {
+      window.removeEventListener('alkisu:auth_expired', handleExpired);
+      clearInterval(timer);
+    };
+  }, [logout]);
 
   const login = async (email: string, password: string) => {
     const API_BASE = '/api';
@@ -125,13 +188,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('alkisu_user');
-    localStorage.removeItem('alkisu_token');
-    setCurrentUser(null);
-    setToken('');
-  };
-
   const switchRole = (newRole: Role) => {
     const user = DB_USERS[newRole];
     setCurrentUser(user);
@@ -141,6 +197,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const activeRole: Role = currentUser ? currentUser.role : 'ADMIN';
+  const validSession = !!currentUser && !!token && !isTokenExpired(token);
 
   return (
     <AuthContext.Provider
@@ -151,7 +208,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         register,
         logout,
         switchRole,
-        isAuthenticated: !!currentUser,
+        isAuthenticated: validSession,
         activeToken: token || (currentUser ? REAL_ROLE_TOKENS[currentUser.role] : ''),
       }}
     >

@@ -140,7 +140,7 @@ export const AuthView: React.FC = () => {
 
         {/* Footer Info */}
         <div className="text-center mt-6 text-[11px] text-[#66736D]">
-          Alkisu ERP v2.4 • Conexión de Balanza Técnica RS-232 / USB Calibrada
+          Alkisu ERP v2.4 • Gestión Integral de Alta Joyería
         </div>
       </div>
     </div>
