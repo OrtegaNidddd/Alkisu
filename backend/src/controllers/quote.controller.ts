@@ -56,3 +56,25 @@ export const handleApproveQuote = async (req: AuthenticatedRequest, res: Respons
     res.status(400).json({ error: error.message });
   }
 };
+export const handleUpdateQuote = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { clientId, validUntil, items } = req.body;
+    const quote = await quoteService.updateQuote(req.params.id, {
+      clientId,
+      validUntil: validUntil ? new Date(validUntil) : undefined,
+      items,
+    });
+    res.json(quote);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message || 'Error al actualizar cotización' });
+  }
+};
+
+export const handleDeleteQuote = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    await quoteService.deleteQuote(req.params.id);
+    res.json({ message: 'Cotización borrador eliminada exitosamente' });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message || 'Error al eliminar cotización' });
+  }
+};

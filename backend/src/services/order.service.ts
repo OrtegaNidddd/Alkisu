@@ -81,9 +81,17 @@ export const getOrderById = async (id: string) => {
     include: {
       client: true,
       artisan: { select: { id: true, fullName: true } },
-      payments: { orderBy: { createdAt: 'desc' } },
-      statusHistory: { orderBy: { createdAt: 'desc' } },
+      payments: {
+        include: { registeredBy: { select: { id: true, fullName: true } } },
+        orderBy: { createdAt: 'desc' },
+      },
+      statusHistory: {
+        include: { user: { select: { id: true, fullName: true } } },
+        orderBy: { createdAt: 'desc' },
+      },
       materialsUsed: { include: { material: true } },
+      attachments: { orderBy: { createdAt: 'desc' } },
+      quote: { include: { items: true } },
     },
   });
 
@@ -97,6 +105,22 @@ export const getOrderById = async (id: string) => {
 
   return {
     ...order,
+    totalPactado: Number(order.totalPactado),
+    totalAbonado,
+    saldoPendiente: balance,
+    payments: order.payments.map((p) => ({
+      ...p,
+      amount: Number(p.amount),
+      createdAt: p.createdAt.toISOString(),
+    })),
+    statusHistory: order.statusHistory.map((s) => ({
+      ...s,
+      createdAt: s.createdAt.toISOString(),
+    })),
+    materialsUsed: order.materialsUsed.map((m) => ({
+      ...m,
+      quantity: Number(m.quantity),
+    })),
     financialSummary: {
       totalPactado: Number(order.totalPactado),
       totalAbonado,
@@ -163,6 +187,44 @@ export const updateOrderStatus = async (data: {
   ]);
 };
 
+// 5. Asignar o reasignar joyero a un pedido
+export const assignArtisan = async (orderId: string, artisanId: string, userId: string) => {
+  const order = await prisma.order.findUnique({
+    where: { id: orderId },
+  });
+  if (!order) throw new Error('Pedido no encontrado');
+
+  const artisan = await prisma.user.findUnique({
+    where: { id: artisanId },
+  });
+  if (!artisan) throw new Error('Joyero no encontrado');
+
+  return await prisma.$transaction(async (tx) => {
+    const updated = await tx.order.update({
+      where: { id: orderId },
+      data: { artisanId },
+      include: {
+        client: true,
+        artisan: { select: { id: true, fullName: true, email: true } },
+        materialsUsed: { include: { material: true } },
+        attachments: true,
+      },
+    });
+
+    await tx.orderStatusHistory.create({
+      data: {
+        orderId,
+        userId,
+        fromStatus: order.status,
+        toStatus: order.status,
+        note: `Joyero asignado: ${artisan.fullName}`,
+      },
+    });
+
+    return updated;
+  });
+};
+
 
 
 // 6. Obtener lista de materiales consumidos en un pedido
@@ -193,7 +255,7 @@ export interface OrderFilterParams {
 
 export const getOrders = async (filters: OrderFilterParams = {}) => {
   const page = Math.max(Number(filters.page) || 1, 1);
-  const limit = Math.min(Math.max(Number(filters.limit) || 10, 1), 50);
+  const limit = Math.min(Math.max(Number(filters.limit) || 100, 1), 200);
   const skip = (page - 1) * limit;
 
   const whereClause: any = {};
@@ -220,6 +282,8 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
           orderBy: { createdAt: 'desc' },
         },
         materialsUsed: { include: { material: true } },
+        attachments: { orderBy: { createdAt: 'desc' } },
+        quote: { include: { items: true } },
         _count: { select: { materialsUsed: true } },
       },
       orderBy: { createdAt: 'desc' },
@@ -257,6 +321,8 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
         amount: Number(p.amount),
       })),
       statusHistory: order.statusHistory,
+      attachments: order.attachments || [],
+      quote: order.quote || null,
     };
   });
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { handleCreateOrder, handleGetOrders, handleGetOrder, handleAddPayment, handleUpdateStatus, handleGetOrderMaterials, handleCancelOrder, handleRegisterMetalReturn, } from '../controllers/order.controller.js';
+import { handleCreateOrder, handleGetOrders, handleGetOrder, handleAddPayment, handleUpdateStatus, handleGetOrderMaterials, handleCancelOrder, handleRegisterMetalReturn, handleAssignArtisan, } from '../controllers/order.controller.js';
 import { handleAddAttachment, handleGetAttachments, } from '../controllers/attachment.controller.js';
 import { handleConsumeMaterial } from '../controllers/material.controller.js';
 import { authenticateToken, authorizeRoles } from '../middlewares/auth.middleware.js';
@@ -18,10 +18,11 @@ router.get('/', handleGetOrders);
 router.get('/:id', handleGetOrder);
 // Materiales utilizados y liquidación de metal/merma en el pedido
 router.get('/:id/materials', handleGetOrderMaterials);
-router.post('/:id/materials', authorizeRoles(Role.ADMIN, Role.JOYERO), handleConsumeMaterial);
+router.post('/:id/materials', authorizeRoles(Role.ADMIN, Role.ASESOR, Role.JOYERO), handleConsumeMaterial);
 router.post('/:id/metal-return', authorizeRoles(Role.ADMIN, Role.JOYERO), validate(metalReturnSchema), handleRegisterMetalReturn);
 // Avance de estados: Joyero (fabricación/calidad), Asesor y Admin
 router.patch('/:id/status', handleUpdateStatus);
+router.patch('/:id/artisan', authorizeRoles(Role.ADMIN, Role.ASESOR), handleAssignArtisan);
 // Adjuntos del pedido
 router.post('/:id/attachments', authorizeRoles(Role.ADMIN, Role.ASESOR, Role.JOYERO), handleAddAttachment);
 router.get('/:id/attachments', handleGetAttachments);

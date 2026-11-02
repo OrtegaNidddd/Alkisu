@@ -8,6 +8,7 @@ import {
   handleGetOrderMaterials,
   handleCancelOrder,
   handleRegisterMetalReturn,
+  handleAssignArtisan,
 } from '../controllers/order.controller.js';
 import {
   handleAddAttachment,
@@ -51,7 +52,7 @@ router.get('/:id', handleGetOrder);
 router.get('/:id/materials', handleGetOrderMaterials);
 router.post(
   '/:id/materials',
-  authorizeRoles(Role.ADMIN, Role.JOYERO),
+  authorizeRoles(Role.ADMIN, Role.ASESOR, Role.JOYERO),
   handleConsumeMaterial
 );
 router.post(
@@ -63,6 +64,7 @@ router.post(
 
 // Avance de estados: Joyero (fabricación/calidad), Asesor y Admin
 router.patch('/:id/status', handleUpdateStatus);
+router.patch('/:id/artisan', authorizeRoles(Role.ADMIN, Role.ASESOR), handleAssignArtisan);
 
 // Adjuntos del pedido
 router.post('/:id/attachments', authorizeRoles(Role.ADMIN, Role.ASESOR, Role.JOYERO), handleAddAttachment);

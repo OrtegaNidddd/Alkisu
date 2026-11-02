@@ -100,3 +100,66 @@ export const approveQuoteAndConvertToOrder = async (quoteId: string, userId: str
     return order;
   });
 };
+export const updateQuote = async (
+  id: string,
+  data: {
+    clientId?: string;
+    items?: { description: string; quantity: number; unitPrice: number }[];
+    validUntil?: Date;
+  }
+) => {
+  const existing = await prisma.quote.findUnique({
+    where: { id },
+    include: { items: true },
+  });
+  if (!existing) throw new Error('Cotización no encontrada');
+  if (existing.status === QuoteStatus.APROBADA) {
+    throw new Error('No se puede modificar una cotización ya aprobada');
+  }
+
+  return await prisma.$transaction(async (tx) => {
+    if (data.items) {
+      await tx.quoteItem.deleteMany({ where: { quoteId: id } });
+      const totalAmount = data.items.reduce(
+        (acc, item) => acc + item.quantity * item.unitPrice,
+        0
+      );
+
+      return await tx.quote.update({
+        where: { id },
+        data: {
+          clientId: data.clientId || existing.clientId,
+          totalAmount,
+          validUntil: data.validUntil,
+          items: {
+            create: data.items.map((item) => ({
+              description: item.description,
+              quantity: item.quantity,
+              unitPrice: item.unitPrice,
+              subtotal: item.quantity * item.unitPrice,
+            })),
+          },
+        },
+        include: { items: true, client: true },
+      });
+    }
+
+    return await tx.quote.update({
+      where: { id },
+      data: {
+        clientId: data.clientId,
+        validUntil: data.validUntil,
+      },
+      include: { items: true, client: true },
+    });
+  });
+};
+
+export const deleteQuote = async (id: string) => {
+  const quote = await prisma.quote.findUnique({ where: { id } });
+  if (!quote) throw new Error('Cotización no encontrada');
+  if (quote.status === QuoteStatus.APROBADA) {
+    throw new Error('No se puede eliminar una cotización aprobada');
+  }
+  return await prisma.quote.delete({ where: { id } });
+};

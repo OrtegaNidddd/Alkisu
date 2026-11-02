@@ -82,18 +82,19 @@ export const handleAddPayment = async (req: AuthenticatedRequest, res: Response)
 
 export const handleUpdateStatus = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { status, note, artisanId } = req.body;
-    if (!status) return res.status(400).json({ error: 'El estado es obligatorio' });
+    const { status, note, artisanId, newStatus } = req.body;
+    const targetStatus = status || newStatus;
+    if (!targetStatus) return res.status(400).json({ error: 'El estado es obligatorio' });
 
     await orderService.updateOrderStatus({
       orderId: req.params.id,
       userId: req.user!.id,
-      newStatus: status,
+      newStatus: targetStatus,
       note,
       artisanId,
     });
 
-    res.json({ message: `Estado actualizado a ${status}` });
+    res.json({ message: `Estado actualizado a ${targetStatus}` });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -161,6 +162,18 @@ export const handleRegisterMetalReturn = async (req: AuthenticatedRequest, res: 
       message: 'Liquidación de metal y merma procesada exitosamente',
       ...result,
     });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const handleAssignArtisan = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { artisanId } = req.body;
+    if (!artisanId) return res.status(400).json({ error: 'ID de joyero requerido' });
+
+    const order = await orderService.assignArtisan(req.params.id, artisanId, req.user!.id);
+    res.json({ message: 'Joyero asignado correctamente', order });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
