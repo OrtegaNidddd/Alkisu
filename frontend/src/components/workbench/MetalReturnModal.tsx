@@ -3,7 +3,7 @@ import { Order, Material } from '../../types';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 import { formatGrams } from '../../utils/formatters';
-import { Scale, AlertTriangle, CheckCircle, ShieldCheck, Info } from 'lucide-react';
+import { Scale, AlertTriangle, CheckCircle, ShieldCheck, Info, Gem } from 'lucide-react';
 import { useRegisterMetalReturn } from '../../api/hooks';
 
 interface MetalReturnModalProps {
@@ -29,16 +29,31 @@ export const MetalReturnModal: React.FC<MetalReturnModalProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successResult, setSuccessResult] = useState<any | null>(null);
 
-  // Material seleccionado y cantidad entregada
-  const activeMaterialUsed = useMemo(() => {
-    if (!order?.materialsUsed || order.materialsUsed.length === 0) return null;
-    if (selectedMaterialId) {
-      return order.materialsUsed.find((m) => m.materialId === selectedMaterialId) || order.materialsUsed[0];
-    }
-    return order.materialsUsed[0];
-  }, [order, selectedMaterialId]);
+  // Filtrar estrictamente metales nobles vs gemas/piedras
+  const metalMaterials = useMemo(() => {
+    if (!order?.materialsUsed) return [];
+    return order.materialsUsed.filter(
+      (m) => m.material?.unit === 'GRAMOS' || (m.material?.type && m.material.type !== 'PIEDRA_PRECIOSA')
+    );
+  }, [order?.materialsUsed]);
 
-  const metalEntregado = activeMaterialUsed ? Number(activeMaterialUsed.quantity) : 11.5;
+  const gemMaterials = useMemo(() => {
+    if (!order?.materialsUsed) return [];
+    return order.materialsUsed.filter(
+      (m) => m.material?.unit === 'KILATES' || m.material?.type === 'PIEDRA_PRECIOSA'
+    );
+  }, [order?.materialsUsed]);
+
+  // Material noble seleccionado para el cierre de balanza
+  const activeMaterialUsed = useMemo(() => {
+    if (metalMaterials.length === 0) return null;
+    if (selectedMaterialId) {
+      return metalMaterials.find((m) => m.materialId === selectedMaterialId) || metalMaterials[0];
+    }
+    return metalMaterials[0];
+  }, [metalMaterials, selectedMaterialId]);
+
+  const metalEntregado = activeMaterialUsed ? Number(activeMaterialUsed.quantity) : 0;
 
   // Cálculo en vivo en pantalla: Merma = Entregado - (Joya + Limalla)
   const calculation = useMemo(() => {
@@ -194,23 +209,53 @@ export const MetalReturnModal: React.FC<MetalReturnModalProps> = ({
             </div>
           )}
 
-          {/* Tarjeta de metal entregado */}
-          <div className="p-4 rounded-xl bg-[#F4F6F8] border border-[#DDE3E0] flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#66736D] block">
-                Materia Prima Asignada
-              </span>
-              <p className="text-sm font-bold text-[#17201D] mt-0.5">
-                {activeMaterialUsed?.material?.name || 'Oro 18k'}
-              </p>
+          {/* Alerta de gemas separadas si existen */}
+          {gemMaterials.length > 0 && (
+            <div className="p-3.5 bg-[#EAF1FC] border border-[#b8d0f7] rounded-xl text-xs text-[#2457A6] flex items-start space-x-2.5">
+              <Gem className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold">Gemas / Piedras Despachadas ({gemMaterials.length}):</p>
+                <p className="text-[11px] mt-0.5 text-[#3b6db3]">
+                  {gemMaterials.map((g) => `${g.quantity} ${g.material?.unit || 'ct'} de ${g.material?.name || 'Gema'}`).join(', ')}.
+                  <strong className="block mt-0.5 text-[#2457A6]">Nota técnica: Las piedras no entran en fundición ni se computan en la merma metalúrgica de balanza.</strong>
+                </p>
+              </div>
             </div>
-            <div className="text-right">
-              <span className="text-[10px] text-[#66736D] uppercase font-bold block">
-                Total Entregado
-              </span>
-              <span className="font-mono text-xl font-bold text-[#17201D]">
-                {formatGrams(metalEntregado)}
-              </span>
+          )}
+
+          {/* Tarjeta de metal noble entregado */}
+          <div className="p-4 rounded-xl bg-[#F4F6F8] border border-[#DDE3E0] space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#66736D] block">
+                  Metal Noble Asignado para Cierre
+                </span>
+                {metalMaterials.length > 1 ? (
+                  <select
+                    value={selectedMaterialId || activeMaterialUsed?.materialId || ''}
+                    onChange={(e) => setSelectedMaterialId(e.target.value)}
+                    className="mt-1 text-xs font-bold text-[#17201D] bg-white border border-[#DDE3E0] rounded-lg px-2 py-1"
+                  >
+                    {metalMaterials.map((m) => (
+                      <option key={m.materialId} value={m.materialId}>
+                        {m.material?.name || 'Metal'} ({m.quantity} g)
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <p className="text-sm font-bold text-[#17201D] mt-0.5">
+                    {activeMaterialUsed?.material?.name || (metalMaterials.length === 0 ? 'Sin metal despachado' : 'Oro 18k')}
+                  </p>
+                )}
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] text-[#66736D] uppercase font-bold block">
+                  Metal Entregado (Gramos)
+                </span>
+                <span className="font-mono text-xl font-bold text-[#17201D]">
+                  {formatGrams(metalEntregado)}
+                </span>
+              </div>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useOrders, useMaterials } from '../../api/hooks';
+import { useAuth } from '../../hooks/useAuth';
 import { formatGrams, formatDate, getDeliverySLA } from '../../utils/formatters';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
@@ -26,12 +27,16 @@ export const WorkshopDashboard: React.FC<WorkshopDashboardProps> = ({
   onNavigateToTab,
   onSelectOrder,
 }) => {
+  const { user, role } = useAuth();
   const { data: orders = [] } = useOrders();
   const { data: materials = [] } = useMaterials();
 
   // Órdenes en etapa de fabricación o en banco
-  const activeOrders = orders.filter((o) => o.status === 'FABRICACION' || o.status === 'CREADO');
-  const qualityOrders = orders.filter((o) => o.status === 'CALIDAD');
+  // Solo piezas que están formalmente en mesa (FABRICACION) y asignadas a este joyero (o todas si es admin)
+  const activeOrders = orders.filter(
+    (o) => o.status === 'FABRICACION' && (role === 'ADMIN' || o.artisanId === user?.id)
+  );
+  const qualityOrders = orders.filter((o) => o.status === 'CALIDAD' && (role === 'ADMIN' || o.artisanId === user?.id));
 
   // Metales asignados en custodia en las órdenes activas
   const metalEnCustodiaGramos = activeOrders.reduce(
@@ -260,33 +265,8 @@ export const WorkshopDashboard: React.FC<WorkshopDashboardProps> = ({
           </div>
         </div>
 
-        {/* Columna Derecha: Estado de Balanza & Materiales */}
+        {/* Columna Derecha: Materiales & Bodega */}
         <div className="space-y-6">
-          {/* Card de Balanza Técnica */}
-          <div className="bg-[#17211D] text-[#EDF5F2] rounded-xl border border-[#2D3F38] p-5 shadow-2xs">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-2">
-                <Scale className="w-5 h-5 text-[#A57525]" />
-                <span className="font-serif text-sm font-bold text-white uppercase tracking-wider">
-                  Balanza Técnica USB
-                </span>
-              </div>
-              <span className="flex items-center space-x-1 text-[10px] font-bold text-[#17734B] bg-[#E6F5ED] px-2 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#17734B] animate-pulse" />
-                <span>ONLINE</span>
-              </span>
-            </div>
-
-            <p className="text-xs text-[#9CA9A3] leading-relaxed mb-4">
-              Dispositivo digital de precisión milimétrica (0.001 g). Conexión en vivo con el módulo de liquidación de metal de Alkisu.
-            </p>
-
-            <div className="bg-[#22332C] p-3 rounded-lg border border-[#3E564C] flex items-center justify-between font-mono">
-              <span className="text-xs text-[#9CA9A3]">Último Calibrado:</span>
-              <span className="text-xs text-[#EDF5F2] font-bold">Hoy, 08:00 AM</span>
-            </div>
-          </div>
-
           {/* Resumen de Stock en Bodega de Metales */}
           <div className="bg-white rounded-xl border border-[#DDE3E0] p-5 shadow-2xs">
             <div className="flex items-center justify-between mb-4">

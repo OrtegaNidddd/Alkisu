@@ -245,9 +245,14 @@ export const PaymentsView: React.FC<PaymentsViewProps> = ({ onSelectOrder }) => 
                   </td>
                   <td className="py-3 px-4 text-center whitespace-nowrap">
                     <button
-                      onClick={() => onSelectOrder(pay.order)}
+                      onClick={() => {
+                        const targetOrder = orders.find((o) => o.id === pay.order?.id) || pay.order;
+                        if (targetOrder) {
+                          onSelectOrder(targetOrder);
+                        }
+                      }}
                       className="p-1.5 text-[#176B52] hover:bg-[#E5F4EE] rounded-lg transition"
-                      title="Ver orden"
+                      title="Ver ficha técnica de orden"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </button>

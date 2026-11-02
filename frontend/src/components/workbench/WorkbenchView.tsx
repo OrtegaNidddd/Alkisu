@@ -17,6 +17,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { useUpdateOrderStatus } from '../../api/hooks';
+import { useAuth } from '../../hooks/useAuth';
 
 interface WorkbenchViewProps {
   orders: Order[];
@@ -30,11 +31,12 @@ export const WorkbenchView: React.FC<WorkbenchViewProps> = ({
   const [selectedOrderForMetal, setSelectedOrderForMetal] = useState<Order | null>(null);
   const [activeLightboxImage, setActiveLightboxImage] = useState<OrderAttachment | null>(null);
 
+  const { user, role } = useAuth();
   const updateStatusMutation = useUpdateOrderStatus();
 
   // Piezas asignadas activas (en fabricación o calidad)
   const workbenchOrders = orders.filter(
-    (o) => o.status === 'FABRICACION' || o.status === 'CALIDAD'
+    (o) => (o.status === 'FABRICACION' || o.status === 'CALIDAD') && (role === 'ADMIN' || o.artisanId === user?.id)
   );
 
   const handleAdvanceToQuality = async (order: Order) => {

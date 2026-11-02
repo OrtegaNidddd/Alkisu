@@ -16,8 +16,10 @@ import {
   Edit3,
 } from 'lucide-react';
 import { useMaterials } from '../../api/hooks';
+import { useAuth } from '../../hooks/useAuth';
 
 export const InventoryView: React.FC = () => {
+  const { role } = useAuth();
   const { data: materials = [], isLoading, refetch } = useMaterials();
   const [selectedMaterialForRestock, setSelectedMaterialForRestock] = useState<Material | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -54,10 +56,12 @@ export const InventoryView: React.FC = () => {
             <RefreshCw className="w-3.5 h-3.5 mr-1" />
             Actualizar
           </Button>
-          <Button variant="primary" size="sm" onClick={() => setIsCreateModalOpen(true)}>
-            <Plus className="w-3.5 h-3.5 mr-1" />
-            Agregar Material
-          </Button>
+          {role === 'ADMIN' && (
+            <Button variant="primary" size="sm" onClick={() => setIsCreateModalOpen(true)}>
+              <Plus className="w-3.5 h-3.5 mr-1" />
+              Agregar Material
+            </Button>
+          )}
         </div>
       </div>
 
@@ -192,23 +196,31 @@ export const InventoryView: React.FC = () => {
                     </td>
                     <td className="py-3.5 px-4 text-center whitespace-nowrap">
                       <div className="flex items-center justify-center space-x-1.5">
-                        <button
-                          type="button"
-                          onClick={() => setMaterialToEdit(mat)}
-                          className="p-1.5 text-[#66736D] hover:text-[#176B52] hover:bg-[#E5F4EE] rounded-lg transition"
-                          title="Editar material"
-                          aria-label={`Editar ${mat.name}`}
-                        >
-                          <Edit3 className="w-3.5 h-3.5" />
-                        </button>
-                        <Button
-                          size="sm"
-                          variant={isLowStock ? 'gold' : 'outline'}
-                          onClick={() => setSelectedMaterialForRestock(mat)}
-                        >
-                          <Plus className="w-3.5 h-3.5 mr-1" />
-                          Reabastecer
-                        </Button>
+                        {role === 'ADMIN' ? (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => setMaterialToEdit(mat)}
+                              className="p-1.5 text-[#66736D] hover:text-[#176B52] hover:bg-[#E5F4EE] rounded-lg transition"
+                              title="Editar material"
+                              aria-label={`Editar ${mat.name}`}
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
+                            </button>
+                            <Button
+                              size="sm"
+                              variant={isLowStock ? 'gold' : 'outline'}
+                              onClick={() => setSelectedMaterialForRestock(mat)}
+                            >
+                              <Plus className="w-3.5 h-3.5 mr-1" />
+                              Reabastecer
+                            </Button>
+                          </>
+                        ) : (
+                          <span className="text-[11px] text-[#9CA9A3] italic">
+                            Solo Administrador
+                          </span>
+                        )}
                       </div>
                     </td>
                   </tr>

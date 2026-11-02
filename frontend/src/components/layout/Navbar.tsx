@@ -54,12 +54,7 @@ export const Navbar: React.FC = () => {
 
       {/* Indicadores de Taller y Perfil de Usuario Real */}
       <div className="flex items-center space-x-3 sm:space-x-4">
-        {/* Balanza técnica conectada */}
-        <div className="hidden xl:flex items-center space-x-1.5 px-2.5 py-1 bg-[#F4F6F8] border border-[#DDE3E0] rounded-lg text-xs font-medium text-[#17201D]">
-          <span className="w-2 h-2 rounded-full bg-[#17734B] animate-pulse" />
-          <Scale className="w-3.5 h-3.5 text-[#176B52]" />
-          <span>Balanza 0.001g Lista</span>
-        </div>
+        
 
         {/* Alerta de inventario */}
         {metrics && metrics.inventario.materialesCriticosCount > 0 && (
