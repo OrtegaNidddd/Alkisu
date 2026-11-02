@@ -92,6 +92,7 @@ export interface OrderStatusHistory {
 export interface Order {
   id: string;
   quoteId?: string | null;
+  quote?: Quote | null;
   clientId: string;
   client: Client;
   artisanId?: string | null;

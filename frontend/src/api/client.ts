@@ -21,6 +21,7 @@ import {
   User,
   Role,
 } from '../types';
+import { REAL_ROLE_TOKENS, DB_USERS, isTokenExpired } from '../hooks/useAuth';
 
 // In-memory reactive stores
 let currentOrders: Order[] = [...MOCK_ORDERS];
@@ -31,15 +32,20 @@ let currentClients: Client[] = [...MOCK_CLIENTS];
 const rawBase = import.meta.env.VITE_API_URL || '/api';
 const API_BASE = rawBase.replace(/\/+$/, '');
 
-import { REAL_ROLE_TOKENS, DB_USERS } from '../hooks/useAuth';
-
 export const apiClient = {
   getToken(): string {
     const token = localStorage.getItem('alkisu_token');
     if (token && token !== 'undefined' && token !== 'null') {
+      if (isTokenExpired(token)) {
+        this.clearToken();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('alkisu:auth_expired'));
+        }
+        return '';
+      }
       return token;
     }
-    return REAL_ROLE_TOKENS.ADMIN;
+    return '';
   },
 
   setToken(token: string) {
@@ -48,6 +54,39 @@ export const apiClient = {
 
   clearToken() {
     localStorage.removeItem('alkisu_token');
+    localStorage.removeItem('alkisu_user');
+  },
+
+  async fetchWithAuth(url: string, options: RequestInit = {}): Promise<Response> {
+    const token = this.getToken();
+    const headers = new Headers(options.headers || {});
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    const res = await fetch(url, { ...options, headers });
+
+    if (res.status === 401) {
+      this.clearToken();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('alkisu:auth_expired'));
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Sesión expirada o token inválido. Inicie sesión de nuevo.');
+    }
+
+    if (res.status === 403) {
+      const err = await res.clone().json().catch(() => ({}));
+      if (err.error && err.error.toLowerCase().includes('token')) {
+        this.clearToken();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('alkisu:auth_expired'));
+        }
+        throw new Error('Token inválido o expirado');
+      }
+    }
+
+    return res;
   },
 
   // ---- AUTENTICACIÓN ----
@@ -118,18 +157,19 @@ export const apiClient = {
       if (params?.status) url.searchParams.set('status', params.status);
       if (params?.artisanId) url.searchParams.set('artisanId', params.artisanId);
       if (params?.clientId) url.searchParams.set('clientId', params.clientId);
+      url.searchParams.set('limit', '100');
 
-      const res = await fetch(url.toString(), {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
+      const res = await this.fetchWithAuth(url.toString());
       if (res.ok) {
         const json = await res.json();
         const list = json.data || json;
         if (Array.isArray(list)) {
+          currentOrders = list;
           return list;
         }
       }
-    } catch {
+    } catch (e: any) {
+      if (e.message && e.message.includes('Sesión expirada')) throw e;
       // Fallback a store local
     }
 
@@ -142,12 +182,22 @@ export const apiClient = {
 
   async getOrder(id: string): Promise<Order> {
     try {
-      const res = await fetch(`${API_BASE}/orders/${id}`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
-      if (res.ok) return await res.json();
-    } catch {
-      // Fallback
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        const existingIdx = currentOrders.findIndex((o) => o.id === id);
+        if (existingIdx !== -1) {
+          currentOrders[existingIdx] = data;
+        } else {
+          currentOrders.unshift(data);
+        }
+        return data;
+      }
+      if (res.status === 404) throw new Error('Pedido no encontrado');
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al consultar pedido');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const found = currentOrders.find((o) => o.id === id);
@@ -155,19 +205,21 @@ export const apiClient = {
     return found;
   },
 
-  async updateOrderStatus(id: string, newStatus: OrderStatus, note?: string): Promise<Order> {
+  async updateOrderStatus(id: string, newStatus: OrderStatus, note?: string, artisanId?: string): Promise<Order> {
     try {
-      const res = await fetch(`${API_BASE}/orders/${id}/status`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${id}/status`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
-        body: JSON.stringify({ newStatus, note }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus, newStatus, note, artisanId }),
       });
-      if (res.ok) return await res.json();
-    } catch {
-      // Fallback
+      if (res.ok) {
+        const data = await res.json();
+        return data.order || data;
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al actualizar estado del pedido');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const orderIndex = currentOrders.findIndex((o) => o.id === id);
@@ -175,7 +227,6 @@ export const apiClient = {
 
     const order = currentOrders[orderIndex];
 
-    // Regla de negocio: no entregar con saldo pendiente
     if (newStatus === 'ENTREGADO' && (order.saldoPendiente ?? 0) > 0) {
       throw new Error(`Entrega rechazada: el pedido tiene un saldo pendiente de $${order.saldoPendiente?.toLocaleString()}`);
     }
@@ -183,6 +234,7 @@ export const apiClient = {
     const updated: Order = {
       ...order,
       status: newStatus,
+      artisanId: artisanId || order.artisanId,
       deliveryDate: newStatus === 'ENTREGADO' ? new Date().toISOString() : order.deliveryDate,
       statusHistory: [
         {
@@ -203,19 +255,111 @@ export const apiClient = {
     return updated;
   },
 
+  async assignArtisan(orderId: string, artisanId: string): Promise<Order> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${orderId}/artisan`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ artisanId }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        return data.order || data;
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al asignar joyero');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
+    }
+
+    const orderIndex = currentOrders.findIndex((o) => o.id === orderId);
+    if (orderIndex === -1) throw new Error('Pedido no encontrado');
+
+    const user = Object.values(DB_USERS).find((u) => u.id === artisanId) || {
+      id: artisanId,
+      fullName: 'Joyero Asignado',
+      email: 'joyero@joyeria.com',
+      role: 'JOYERO' as Role,
+    };
+
+    const updated: Order = {
+      ...currentOrders[orderIndex],
+      artisanId,
+      artisan: user,
+      statusHistory: [
+        {
+          id: `sh-${Date.now()}`,
+          orderId,
+          userId: 'current-user',
+          user: { fullName: 'Administración' },
+          fromStatus: currentOrders[orderIndex].status,
+          toStatus: currentOrders[orderIndex].status,
+          note: `Joyero asignado: ${user.fullName}`,
+          createdAt: new Date().toISOString(),
+        },
+        ...(currentOrders[orderIndex].statusHistory || []),
+      ],
+    };
+
+    currentOrders[orderIndex] = updated;
+    return updated;
+  },
+
+  async consumeOrderMaterial(orderId: string, payload: { materialId: string; quantity: number }): Promise<any> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${orderId}/materials`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        return await res.json();
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al despachar material');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
+    }
+
+    const orderIndex = currentOrders.findIndex((o) => o.id === orderId);
+    if (orderIndex === -1) throw new Error('Pedido no encontrado');
+
+    const mat = currentMaterials.find((m) => m.id === payload.materialId);
+    if (!mat) throw new Error('Material no encontrado');
+    if (mat.stock < payload.quantity) throw new Error('Stock insuficiente en bodega');
+
+    mat.stock = Number((mat.stock - payload.quantity).toFixed(3));
+
+    const newMaterialUsage = {
+      id: `om-${Date.now()}`,
+      orderId,
+      materialId: mat.id,
+      material: mat,
+      quantity: payload.quantity,
+      createdAt: new Date().toISOString(),
+    };
+
+    currentOrders[orderIndex] = {
+      ...currentOrders[orderIndex],
+      materialsUsed: [...(currentOrders[orderIndex].materialsUsed || []), newMaterialUsage],
+      materialsCount: (currentOrders[orderIndex].materialsCount || 0) + 1,
+    };
+
+    return newMaterialUsage;
+  },
+
   async registerMetalReturn(orderId: string, payload: MetalReturnPayload): Promise<MetalReturnResponse> {
     try {
-      const res = await fetch(`${API_BASE}/orders/${orderId}/metal-return`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${orderId}/metal-return`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       if (res.ok) return await res.json();
-    } catch {
-      // Fallback
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al registrar liquidación');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const order = currentOrders.find((o) => o.id === orderId);
@@ -233,7 +377,6 @@ export const apiClient = {
     const porcentajeMerma = ((merma / entregado) * 100).toFixed(2);
     const mermaInusual = parseFloat(porcentajeMerma) > 8.0;
 
-    // Actualizar historial del pedido
     order.statusHistory = [
       {
         id: `sh-${Date.now()}`,
@@ -254,10 +397,10 @@ export const apiClient = {
         pesoJoyaFinal: payload.finalPieceWeight,
         limallaRetornada: payload.scrapWeight,
         mermaTecnica: merma,
-        porcentajeMerma: `${porcentajeMerma}%`,
+        porcentajeMerma: porcentajeMerma + '%',
         mermaInusual,
       },
-      nuevoStockMaterial: 247.88,
+      nuevoStockMaterial: 125.4,
       unidad: 'GRAMOS',
       auditId: `aud-${Date.now()}`,
     };
@@ -265,19 +408,20 @@ export const apiClient = {
 
   async addPayment(orderId: string, data: { amount: number; paymentMethod: PaymentMethod; referenceNotes?: string }): Promise<Order> {
     try {
-      const res = await fetch(`${API_BASE}/orders/${orderId}/payments`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${orderId}/payments`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        return await this.getOrder(orderId);
+        const updated = await this.getOrder(orderId);
+        currentOrders = [updated, ...currentOrders.filter((o) => o.id !== orderId)];
+        return updated;
       }
-    } catch {
-      // Fallback
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al registrar abono');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const orderIndex = currentOrders.findIndex((o) => o.id === orderId);
@@ -317,17 +461,16 @@ export const apiClient = {
 
   async cancelOrder(orderId: string, reason: string): Promise<Order> {
     try {
-      const res = await fetch(`${API_BASE}/orders/${orderId}/cancel`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${orderId}/cancel`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason }),
       });
       if (res.ok) return await res.json();
-    } catch {
-      // Fallback
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al cancelar la orden');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const orderIndex = currentOrders.findIndex((o) => o.id === orderId);
@@ -358,9 +501,65 @@ export const apiClient = {
     return updated;
   },
 
+  async uploadFile(file: File, folder: string = 'bocetos'): Promise<{ publicUrl: string; fileName: string }> {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', folder);
+
+      const res = await this.fetchWithAuth(`${API_BASE}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        return {
+          publicUrl: json.publicUrl,
+          fileName: json.fileName || file.name,
+        };
+      }
+    } catch {
+      // Fallback a Base64 data URL
+    }
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve({
+          publicUrl: reader.result as string,
+          fileName: file.name,
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+  },
+
   async addAttachment(orderId: string, file: { fileName: string; fileUrl: string; fileType: any; description?: string }) {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/orders/${orderId}/attachments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(file),
+      });
+      if (res.ok) {
+        const newAttachment = await res.json();
+        const oIdx = currentOrders.findIndex((o) => o.id === orderId);
+        if (oIdx !== -1) {
+          currentOrders[oIdx] = {
+            ...currentOrders[oIdx],
+            attachments: [...(currentOrders[oIdx].attachments || []), newAttachment],
+          };
+        }
+        return newAttachment;
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al adjuntar archivo');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
+    }
+
     const orderIndex = currentOrders.findIndex((o) => o.id === orderId);
-    if (orderIndex === -1) throw new Error('Pedido no encontrado');
 
     const newAttachment = {
       id: `att-${Date.now()}`,
@@ -372,10 +571,12 @@ export const apiClient = {
       createdAt: new Date().toISOString(),
     };
 
-    currentOrders[orderIndex] = {
-      ...currentOrders[orderIndex],
-      attachments: [...(currentOrders[orderIndex].attachments || []), newAttachment],
-    };
+    if (orderIndex !== -1) {
+      currentOrders[orderIndex] = {
+        ...currentOrders[orderIndex],
+        attachments: [...(currentOrders[orderIndex].attachments || []), newAttachment],
+      };
+    }
 
     return newAttachment;
   },
@@ -383,9 +584,7 @@ export const apiClient = {
   // ---- MATERIALES / BODEGA ----
   async getMaterials(): Promise<Material[]> {
     try {
-      const res = await fetch(`${API_BASE}/materials`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
+      const res = await this.fetchWithAuth(`${API_BASE}/materials`);
       if (res.ok) {
         const json = await res.json();
         if (Array.isArray(json)) {
@@ -408,12 +607,9 @@ export const apiClient = {
 
   async restockMaterial(id: string, quantity: number, notes?: string): Promise<Material> {
     try {
-      const res = await fetch(`${API_BASE}/materials/${id}/restock`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/materials/${id}/restock`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity, notes }),
       });
       if (res.ok) {
@@ -426,8 +622,10 @@ export const apiClient = {
           isLowStock: Number(mat.stock) <= Number(mat.minStock),
         };
       }
-    } catch {
-      // Fallback
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al reabastecer material');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const idx = currentMaterials.findIndex((m) => m.id === id);
@@ -451,40 +649,28 @@ export const apiClient = {
     minStock: number;
   }): Promise<Material> {
     try {
-      const res = await fetch(`${API_BASE}/materials`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/materials`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       if (res.ok) {
         const json = await res.json();
-        return {
-          ...json,
-          stock: Number(json.stock),
-          minStock: Number(json.minStock),
-          isLowStock: Number(json.stock) <= Number(json.minStock),
-        };
+        currentMaterials = [json, ...currentMaterials];
+        return json;
       }
-      const errJson = await res.json().catch(() => ({}));
-      if (errJson.error) throw new Error(errJson.error);
-    } catch (err: any) {
-      if (err.message && !err.message.includes('fetch')) throw err;
-      // Fallback a modo memoria
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al registrar material');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const newMat: Material = {
       id: `mat-${Date.now()}`,
-      name: payload.name,
-      type: payload.type,
-      unit: payload.unit,
-      stock: Number(payload.stock),
-      minStock: Number(payload.minStock),
-      isLowStock: Number(payload.stock) <= Number(payload.minStock),
+      ...payload,
+      isLowStock: payload.stock <= payload.minStock,
     };
-    currentMaterials.push(newMat);
+    currentMaterials = [newMat, ...currentMaterials];
     return newMat;
   },
 
@@ -499,56 +685,125 @@ export const apiClient = {
     }
   ): Promise<Material> {
     try {
-      const res = await fetch(`${API_BASE}/materials/${id}`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/materials/${id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       if (res.ok) {
         const json = await res.json();
-        return {
-          ...json,
-          stock: Number(json.stock),
-          minStock: Number(json.minStock),
-          isLowStock: Number(json.stock) <= Number(json.minStock),
-        };
+        return json;
       }
-      const errJson = await res.json().catch(() => ({}));
-      if (errJson.error) throw new Error(errJson.error);
-    } catch (err: any) {
-      if (err.message && !err.message.includes('fetch')) throw err;
-      // Fallback a modo memoria
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al actualizar material');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const idx = currentMaterials.findIndex((m) => m.id === id);
     if (idx === -1) throw new Error('Material no encontrado');
 
-    const updated: Material = {
+    const updated = {
       ...currentMaterials[idx],
-      ...(payload.name !== undefined && { name: payload.name }),
-      ...(payload.type !== undefined && { type: payload.type }),
-      ...(payload.unit !== undefined && { unit: payload.unit }),
-      ...(payload.minStock !== undefined && { minStock: Number(payload.minStock) }),
-      ...(payload.stock !== undefined && { stock: Number(payload.stock) }),
+      ...payload,
     };
     updated.isLowStock = updated.stock <= updated.minStock;
     currentMaterials[idx] = updated;
     return updated;
   },
 
-  // ---- COTIZACIONES ----
-  async getQuotes(): Promise<Quote[]> {
+  // ---- CLIENTES ----
+  async getClients(): Promise<Client[]> {
     try {
-      const res = await fetch(`${API_BASE}/quotes`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
+      const res = await this.fetchWithAuth(`${API_BASE}/clients`);
+      if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json)) return json;
+      }
+    } catch {
+      // Fallback
+    }
+    return currentClients;
+  },
+
+  async createClient(data: { fullName: string; phone: string; email?: string; documentId?: string }): Promise<Client> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/clients`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
       if (res.ok) {
         const json = await res.json();
-        const list = Array.isArray(json) ? json : json.data;
-        if (Array.isArray(list)) return list;
+        currentClients = [json, ...currentClients];
+        return json;
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al registrar cliente');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
+    }
+
+    const newClient: Client = {
+      id: `cli-${Date.now()}`,
+      fullName: data.fullName,
+      phone: data.phone,
+      email: data.email || null,
+      documentId: data.documentId || null,
+    };
+    currentClients = [newClient, ...currentClients];
+    return newClient;
+  },
+
+
+  async updateClient(
+    id: string,
+    data: { fullName?: string; phone?: string; email?: string | null; documentId?: string | null }
+  ): Promise<Client> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/clients/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        const updated = json.client || json.data || json;
+        const index = currentClients.findIndex((c) => c.id === id);
+        if (index !== -1) {
+          currentClients[index] = { ...currentClients[index], ...updated };
+        }
+        return updated;
+      }
+      const errJson = await res.json().catch(() => ({}));
+      if (errJson.error) throw new Error(errJson.error);
+    } catch (err: any) {
+      if (err.message && !err.message.includes('fetch')) throw err;
+    }
+
+    const index = currentClients.findIndex((c) => c.id === id);
+    if (index === -1) throw new Error('Cliente no encontrado');
+
+    const updatedClient: Client = {
+      ...currentClients[index],
+      ...data,
+      email: data.email !== undefined ? data.email : currentClients[index].email,
+      documentId: data.documentId !== undefined ? data.documentId : currentClients[index].documentId,
+    };
+    currentClients[index] = updatedClient;
+    return updatedClient;
+  },
+
+  // ---- COTIZACIONES ----
+  async getQuotes(): Promise<Quote[]> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/quotes`);
+      if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json)) {
+          currentQuotes = json;
+          return json;
+        }
       }
     } catch {
       // Fallback
@@ -558,24 +813,23 @@ export const apiClient = {
 
   async createQuote(data: { clientId: string; items: any[]; validUntil?: string }): Promise<Quote> {
     try {
-      const res = await fetch(`${API_BASE}/quotes`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/quotes`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       if (res.ok) {
         const json = await res.json();
-        currentQuotes = [json, ...currentQuotes];
+        currentQuotes = [json, ...currentQuotes.filter((q) => q.id !== json.id)];
         return json;
       }
-    } catch {
-      // Fallback
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al crear cotización');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
-    const client = MOCK_CLIENTS.find((c) => c.id === data.clientId) || MOCK_CLIENTS[0];
+    const client = currentClients.find((c) => c.id === data.clientId) || currentClients[0] || MOCK_CLIENTS[0];
     const totalAmount = data.items.reduce((acc, it) => acc + (it.quantity * it.unitPrice), 0);
 
     const newQuote: Quote = {
@@ -598,19 +852,106 @@ export const apiClient = {
     return newQuote;
   },
 
+  async updateQuote(
+    id: string,
+    data: {
+      clientId?: string;
+      items?: { description: string; quantity: number; unitPrice: number }[];
+      validUntil?: string;
+    }
+  ): Promise<Quote> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/quotes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        currentQuotes = currentQuotes.map((q) => (q.id === id ? updated : q));
+        return updated;
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al actualizar cotización');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
+    }
+
+    const qIdx = currentQuotes.findIndex((q) => q.id === id);
+    if (qIdx === -1) throw new Error('Cotización no encontrada');
+    const existing = currentQuotes[qIdx];
+    const totalAmount = data.items
+      ? data.items.reduce((acc, it) => acc + it.quantity * it.unitPrice, 0)
+      : existing.totalAmount;
+
+    const updated: Quote = {
+      ...existing,
+      clientId: data.clientId || existing.clientId,
+      totalAmount,
+      validUntil: data.validUntil || existing.validUntil,
+      items: data.items
+        ? data.items.map((it, idx) => ({
+            id: `item-${Date.now()}-${idx}`,
+            quoteId: id,
+            description: it.description,
+            quantity: it.quantity,
+            unitPrice: it.unitPrice,
+            subtotal: it.quantity * it.unitPrice,
+          }))
+        : existing.items,
+    };
+
+    currentQuotes[qIdx] = updated;
+    return updated;
+  },
+
+  async deleteQuote(id: string): Promise<void> {
+    try {
+      const res = await this.fetchWithAuth(`${API_BASE}/quotes/${id}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Error al eliminar cotización');
+      }
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
+    }
+
+    currentQuotes = currentQuotes.filter((q) => q.id !== id);
+  },
+
   async approveQuote(id: string, artisanId?: string): Promise<{ quote: Quote; order: Order }> {
     try {
-      const res = await fetch(`${API_BASE}/quotes/${id}/approve`, {
+      const res = await this.fetchWithAuth(`${API_BASE}/quotes/${id}/approve`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ artisanId }),
       });
-      if (res.ok) return await res.json();
-    } catch {
-      // Fallback
+      if (res.ok) {
+        const data = await res.json();
+        const createdOrder: Order = data.order;
+        if (createdOrder) {
+          // Mantener sincronizado en el array local
+          currentOrders = [createdOrder, ...currentOrders.filter((o) => o.id !== createdOrder.id)];
+          const qIdx = currentQuotes.findIndex((q) => q.id === id);
+          if (qIdx !== -1) {
+            currentQuotes[qIdx] = {
+              ...currentQuotes[qIdx],
+              status: 'APROBADA',
+              order: { id: createdOrder.id, status: createdOrder.status },
+            };
+          }
+        }
+        return {
+          quote: data.quote || (currentQuotes.find((q) => q.id === id) as Quote),
+          order: createdOrder,
+        };
+      }
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Error al aprobar la cotización');
+    } catch (e: any) {
+      if (e.message && e.message !== 'Failed to fetch') throw e;
     }
 
     const qIdx = currentQuotes.findIndex((q) => q.id === id);
@@ -624,8 +965,8 @@ export const apiClient = {
       quoteId: quote.id,
       clientId: quote.clientId,
       client: quote.client,
-      artisanId: artisanId || 'usr-joyero-1',
-      artisan: { id: artisanId || 'usr-joyero-1', fullName: 'Maestro Mateo Rivera' },
+      artisanId: artisanId || undefined,
+      artisan: artisanId ? { id: artisanId, fullName: 'Joyero Asignado' } : undefined,
       createdById: quote.createdById,
       createdBy: { id: quote.createdById, fullName: 'Valeria Morales' },
       status: 'CREADO',
@@ -668,38 +1009,34 @@ export const apiClient = {
   // ---- DASHBOARD ----
   async getDashboardMetrics(): Promise<DashboardMetrics> {
     try {
-      const res = await fetch(`${API_BASE}/dashboard/stats`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
+      const res = await this.fetchWithAuth(`${API_BASE}/dashboard/stats`);
       if (res.ok) return await res.json();
     } catch {
       // Fallback
     }
 
-    // Dynamic calculation from local store
     let facturado = 0;
-    let recaudado = 0;
-    let cartera = 0;
+    let cobrado = 0;
+    let saldoPorCobrar = 0;
     let enFabricacion = 0;
     let enCalidad = 0;
 
     currentOrders.forEach((o) => {
       facturado += o.totalPactado;
-      recaudado += o.totalAbonado || 0;
-      if (o.status !== 'ENTREGADO' && o.status !== 'CANCELADO') {
-        cartera += o.saldoPendiente || 0;
-      }
+      const abonos = o.totalAbonado ?? (o.payments?.reduce((acc, p) => acc + p.amount, 0) || 0);
+      cobrado += abonos;
+      saldoPorCobrar += Math.max(0, o.totalPactado - abonos);
       if (o.status === 'FABRICACION') enFabricacion++;
       if (o.status === 'CALIDAD') enCalidad++;
     });
 
-    const lowStock = currentMaterials.filter((m) => m.stock <= m.minStock);
+    const matCriticos = currentMaterials.filter((m) => m.stock <= m.minStock);
 
     return {
       financiero: {
         totalFacturado: facturado,
-        totalRecaudado: recaudado,
-        carteraPendiente: cartera,
+        totalRecaudado: cobrado,
+        carteraPendiente: saldoPorCobrar,
       },
       taller: {
         pedidosActivos: currentOrders.filter((o) => o.status !== 'ENTREGADO' && o.status !== 'CANCELADO').length,
@@ -708,8 +1045,8 @@ export const apiClient = {
         entregasProximos7Dias: 2,
       },
       inventario: {
-        materialesCriticosCount: lowStock.length,
-        alertasStock: lowStock.map((m) => ({
+        materialesCriticosCount: matCriticos.length,
+        alertasStock: matCriticos.map((m) => ({
           id: m.id,
           nombre: m.name,
           stockActual: m.stock,
@@ -723,169 +1060,31 @@ export const apiClient = {
     };
   },
 
-  // ---- CLIENTES Y USUARIOS ----
-  async getClients(): Promise<Client[]> {
-    try {
-      const res = await fetch(`${API_BASE}/clients`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
-      if (res.ok) {
-        const json = await res.json();
-        const list = Array.isArray(json) ? json : json.data;
-        if (Array.isArray(list)) {
-          return list;
-        }
-      }
-    } catch {
-      // Fallback
-    }
-    return currentClients;
-  },
-
-  async createClient(data: { fullName: string; phone: string; email?: string; documentId?: string }): Promise<Client> {
-    try {
-      const res = await fetch(`${API_BASE}/clients`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        const created = await res.json();
-        currentClients.unshift(created);
-        return created;
-      }
-      const errJson = await res.json().catch(() => ({}));
-      if (errJson.error) throw new Error(errJson.error);
-    } catch (err: any) {
-      if (err.message && !err.message.includes('fetch')) throw err;
-      // Fallback
-    }
-    const newClient: Client = {
-      id: `cli-${Date.now()}`,
-      fullName: data.fullName,
-      phone: data.phone,
-      email: data.email || null,
-      documentId: data.documentId || null,
-    };
-    currentClients.unshift(newClient);
-    return newClient;
-  },
-
-  async updateClient(
-    id: string,
-    data: { fullName?: string; phone?: string; email?: string | null; documentId?: string | null }
-  ): Promise<Client> {
-    try {
-      const res = await fetch(`${API_BASE}/clients/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.getToken()}`,
-        },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        const json = await res.json();
-        const updated = json.client || json.data || json;
-        const index = currentClients.findIndex((c) => c.id === id);
-        if (index !== -1) {
-          currentClients[index] = { ...currentClients[index], ...updated };
-        }
-        return updated;
-      }
-      const errJson = await res.json().catch(() => ({}));
-      if (errJson.error) throw new Error(errJson.error);
-    } catch (err: any) {
-      if (err.message && !err.message.includes('fetch')) throw err;
-      // Fallback
-    }
-
-    const index = currentClients.findIndex((c) => c.id === id);
-    if (index === -1) throw new Error('Cliente no encontrado');
-
-    const updatedClient: Client = {
-      ...currentClients[index],
-      ...data,
-      email: data.email !== undefined ? data.email : currentClients[index].email,
-      documentId: data.documentId !== undefined ? data.documentId : currentClients[index].documentId,
-    };
-    currentClients[index] = updatedClient;
-    return updatedClient;
-  },
-
+  // ---- USUARIOS ----
   async getUsers(): Promise<User[]> {
     try {
-      const res = await fetch(`${API_BASE}/users`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
+      const res = await this.fetchWithAuth(`${API_BASE}/users`);
       if (res.ok) {
         const json = await res.json();
-        return json.data || json;
+        if (Array.isArray(json)) return json;
       }
     } catch {
       // Fallback
     }
-    return MOCK_USERS;
+    return Object.values(DB_USERS);
   },
 
-  // ---- AUDITORÍA INMUTABLE ----
+  // ---- AUDITORÍA ----
   async getAuditLogs(): Promise<any[]> {
     try {
-      const res = await fetch(`${API_BASE}/audit`, {
-        headers: { Authorization: `Bearer ${this.getToken()}` },
-      });
+      const res = await this.fetchWithAuth(`${API_BASE}/audit`);
       if (res.ok) {
         const json = await res.json();
-        const list = json.data || json;
-        if (Array.isArray(list) && list.length > 0) {
-          return list;
-        }
+        if (Array.isArray(json)) return json;
       }
     } catch {
       // Fallback
     }
-
-    // Unificar eventos a partir de órdenes locales si el endpoint de auditoría no tiene datos aún
-    const localEntries: any[] = [];
-    currentOrders.forEach((o) => {
-      (o.statusHistory || []).forEach((sh) => {
-        localEntries.push({
-          id: sh.id || `sh-${o.id}-${sh.toStatus}`,
-          userId: sh.userId,
-          action: `TRANSICION_${sh.toStatus}`,
-          tableName: 'Order',
-          recordId: o.id,
-          orderId: o.id,
-          order: o,
-          fromStatus: sh.fromStatus,
-          toStatus: sh.toStatus,
-          note: sh.note,
-          createdAt: sh.createdAt,
-          user: sh.user,
-        });
-      });
-
-      (o.payments || []).forEach((p) => {
-        localEntries.push({
-          id: p.id || `pay-${o.id}-${p.amount}`,
-          userId: p.registeredById,
-          action: 'ABONO_ORDEN',
-          tableName: 'Payment',
-          recordId: p.id,
-          orderId: o.id,
-          order: o,
-          note: `Abono de $${p.amount.toLocaleString()} COP (${p.paymentMethod}) - ${p.referenceNotes || ''}`,
-          createdAt: p.createdAt,
-          user: p.registeredBy,
-        });
-      });
-    });
-
-    return localEntries.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    return [];
   },
 };

@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from './client';
-import { OrderStatus, PaymentMethod, MetalReturnPayload } from '../types';
+import { OrderStatus, PaymentMethod, MetalReturnPayload, Quote } from '../types';
 
 export function useOrders(params?: { status?: OrderStatus; artisanId?: string; clientId?: string }) {
   return useQuery({
@@ -93,7 +93,10 @@ export function useAddPayment() {
       paymentMethod: PaymentMethod;
       referenceNotes?: string;
     }) => apiClient.addPayment(orderId, { amount, paymentMethod, referenceNotes }),
-    onSuccess: () => {
+    onSuccess: (updatedOrder, variables) => {
+      if (updatedOrder) {
+        queryClient.setQueryData(['order', variables.orderId], updatedOrder);
+      }
       queryClient.invalidateQueries({ queryKey: ['orders'] });
       queryClient.invalidateQueries({ queryKey: ['order'] });
       queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
@@ -171,7 +174,13 @@ export function useCreateQuote() {
   return useMutation({
     mutationFn: (data: { clientId: string; items: any[]; validUntil?: string }) =>
       apiClient.createQuote(data),
-    onSuccess: () => {
+    onSuccess: (newQuote) => {
+      if (newQuote?.id) {
+        queryClient.setQueryData<Quote[]>(['quotes'], (old = []) => [
+          newQuote,
+          ...old.filter((q) => q.id !== newQuote.id),
+        ]);
+      }
       queryClient.invalidateQueries({ queryKey: ['quotes'] });
       queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
     },
@@ -183,10 +192,65 @@ export function useApproveQuote() {
   return useMutation({
     mutationFn: ({ id, artisanId }: { id: string; artisanId?: string }) =>
       apiClient.approveQuote(id, artisanId),
-    onSuccess: () => {
+    onSuccess: (result) => {
+      if (result?.order) {
+        queryClient.setQueryData(['order', result.order.id], result.order);
+      }
       queryClient.invalidateQueries({ queryKey: ['quotes'] });
       queryClient.invalidateQueries({ queryKey: ['orders'] });
       queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
+    },
+  });
+}
+
+export function useUpdateQuote() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      id,
+      ...data
+    }: {
+      id: string;
+      clientId?: string;
+      items?: any[];
+      validUntil?: string;
+    }) => apiClient.updateQuote(id, data),
+    onSuccess: (updatedQuote) => {
+      if (updatedQuote?.id) {
+        queryClient.setQueryData<Quote[]>(['quotes'], (old = []) =>
+          old.map((q) => (q.id === updatedQuote.id ? updatedQuote : q))
+        );
+      }
+      queryClient.invalidateQueries({ queryKey: ['quotes'] });
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+    },
+  });
+}
+
+export function useDeleteQuote() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => apiClient.deleteQuote(id),
+    onMutate: async (id: string) => {
+      // Cancelar consultas en vuelo para evitar sobrescrituras
+      await queryClient.cancelQueries({ queryKey: ['quotes'] });
+      const previousQuotes = queryClient.getQueryData<Quote[]>(['quotes']);
+
+      // Actualizar caché reactivo inmediatamente (0 ms)
+      queryClient.setQueryData<Quote[]>(['quotes'], (old = []) =>
+        old.filter((q) => q.id !== id)
+      );
+
+      return { previousQuotes };
+    },
+    onError: (_err, _id, context) => {
+      // Revertir en caso de fallo
+      if (context?.previousQuotes) {
+        queryClient.setQueryData(['quotes'], context.previousQuotes);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['quotes'] });
     },
   });
 }
@@ -242,3 +306,36 @@ export function useAuditLogs() {
   });
 }
 
+export function useAssignArtisan() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ orderId, artisanId }: { orderId: string; artisanId: string }) =>
+      apiClient.assignArtisan(orderId, artisanId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: ['order'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
+    },
+  });
+}
+
+export function useConsumeOrderMaterial() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ orderId, materialId, quantity }: { orderId: string; materialId: string; quantity: number }) =>
+      apiClient.consumeOrderMaterial(orderId, { materialId, quantity }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: ['order'] });
+      queryClient.invalidateQueries({ queryKey: ['materials'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardMetrics'] });
+    },
+  });
+}
+
+export function useUploadFile() {
+  return useMutation({
+    mutationFn: ({ file, folder }: { file: File; folder?: string }) =>
+      apiClient.uploadFile(file, folder),
+  });
+}
