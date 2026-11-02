@@ -62,7 +62,7 @@ export const WorkbenchView: React.FC<WorkbenchViewProps> = ({
           <div>
             <div className="flex items-center space-x-2">
               <h2 className="font-serif text-xl font-bold tracking-wide">
-                Mi Mesa de Trabajo
+                Mesa de Trabajo
               </h2>
               <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-[#FAF1DA] text-[#A57525] border border-[#eedab1]">
                 Entorno Taller

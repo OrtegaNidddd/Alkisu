@@ -73,7 +73,7 @@ export const WorkshopDashboard: React.FC<WorkshopDashboardProps> = ({
             className="shadow-sm"
           >
             <Hammer className="w-4 h-4 mr-1.5" />
-            <span>Ir a Mi Mesa de Trabajo</span>
+            <span>Ir a Mesa de Trabajo</span>
           </Button>
           <Button
             size="sm"

@@ -31,7 +31,7 @@ export const getNavItems = (role: Role): NavItem[] => [
     id: 'dashboard',
     label:
       role === 'ADMIN'
-        ? 'Dashboard Ejecutivo'
+        ? 'Dashboard'
         : role === 'ASESOR'
         ? 'Dashboard Comercial'
         : 'Dashboard de Taller',
@@ -42,7 +42,7 @@ export const getNavItems = (role: Role): NavItem[] => [
   // JOYERO FOCUSED
   {
     id: 'workbench',
-    label: 'Mi Mesa de Trabajo',
+    label: 'Mesa de Trabajo',
     icon: Hammer,
     roles: ['JOYERO', 'ADMIN'],
     badge: 'Taller',
