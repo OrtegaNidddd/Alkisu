@@ -1,0 +1,46 @@
+
+ RUN  v5.1.2 C:/Proyectos/alkisu/backend
+
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P18 descuenta stock, audita y envía la alerta al llegar al mínimo 48ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P19 no envía alerta si el stock queda sobre el mínimo 7ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P20 un fallo de Brevo no afecta el consumo 4ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P21 omite el correo si falta configuración 4ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P22 rechaza un consumo mayor al stock 6ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P23 crea la cotización con subtotales y total 5ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P24 al editar reemplaza los ítems y recalcula el total 5ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P25 no permite modificar una cotización aprobada 4ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P26 exige cliente y al menos un ítem 5ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P01 registra un abono y devuelve el nuevo saldo 48ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P02 rechaza un abono mayor al saldo y no lo guarda 7ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P03 valida que el monto del abono sea positivo 5ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P04 el detalle del pedido incluye el resumen financiero 5ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P05 la lista de pedidos calcula el saldo y la paginación 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P06 bloquea la entrega con saldo pendiente 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P07 entrega un pedido pagado y deja historial 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P08 exige joyero para pasar a FABRICACION 4ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P09 permite el flujo normal CREADO -> FABRICACION -> CALIDAD 10ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P27 inicia sesión y entrega un token firmado con JWT_SECRET 54ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P28 responde 401 con credenciales inválidas 7ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P29 exige token y rechaza uno inválido 8ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P30 no permite que un JOYERO registre abonos 5ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P31 [defecto] sin JWT_SECRET no acepta tokens firmados con el secreto de respaldo 5ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P32 devuelve 404 si el pedido no existe 4ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P33 un fallo al consultar la base responde 500 sin revelar el detalle 4ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P34 [defecto] un fallo interno al abonar responde 500 sin revelar el detalle 8ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P35 un correo de cliente repetido responde con un mensaje claro 8ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P36 asignar un joyero inexistente responde con error de negocio 6ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P10 [defecto] impide entregar un pedido que no pasó por CALIDAD 6ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P11 [defecto] impide reabrir un pedido ya entregado 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P12 [defecto] impide cancelar por la ruta de estados, que no exige motivo 4ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P13 cancela con motivo y rechaza cancelar un pedido entregado 8ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P14 calcula la merma, reintegra la limalla y audita 5ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P15 umbral de merma del 8 por ciento: joya de 92 g, inusual false 3ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P15 umbral de merma del 8 por ciento: joya de 91.9 g, inusual true 3ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P16 rechaza devolver más metal del entregado 3ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P17 rechaza liquidar un pedido sin consumos de ese material 3ms
+
+ Test Files  3 passed (3)
+      Tests  37 passed (37)
+   Start at  14:53:15
+   Duration  1.13s (import 64%, setup 12%, tests 12%, transform 10%, worker 1%)
+

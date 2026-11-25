@@ -1,0 +1,862 @@
+[
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "loc": 1953,
+    "funciones": 112,
+    "ccTotal": 527,
+    "ccMaxima": 157,
+    "dependenciasSalientes": 12,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 76
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "loc": 1563,
+    "funciones": 106,
+    "ccTotal": 264,
+    "ccMaxima": 36,
+    "dependenciasSalientes": 7,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 26
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "loc": 968,
+    "funciones": 98,
+    "ccTotal": 324,
+    "ccMaxima": 20,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 2,
+    "hallazgos": 84
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "loc": 705,
+    "funciones": 57,
+    "ccTotal": 115,
+    "ccMaxima": 24,
+    "dependenciasSalientes": 9,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 21
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "loc": 652,
+    "funciones": 23,
+    "ccTotal": 103,
+    "ccMaxima": 36,
+    "dependenciasSalientes": 6,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 17
+  },
+  {
+    "archivo": "frontend/src/api/mockData.ts",
+    "loc": 461,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 5
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "loc": 392,
+    "funciones": 28,
+    "ccTotal": 83,
+    "ccMaxima": 19,
+    "dependenciasSalientes": 7,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 7
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "loc": 367,
+    "funciones": 16,
+    "ccTotal": 79,
+    "ccMaxima": 30,
+    "dependenciasSalientes": 7,
+    "dependenciasEntrantes": 2,
+    "hallazgos": 12
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "loc": 346,
+    "funciones": 19,
+    "ccTotal": 42,
+    "ccMaxima": 10,
+    "dependenciasSalientes": 7,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 9
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "loc": 311,
+    "funciones": 15,
+    "ccTotal": 40,
+    "ccMaxima": 9,
+    "dependenciasSalientes": 6,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "loc": 311,
+    "funciones": 74,
+    "ccTotal": 88,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 16,
+    "hallazgos": 7
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "loc": 282,
+    "funciones": 12,
+    "ccTotal": 32,
+    "ccMaxima": 9,
+    "dependenciasSalientes": 8,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 15
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "loc": 278,
+    "funciones": 16,
+    "ccTotal": 73,
+    "ccMaxima": 20,
+    "dependenciasSalientes": 6,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 14
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "loc": 266,
+    "funciones": 15,
+    "ccTotal": 50,
+    "ccMaxima": 21,
+    "dependenciasSalientes": 10,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 9
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "loc": 248,
+    "funciones": 16,
+    "ccTotal": 31,
+    "ccMaxima": 8,
+    "dependenciasSalientes": 10,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 8
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "loc": 244,
+    "funciones": 11,
+    "ccTotal": 33,
+    "ccMaxima": 11,
+    "dependenciasSalientes": 6,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 5
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "loc": 242,
+    "funciones": 9,
+    "ccTotal": 24,
+    "ccMaxima": 9,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 5
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "loc": 239,
+    "funciones": 6,
+    "ccTotal": 26,
+    "ccMaxima": 13,
+    "dependenciasSalientes": 5,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 5
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "loc": 222,
+    "funciones": 16,
+    "ccTotal": 41,
+    "ccMaxima": 11,
+    "dependenciasSalientes": 7,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 6
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "loc": 216,
+    "funciones": 7,
+    "ccTotal": 34,
+    "ccMaxima": 16,
+    "dependenciasSalientes": 6,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 4
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "loc": 204,
+    "funciones": 19,
+    "ccTotal": 49,
+    "ccMaxima": 16,
+    "dependenciasSalientes": 23,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 2
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "loc": 204,
+    "funciones": 17,
+    "ccTotal": 50,
+    "ccMaxima": 10,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 9,
+    "hallazgos": 6
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "loc": 192,
+    "funciones": 9,
+    "ccTotal": 20,
+    "ccMaxima": 8,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/types/index.ts",
+    "loc": 174,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 0,
+    "dependenciasEntrantes": 0,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "loc": 138,
+    "funciones": 8,
+    "ccTotal": 17,
+    "ccMaxima": 7,
+    "dependenciasSalientes": 5,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "loc": 137,
+    "funciones": 4,
+    "ccTotal": 10,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 7,
+    "dependenciasEntrantes": 2,
+    "hallazgos": 2
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "loc": 133,
+    "funciones": 4,
+    "ccTotal": 10,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 2
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "loc": 129,
+    "funciones": 9,
+    "ccTotal": 17,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "loc": 118,
+    "funciones": 9,
+    "ccTotal": 30,
+    "ccMaxima": 6,
+    "dependenciasSalientes": 5,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "loc": 96,
+    "funciones": 2,
+    "ccTotal": 13,
+    "ccMaxima": 12,
+    "dependenciasSalientes": 5,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 7
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "loc": 94,
+    "funciones": 9,
+    "ccTotal": 15,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 2,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Modal.tsx",
+    "loc": 90,
+    "funciones": 4,
+    "ccTotal": 15,
+    "ccMaxima": 9,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 7,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "loc": 89,
+    "funciones": 5,
+    "ccTotal": 10,
+    "ccMaxima": 6,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "backend/src/services/metal.service.ts",
+    "loc": 89,
+    "funciones": 8,
+    "ccTotal": 13,
+    "ccMaxima": 4,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "loc": 87,
+    "funciones": 1,
+    "ccTotal": 10,
+    "ccMaxima": 10,
+    "dependenciasSalientes": 5,
+    "dependenciasEntrantes": 0,
+    "hallazgos": 5
+  },
+  {
+    "archivo": "backend/src/services/client.service.ts",
+    "loc": 83,
+    "funciones": 5,
+    "ccTotal": 8,
+    "ccMaxima": 2,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "loc": 78,
+    "funciones": 5,
+    "ccTotal": 19,
+    "ccMaxima": 6,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 2,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "loc": 71,
+    "funciones": 8,
+    "ccTotal": 17,
+    "ccMaxima": 8,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "frontend/src/utils/formatters.ts",
+    "loc": 70,
+    "funciones": 4,
+    "ccTotal": 18,
+    "ccMaxima": 6,
+    "dependenciasSalientes": 0,
+    "dependenciasEntrantes": 14,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/app.ts",
+    "loc": 66,
+    "funciones": 1,
+    "ccTotal": 1,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 17,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 4
+  },
+  {
+    "archivo": "backend/src/services/auth.service.ts",
+    "loc": 63,
+    "funciones": 2,
+    "ccTotal": 5,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 6,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/services/user.service.ts",
+    "loc": 61,
+    "funciones": 3,
+    "ccTotal": 5,
+    "ccMaxima": 2,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/order.routes.ts",
+    "loc": 59,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 8,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/components/ui/Input.tsx",
+    "loc": 55,
+    "funciones": 1,
+    "ccTotal": 11,
+    "ccMaxima": 11,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 0,
+    "hallazgos": 2
+  },
+  {
+    "archivo": "frontend/src/components/ui/Button.tsx",
+    "loc": 52,
+    "funciones": 1,
+    "ccTotal": 5,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 18,
+    "hallazgos": 2
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "loc": 48,
+    "funciones": 6,
+    "ccTotal": 12,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "loc": 46,
+    "funciones": 6,
+    "ccTotal": 18,
+    "ccMaxima": 7,
+    "dependenciasSalientes": 5,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "loc": 43,
+    "funciones": 4,
+    "ccTotal": 9,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 17,
+    "hallazgos": 3
+  },
+  {
+    "archivo": "backend/src/services/audit.service.ts",
+    "loc": 43,
+    "funciones": 1,
+    "ccTotal": 5,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "loc": 40,
+    "funciones": 4,
+    "ccTotal": 7,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/components/ui/Badge.tsx",
+    "loc": 39,
+    "funciones": 1,
+    "ccTotal": 3,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 9,
+    "hallazgos": 2
+  },
+  {
+    "archivo": "backend/src/notificaciones/brevo.adapter.ts",
+    "loc": 31,
+    "funciones": 2,
+    "ccTotal": 9,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/services/attachment.service.ts",
+    "loc": 30,
+    "funciones": 2,
+    "ccTotal": 4,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "loc": 29,
+    "funciones": 3,
+    "ccTotal": 8,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/domain/politica-entrega.ts",
+    "loc": 29,
+    "funciones": 1,
+    "ccTotal": 3,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/services/storage.service.ts",
+    "loc": 29,
+    "funciones": 1,
+    "ccTotal": 4,
+    "ccMaxima": 4,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "loc": 28,
+    "funciones": 2,
+    "ccTotal": 6,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/domain/balance-metal.ts",
+    "loc": 23,
+    "funciones": 1,
+    "ccTotal": 2,
+    "ccMaxima": 2,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/middlewares/upload.middleware.ts",
+    "loc": 22,
+    "funciones": 1,
+    "ccTotal": 2,
+    "ccMaxima": 2,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 1
+  },
+  {
+    "archivo": "backend/src/routes/quote.routes.ts",
+    "loc": 20,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/notificaciones/plantillas.ts",
+    "loc": 19,
+    "funciones": 2,
+    "ccTotal": 2,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/auth.controller.ts",
+    "loc": 18,
+    "funciones": 2,
+    "ccTotal": 8,
+    "ccMaxima": 5,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/schemas/order.schemas.ts",
+    "loc": 18,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/domain/items-cotizacion.ts",
+    "loc": 17,
+    "funciones": 4,
+    "ccTotal": 4,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 0,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/lib/errors.ts",
+    "loc": 17,
+    "funciones": 4,
+    "ccTotal": 8,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 14,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/client.routes.ts",
+    "loc": 16,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/material.routes.ts",
+    "loc": 16,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/upload.controller.ts",
+    "loc": 14,
+    "funciones": 1,
+    "ccTotal": 3,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/domain/saldo.ts",
+    "loc": 14,
+    "funciones": 2,
+    "ccTotal": 2,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 0,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/user.routes.ts",
+    "loc": 14,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/audit.controller.ts",
+    "loc": 13,
+    "funciones": 1,
+    "ccTotal": 3,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/domain/transiciones-pedido.ts",
+    "loc": 12,
+    "funciones": 1,
+    "ccTotal": 3,
+    "ccMaxima": 3,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/lib/supabase.ts",
+    "loc": 12,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/middlewares/validate.middleware.ts",
+    "loc": 12,
+    "funciones": 2,
+    "ccTotal": 3,
+    "ccMaxima": 2,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/server.ts",
+    "loc": 9,
+    "funciones": 1,
+    "ccTotal": 1,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 0,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/main.tsx",
+    "loc": 9,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 0,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/notificaciones/notificacion.service.ts",
+    "loc": 8,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 0,
+    "dependenciasEntrantes": 3,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/audit.routes.ts",
+    "loc": 8,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/dashboard.routes.ts",
+    "loc": 8,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/upload.route.ts",
+    "loc": 8,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 4,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/controllers/dashboard.controller.ts",
+    "loc": 7,
+    "funciones": 1,
+    "ccTotal": 1,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 3,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/routes/auth.routes.ts",
+    "loc": 6,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/config/jwt.ts",
+    "loc": 5,
+    "funciones": 1,
+    "ccTotal": 2,
+    "ccMaxima": 2,
+    "dependenciasSalientes": 0,
+    "dependenciasEntrantes": 3,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "frontend/src/utils/cn.ts",
+    "loc": 5,
+    "funciones": 1,
+    "ccTotal": 1,
+    "ccMaxima": 1,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 6,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/lib/prisma.ts",
+    "loc": 3,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 1,
+    "dependenciasEntrantes": 10,
+    "hallazgos": 0
+  },
+  {
+    "archivo": "backend/src/notificaciones/index.ts",
+    "loc": 3,
+    "funciones": 0,
+    "ccTotal": 0,
+    "ccMaxima": 0,
+    "dependenciasSalientes": 2,
+    "dependenciasEntrantes": 1,
+    "hallazgos": 0
+  }
+]

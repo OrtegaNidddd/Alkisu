@@ -1,0 +1,116 @@
+{
+  "fecha": "2026-11-25T19:53:38.074Z",
+  "node": "v24.19.0",
+  "resumen": {
+    "backend": {
+      "loc": 2076,
+      "archivos": 50,
+      "funciones": 127,
+      "ccTotal": 297,
+      "ccPromedio": 2.34,
+      "ccMaxima": 9,
+      "ccDistribucion": {
+        "baja_1_5": 119,
+        "moderada_6_10": 8,
+        "alta_11_20": 0,
+        "muy_alta_mas_20": 0
+      },
+      "lineasDuplicadas": 22,
+      "lineasAnalizadas": 2472,
+      "duplicacionPct": 0.89,
+      "clones": 2,
+      "calidad": 0,
+      "diseno": 2,
+      "estandares": 7,
+      "vulnerabilidades": 3,
+      "deudaEstimadaMin": 185
+    },
+    "frontend": {
+      "loc": 11613,
+      "archivos": 36,
+      "funciones": 725,
+      "ccTotal": 2213,
+      "ccPromedio": 3.05,
+      "ccMaxima": 157,
+      "ccDistribucion": {
+        "baja_1_5": 631,
+        "moderada_6_10": 58,
+        "alta_11_20": 27,
+        "muy_alta_mas_20": 9
+      },
+      "lineasDuplicadas": 61,
+      "lineasAnalizadas": 11530,
+      "duplicacionPct": 0.53,
+      "clones": 6,
+      "calidad": 84,
+      "diseno": 109,
+      "estandares": 125,
+      "vulnerabilidades": 51,
+      "deudaEstimadaMin": 6265
+    },
+    "total": {
+      "loc": 13689,
+      "archivos": 86,
+      "funciones": 852,
+      "ccTotal": 2510,
+      "ccPromedio": 2.95,
+      "ccMaxima": 157,
+      "ccDistribucion": {
+        "baja_1_5": 750,
+        "moderada_6_10": 66,
+        "alta_11_20": 27,
+        "muy_alta_mas_20": 9
+      },
+      "lineasDuplicadas": 83,
+      "lineasAnalizadas": 14002,
+      "duplicacionPct": 0.59,
+      "clones": 8,
+      "calidad": 84,
+      "diseno": 111,
+      "estandares": 132,
+      "vulnerabilidades": 54,
+      "deudaEstimadaMin": 6450
+    }
+  },
+  "npmAudit": {
+    "backend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 7,
+      "critical": 0,
+      "total": 7
+    },
+    "frontend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 1,
+      "critical": 0,
+      "total": 1
+    }
+  },
+  "reglas": {
+    "estandares | @typescript-eslint/no-explicit-any": 74,
+    "estandares | @typescript-eslint/no-unused-vars": 58,
+    "calidad | sonarjs/unused-import": 52,
+    "vulnerabilidades | security/detect-object-injection": 47,
+    "diseno | complexity": 36,
+    "diseno | max-lines-per-function": 30,
+    "diseno | sonarjs/no-nested-conditional": 18,
+    "diseno | sonarjs/no-duplicate-string": 16,
+    "calidad | sonarjs/no-duplicated-branches": 12,
+    "calidad | sonarjs/super-linear-regex": 11,
+    "diseno | max-lines": 6,
+    "diseno | sonarjs/cognitive-complexity": 5,
+    "calidad | sonarjs/no-unused-vars": 3,
+    "calidad | sonarjs/no-dead-store": 3,
+    "vulnerabilidades | security/detect-unsafe-regex": 3,
+    "calidad | sonarjs/no-nested-template-literals": 2,
+    "vulnerabilidades | security/detect-non-literal-fs-filename": 1,
+    "vulnerabilidades | sonarjs/cors": 1,
+    "vulnerabilidades | sonarjs/content-length": 1,
+    "vulnerabilidades | security/detect-non-literal-regexp": 1,
+    "calidad | sonarjs/duplicates-in-character-class": 1
+  }
+}

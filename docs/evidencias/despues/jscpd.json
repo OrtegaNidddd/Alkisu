@@ -1,0 +1,56 @@
+{
+  "estadisticas": {
+    "lines": 14002,
+    "tokens": 119687,
+    "sources": 110,
+    "clones": 8,
+    "duplicatedLines": 83,
+    "duplicatedTokens": 841,
+    "percentage": 0.59,
+    "percentageTokens": 0.7,
+    "newDuplicatedLines": 0,
+    "newClones": 0
+  },
+  "clones": [
+    {
+      "lineas": 12,
+      "a": "frontend/src/components/orders/DeliveryActModal.tsx:287-298",
+      "b": "frontend/src/components/orders/DeliveryActModal.tsx:212-223"
+    },
+    {
+      "lineas": 11,
+      "a": "frontend/src/components/inventory/MaterialFormModal.tsx:224-234",
+      "b": "frontend/src/components/inventory/MaterialFormModal.tsx:204-214"
+    },
+    {
+      "lineas": 13,
+      "a": "frontend/src/components/dashboard/SalesDashboard.tsx:202-214",
+      "b": "frontend/src/components/dashboard/WorkshopDashboard.tsx:203-215"
+    },
+    {
+      "lineas": 10,
+      "a": "frontend/src/api/hooks.ts:111-120",
+      "b": "frontend/src/api/hooks.ts:59-68"
+    },
+    {
+      "lineas": 10,
+      "a": "frontend/src/api/hooks.ts:313-322",
+      "b": "frontend/src/api/hooks.ts:59-68"
+    },
+    {
+      "lineas": 11,
+      "a": "frontend/src/api/hooks.ts:326-336",
+      "b": "frontend/src/api/hooks.ts:72-82"
+    },
+    {
+      "lineas": 10,
+      "a": "backend/src/services/order.service.ts:137-146",
+      "b": "backend/src/services/order.service.ts:50-59"
+    },
+    {
+      "lineas": 14,
+      "a": "backend/src/services/order.service.ts:270-283",
+      "b": "backend/src/services/order.service.ts:85-98"
+    }
+  ]
+}
