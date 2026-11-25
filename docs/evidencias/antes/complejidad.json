@@ -1,0 +1,5018 @@
+[
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 77,
+    "funcion": "Arrow function",
+    "cc": 157
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 232,
+    "funcion": "Arrow function",
+    "cc": 78
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 33,
+    "funcion": "Arrow function",
+    "cc": 36
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 74,
+    "funcion": "Arrow function",
+    "cc": 36
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 21,
+    "funcion": "Arrow function",
+    "cc": 30
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 42,
+    "funcion": "Arrow function",
+    "cc": 24
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 37,
+    "funcion": "Arrow function",
+    "cc": 24
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 615,
+    "funcion": "Async arrow function",
+    "cc": 21
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 107,
+    "funcion": "Arrow function",
+    "cc": 21
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 151,
+    "funcion": "Async method 'getOrders'",
+    "cc": 20
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 20,
+    "funcion": "Arrow function",
+    "cc": 20
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 56,
+    "funcion": "Arrow function",
+    "cc": 19
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 208,
+    "funcion": "Async method 'updateOrderStatus'",
+    "cc": 16
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 34,
+    "funcion": "Arrow function",
+    "cc": 16
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 85,
+    "funcion": "Arrow function",
+    "cc": 16
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 53,
+    "funcion": "Async arrow function",
+    "cc": 16
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 344,
+    "funcion": "Arrow function",
+    "cc": 15
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 351,
+    "funcion": "Async method 'registerMetalReturn'",
+    "cc": 14
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 368,
+    "funcion": "Arrow function",
+    "cc": 14
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 101,
+    "funcion": "Arrow function",
+    "cc": 13
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 505,
+    "funcion": "Async arrow function",
+    "cc": 13
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 759,
+    "funcion": "Async method 'updateClient'",
+    "cc": 12
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 924,
+    "funcion": "Async method 'approveQuote'",
+    "cc": 12
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 13,
+    "funcion": "Arrow function",
+    "cc": 12
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1385,
+    "funcion": "Arrow function",
+    "cc": 12
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 467,
+    "funcion": "Async arrow function",
+    "cc": 12
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "linea": 20,
+    "funcion": "Arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 60,
+    "funcion": "Async method 'fetchWithAuth'",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 308,
+    "funcion": "Async method 'consumeOrderMaterial'",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 855,
+    "funcion": "Async method 'updateQuote'",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 17,
+    "funcion": "Arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 28,
+    "funcion": "Arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 280,
+    "funcion": "Arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 421,
+    "funcion": "Async arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1308,
+    "funcion": "Arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/ui/Input.tsx",
+    "linea": 13,
+    "funcion": "Arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 94,
+    "funcion": "Async arrow function",
+    "cc": 11
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 93,
+    "funcion": "Async method 'login'",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 258,
+    "funcion": "Async method 'assignArtisan'",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 538,
+    "funcion": "Async method 'addAttachment'",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 193,
+    "funcion": "Arrow function",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 69,
+    "funcion": "Async arrow function",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "linea": 7,
+    "funcion": "Arrow function",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 744,
+    "funcion": "Arrow function",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 124,
+    "funcion": "Async arrow function",
+    "cc": 10
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 183,
+    "funcion": "Async method 'getOrder'",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 409,
+    "funcion": "Async method 'addPayment'",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 462,
+    "funcion": "Async method 'cancelOrder'",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 814,
+    "funcion": "Async method 'createQuote'",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 40,
+    "funcion": "Async arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 56,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 193,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 201,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 573,
+    "funcion": "Async arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1026,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1493,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 13,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 80,
+    "funcion": "Async arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "frontend/src/components/ui/Modal.tsx",
+    "linea": 23,
+    "funcion": "Arrow function",
+    "cc": 9
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 6,
+    "funcion": "Async arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "backend/src/services/email.service.ts",
+    "linea": 7,
+    "funcion": "Async arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 34,
+    "funcion": "Async arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 140,
+    "funcion": "Async arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 608,
+    "funcion": "Async method 'restockMaterial'",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 729,
+    "funcion": "Async method 'createClient'",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 28,
+    "funcion": "Arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 8,
+    "funcion": "Arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 21,
+    "funcion": "Arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 219,
+    "funcion": "Arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 150,
+    "funcion": "Arrow function",
+    "cc": 8
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 43,
+    "funcion": "Method 'render'",
+    "cc": 8
+  },
+  {
+    "archivo": "backend/src/controllers/auth.controller.ts",
+    "linea": 4,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 6,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 134,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 5,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 256,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 385,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 677,
+    "funcion": "Async method 'updateMaterial'",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 244,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 22,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 34,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 38,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 134,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 55,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 477,
+    "funcion": "Async arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 210,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 375,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 30,
+    "funcion": "Arrow function",
+    "cc": 7
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "linea": 6,
+    "funcion": "Async arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 27,
+    "funcion": "Async arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 85,
+    "funcion": "Async arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 28,
+    "funcion": "Async arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "linea": 55,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 36,
+    "funcion": "Method 'getToken'",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 122,
+    "funcion": "Async method 'register'",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 644,
+    "funcion": "Async method 'createMaterial'",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 908,
+    "funcion": "Async method 'deleteQuote'",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1024,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 70,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 160,
+    "funcion": "Async arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 26,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 575,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 70,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 143,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 353,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 737,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 31,
+    "funcion": "Function 'isTokenExpired'",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 67,
+    "funcion": "Arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 159,
+    "funcion": "Async arrow function",
+    "cc": 6
+  },
+  {
+    "archivo": "frontend/src/utils/formatters.ts",
+    "linea": 48,
+    "funcion": "Function 'getDeliverySLA'",
+    "cc": 6
+  },
+  {
+    "archivo": "backend/src/controllers/auth.controller.ts",
+    "linea": 18,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 25,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 60,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "backend/src/controllers/upload.controller.ts",
+    "linea": 5,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 32,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "backend/src/services/audit.service.ts",
+    "linea": 10,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 504,
+    "funcion": "Async method 'uploadFile'",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "linea": 22,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 29,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 32,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 165,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "linea": 28,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 188,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 62,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 97,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 102,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 562,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1559,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1730,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 250,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 785,
+    "funcion": "Async arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/ui/Button.tsx",
+    "linea": 11,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 18,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 36,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 59,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 219,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 39,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 68,
+    "funcion": "Arrow function",
+    "cc": 5
+  },
+  {
+    "archivo": "frontend/src/utils/formatters.ts",
+    "linea": 21,
+    "funcion": "Function 'formatGrams'",
+    "cc": 5
+  },
+  {
+    "archivo": "backend/src/controllers/audit.controller.ts",
+    "linea": 5,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 47,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 62,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 83,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 103,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 113,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 59,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 6,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 24,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/services/auth.service.ts",
+    "linea": 42,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 344,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/services/storage.service.ts",
+    "linea": 8,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 585,
+    "funcion": "Async method 'getMaterials'",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 716,
+    "funcion": "Async method 'getClients'",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 798,
+    "funcion": "Async method 'getQuotes'",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1064,
+    "funcion": "Async method 'getUsers'",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1078,
+    "funcion": "Async method 'getAuditLogs'",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 96,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 184,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 36,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 315,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 29,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 37,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 39,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 565,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 696,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1672,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 328,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 175,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 199,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 259,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 434,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 815,
+    "funcion": "Async arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 920,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 43,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 48,
+    "funcion": "Arrow function",
+    "cc": 4
+  },
+  {
+    "archivo": "frontend/src/utils/formatters.ts",
+    "linea": 5,
+    "funcion": "Function 'formatCurrency'",
+    "cc": 4
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 15,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 52,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 170,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 35,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 73,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 22,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 42,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/attachment.service.ts",
+    "linea": 10,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 155,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 44,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 191,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 294,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 59,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 110,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 120,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 158,
+    "funcion": "Async arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1010,
+    "funcion": "Async method 'getDashboardMetrics'",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 177,
+    "funcion": "Method 'onSuccess'",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 195,
+    "funcion": "Method 'onSuccess'",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 218,
+    "funcion": "Method 'onSuccess'",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 246,
+    "funcion": "Method 'onError'",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 39,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 63,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "linea": 11,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 125,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 127,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 174,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 213,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 667,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 724,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 43,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 59,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "linea": 19,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 28,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 106,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 216,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 291,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 501,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 51,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 88,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 185,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 392,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 462,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 490,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 535,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 72,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 248,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 97,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 140,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 152,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 164,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 275,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 342,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 404,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1746,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/ui/Badge.tsx",
+    "linea": 15,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 33,
+    "funcion": "Method 'componentDidUpdate'",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/ui/Modal.tsx",
+    "linea": 25,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 33,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 40,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 239,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 86,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 111,
+    "funcion": "Arrow function",
+    "cc": 3
+  },
+  {
+    "archivo": "frontend/src/utils/formatters.ts",
+    "linea": 30,
+    "funcion": "Function 'formatDate'",
+    "cc": 3
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "linea": 35,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 5,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/controllers/dashboard.controller.ts",
+    "linea": 5,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 51,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 26,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 45,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 32,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "linea": 8,
+    "funcion": "Constructor",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/middlewares/upload.middleware.ts",
+    "linea": 17,
+    "funcion": "Method 'fileFilter'",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/middlewares/validate.middleware.ts",
+    "linea": 6,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/auth.service.ts",
+    "linea": 11,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/client.service.ts",
+    "linea": 13,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/client.service.ts",
+    "linea": 40,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/client.service.ts",
+    "linea": 86,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 101,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 106,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 78,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 231,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/user.service.ts",
+    "linea": 4,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/services/user.service.ts",
+    "linea": 49,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 871,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1042,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 15,
+    "funcion": "Method 'queryFn'",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 96,
+    "funcion": "Method 'onSuccess'",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 179,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 220,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 221,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 240,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 218,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 15,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 55,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 182,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 54,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 55,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 61,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 63,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 83,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 93,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 103,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 113,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 133,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 40,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 45,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 46,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 47,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 43,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 41,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 149,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 156,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 161,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 105,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 213,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 555,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 884,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 962,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 981,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1000,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1095,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1225,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1234,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1245,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1254,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1413,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 28,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 38,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 42,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 46,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 49,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 53,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 249,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 122,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 128,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 167,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 172,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 232,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 242,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 282,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 298,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 332,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1008,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1044,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1051,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1187,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1209,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1241,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1358,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1373,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1406,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1502,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1556,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1571,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1627,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 21,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 93,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/ui/Modal.tsx",
+    "linea": 24,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 42,
+    "funcion": "Async arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 122,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 203,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 206,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 207,
+    "funcion": "Arrow function",
+    "cc": 2
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 220,
+    "funcion": "Function 'useAuth'",
+    "cc": 2
+  },
+  {
+    "archivo": "backend/src/app.ts",
+    "linea": 60,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 108,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 41,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "linea": 23,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/middlewares/validate.middleware.ts",
+    "linea": 5,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/server.ts",
+    "linea": 9,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/attachment.service.ts",
+    "linea": 28,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/client.service.ts",
+    "linea": 8,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/client.service.ts",
+    "linea": 64,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "linea": 4,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "linea": 57,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "linea": 86,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "linea": 93,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 10,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 33,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 84,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 89,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/material.service.ts",
+    "linea": 154,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 12,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 53,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 101,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 111,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 116,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 120,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 159,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 202,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 296,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 315,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 319,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 384,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 399,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 9,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 11,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 23,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 35,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 47,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 68,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 75,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 124,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 135,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "backend/src/services/user.service.ts",
+    "linea": 24,
+    "funcion": "Async arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 51,
+    "funcion": "Method 'setToken'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 55,
+    "funcion": "Method 'clearToken'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 74,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 79,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 105,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 112,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 132,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 177,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 178,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 179,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 188,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 197,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 203,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 219,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 225,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 269,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 275,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 278,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 318,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 324,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 327,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 359,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 365,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 368,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 418,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 421,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 427,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 470,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 476,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 526,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 528,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 547,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 556,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 562,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 591,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 602,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 625,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 631,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 662,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 697,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 703,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 741,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 772,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 778,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 784,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 823,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 826,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 832,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 833,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 844,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 874,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 880,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 884,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 893,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 914,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 921,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 936,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 937,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 947,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 951,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 957,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 973,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1026,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1033,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1049,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1058,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 5,
+    "funcion": "Function 'useOrders'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 8,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 12,
+    "funcion": "Function 'useOrder'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 20,
+    "funcion": "Function 'useMaterials'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 23,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 27,
+    "funcion": "Function 'useQuotes'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 30,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 34,
+    "funcion": "Function 'useDashboardMetrics'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 37,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 41,
+    "funcion": "Function 'useClients'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 44,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 48,
+    "funcion": "Function 'useUsers'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 51,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 55,
+    "funcion": "Function 'useUpdateOrderStatus'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 58,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 60,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 68,
+    "funcion": "Function 'useRegisterMetalReturn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 71,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 73,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 82,
+    "funcion": "Function 'useAddPayment'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 85,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 107,
+    "funcion": "Function 'useCancelOrder'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 110,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 112,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 120,
+    "funcion": "Function 'useRestockMaterial'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 123,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 125,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 132,
+    "funcion": "Function 'useCreateMaterial'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 135,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 142,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 149,
+    "funcion": "Function 'useUpdateMaterial'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 152,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 165,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 172,
+    "funcion": "Function 'useCreateQuote'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 175,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 181,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 190,
+    "funcion": "Function 'useApproveQuote'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 193,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 206,
+    "funcion": "Function 'useUpdateQuote'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 209,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 230,
+    "funcion": "Function 'useDeleteQuote'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 233,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 234,
+    "funcion": "Async method 'onMutate'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 241,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 252,
+    "funcion": "Method 'onSettled'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 258,
+    "funcion": "Function 'useAddAttachment'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 261,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 268,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 275,
+    "funcion": "Function 'useCreateClient'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 278,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 280,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 286,
+    "funcion": "Function 'useUpdateClient'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 289,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 296,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 302,
+    "funcion": "Function 'useAuditLogs'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 305,
+    "funcion": "Method 'queryFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 309,
+    "funcion": "Function 'useAssignArtisan'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 312,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 314,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 322,
+    "funcion": "Function 'useConsumeOrderMaterial'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 325,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 327,
+    "funcion": "Method 'onSuccess'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 336,
+    "funcion": "Function 'useUploadFile'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 338,
+    "funcion": "Method 'mutationFn'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 45,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 46,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 57,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 72,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 80,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 154,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 168,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 168,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 180,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 199,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 200,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 212,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 226,
+    "funcion": "Function 'App'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 59,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 128,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 145,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 162,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 189,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 212,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 235,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 80,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 100,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 102,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 141,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 176,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 186,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 197,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 207,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 224,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "linea": 91,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "linea": 108,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 144,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 161,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 177,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 194,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 31,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 50,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 53,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 58,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 90,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 99,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 156,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 167,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 185,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 232,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 236,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 60,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 66,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 67,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 82,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 83,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 92,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 93,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 102,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 103,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 112,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 113,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 123,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 124,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 129,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 130,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 172,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 198,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 245,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 255,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 265,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 275,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 338,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 364,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 409,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 419,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 424,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 477,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 539,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 550,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 561,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 580,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 640,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 648,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 668,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 715,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 759,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 760,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 767,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 43,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 71,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 79,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 179,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 194,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 246,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 272,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 280,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 290,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 334,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 348,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 72,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 81,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 179,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 228,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 279,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 286,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 30,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 55,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 60,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 81,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 106,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 116,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 126,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 144,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 203,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 213,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 245,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 251,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 258,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 62,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 160,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 174,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 177,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 191,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 213,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 233,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "linea": 108,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "linea": 126,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 104,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 194,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 135,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 151,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 152,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 172,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 176,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 231,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 240,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 264,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 276,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 307,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 325,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 468,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 77,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 83,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 106,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 135,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 139,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 15,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 91,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 112,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 156,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 173,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 329,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 340,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 341,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 348,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 349,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 403,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 406,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 456,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 458,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 464,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 487,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 522,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 554,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 568,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 599,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 653,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 653,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 680,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 721,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 728,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 740,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 772,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 785,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 828,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 840,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 852,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 865,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 887,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 921,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 934,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 971,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1113,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1124,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1128,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1148,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1204,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1257,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1309,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1326,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1352,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1389,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1393,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1394,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1401,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1402,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1425,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1426,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1445,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1545,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1618,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1629,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1649,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1693,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1760,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1778,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1791,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1807,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1817,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1831,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1951,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2108,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2115,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2119,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2136,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2155,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2166,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2185,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 2195,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 26,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 29,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 34,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 37,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 41,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 45,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 50,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 193,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 286,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 325,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 363,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 375,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 393,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 404,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 102,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 110,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 120,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 126,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 139,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 146,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 166,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 206,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 207,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 215,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 237,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 249,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 279,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 297,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 301,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 302,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 314,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 330,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 336,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 337,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 340,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 348,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 532,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 545,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 555,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 579,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 656,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 673,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 693,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 701,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 710,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 715,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 719,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 724,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 729,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 774,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 806,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 855,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 876,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 904,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 910,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 925,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 961,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 973,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1070,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1083,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1128,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1131,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1161,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1227,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1326,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1329,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1341,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1389,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1435,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1478,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1537,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1545,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1586,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 18,
+    "funcion": "Class field initializer",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 24,
+    "funcion": "Static method 'getDerivedStateFromError'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 28,
+    "funcion": "Method 'componentDidCatch'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 39,
+    "funcion": "Method 'handleReset'",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 39,
+    "funcion": "Class field initializer",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 66,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 32,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 32,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 33,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 33,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 34,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 93,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/ui/Modal.tsx",
+    "linea": 34,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 51,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 134,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 236,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 278,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 303,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 373,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 110,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 176,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 232,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 245,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 256,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 275,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 281,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 41,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 95,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 103,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 104,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 118,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 133,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 146,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 168,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 191,
+    "funcion": "Arrow function",
+    "cc": 1
+  },
+  {
+    "archivo": "frontend/src/utils/cn.ts",
+    "linea": 4,
+    "funcion": "Function 'cn'",
+    "cc": 1
+  }
+]

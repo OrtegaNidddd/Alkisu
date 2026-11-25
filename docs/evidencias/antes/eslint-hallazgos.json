@@ -1,0 +1,2678 @@
+[
+  {
+    "archivo": "backend/src/app.ts",
+    "linea": 22,
+    "regla": "sonarjs/x-powered-by",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "backend/src/app.ts",
+    "linea": 25,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/app.ts",
+    "linea": 36,
+    "regla": "security/detect-non-literal-fs-filename",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "backend/src/app.ts",
+    "linea": 40,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/app.ts",
+    "linea": 57,
+    "regla": "sonarjs/cors",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "linea": 30,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "linea": 39,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "linea": 39,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/attachment.controller.ts",
+    "linea": 39,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/audit.controller.ts",
+    "linea": 17,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/audit.controller.ts",
+    "linea": 17,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/audit.controller.ts",
+    "linea": 17,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/auth.controller.ts",
+    "linea": 13,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/auth.controller.ts",
+    "linea": 27,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 10,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 10,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 20,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 20,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 39,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/client.controller.ts",
+    "linea": 61,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/dashboard.controller.ts",
+    "linea": 9,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/dashboard.controller.ts",
+    "linea": 9,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/dashboard.controller.ts",
+    "linea": 9,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 22,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 46,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 55,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 55,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 55,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 80,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/material.controller.ts",
+    "linea": 112,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 23,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 47,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 47,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 47,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 57,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 57,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 57,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 78,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 98,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 107,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 129,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 165,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/order.controller.ts",
+    "linea": 177,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 21,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 30,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 30,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 30,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 40,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 40,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 40,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 55,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 68,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/quote.controller.ts",
+    "linea": 77,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/upload.controller.ts",
+    "linea": 18,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 17,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 17,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 17,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 27,
+    "regla": "sonarjs/no-ignored-exceptions",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 27,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 27,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/controllers/user.controller.ts",
+    "linea": 46,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 13,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 14,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/middlewares/auth.middleware.ts",
+    "linea": 15,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "linea": 16,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "linea": 19,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/middlewares/error.middleware.ts",
+    "linea": 20,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "backend/src/middlewares/upload.middleware.ts",
+    "linea": 15,
+    "regla": "sonarjs/content-length",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "backend/src/services/audit.service.ts",
+    "linea": 15,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/services/dashboard.service.ts",
+    "linea": 4,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "backend/src/services/email.service.ts",
+    "linea": 45,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 50,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 261,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 376,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 385,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "backend/src/services/order.service.ts",
+    "linea": 470,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "backend/src/services/quote.service.ts",
+    "linea": 65,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 6,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 6,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 33,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 42,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 60,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 107,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 108,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 134,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 151,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 171,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 190,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 196,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 199,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 208,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 221,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 228,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 243,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 254,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 271,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 286,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 295,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 296,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 300,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 304,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 308,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 308,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 320,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 328,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 342,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 343,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 344,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 345,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 351,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 361,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 388,
+    "regla": "sonarjs/no-nested-template-literals",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 423,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 430,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 453,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 458,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 472,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 479,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 500,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 538,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 549,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 550,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 551,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 558,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 575,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 576,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 577,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 591,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 627,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 635,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 636,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 640,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 664,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 699,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 707,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 711,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 743,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 759,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 774,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 774,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 780,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 788,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 790,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 791,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 793,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 814,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 828,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 840,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 855,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 876,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 882,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 904,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 917,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 924,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 939,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 940,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 953,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 960,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/api/client.ts",
+    "linea": 1078,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 137,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 138,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 159,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 160,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 175,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 215,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/hooks.ts",
+    "linea": 266,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/api/mockData.ts",
+    "linea": 11,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/mockData.ts",
+    "linea": 17,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/mockData.ts",
+    "linea": 134,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/mockData.ts",
+    "linea": 136,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/api/mockData.ts",
+    "linea": 405,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 34,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/App.tsx",
+    "linea": 34,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 7,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 7,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 24,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 69,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/admin/RegisterUserModal.tsx",
+    "linea": 181,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 8,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 16,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 20,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 20,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 44,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 85,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 261,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/audit/AuditView.tsx",
+    "linea": 266,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "linea": 11,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/auth/AuthView.tsx",
+    "linea": 32,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 16,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 53,
+    "regla": "sonarjs/cognitive-complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 53,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientModal.tsx",
+    "linea": 100,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 14,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/clients/ClientsView.tsx",
+    "linea": 17,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 3,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 3,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 21,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 21,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 22,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 22,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 29,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 29,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 30,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 30,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 39,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 42,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 43,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 43,
+    "regla": "sonarjs/no-unused-vars",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 43,
+    "regla": "sonarjs/no-dead-store",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 71,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 114,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 442,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/ExecutiveDashboard.tsx",
+    "linea": 743,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 3,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 3,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 8,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 8,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 11,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 11,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 17,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 17,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/SalesDashboard.tsx",
+    "linea": 26,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 6,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 6,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 10,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 10,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 14,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 14,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 15,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 15,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 16,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 16,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/dashboard/WorkshopDashboard.tsx",
+    "linea": 26,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 9,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 9,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 14,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 14,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 21,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 23,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 23,
+    "regla": "sonarjs/no-unused-vars",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/InventoryView.tsx",
+    "linea": 23,
+    "regla": "sonarjs/no-dead-store",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 24,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 28,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/MaterialFormModal.tsx",
+    "linea": 113,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "linea": 15,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/inventory/RestockModal.tsx",
+    "linea": 47,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "linea": 7,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "linea": 11,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Navbar.tsx",
+    "linea": 32,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 13,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 13,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 35,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 96,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/layout/Sidebar.tsx",
+    "linea": 101,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 8,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 8,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 11,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 11,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 14,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 14,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 16,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 16,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 28,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 33,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 37,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 57,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 57,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 108,
+    "regla": "security/detect-unsafe-regex",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 108,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 113,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/DeliveryActModal.tsx",
+    "linea": 441,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/KanbanBoard.tsx",
+    "linea": 47,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 5,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 5,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 13,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 13,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderCard.tsx",
+    "linea": 13,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 27,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 27,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 29,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 29,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 35,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 35,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 39,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 39,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 47,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 47,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 72,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 77,
+    "regla": "sonarjs/cognitive-complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 77,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 82,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 82,
+    "regla": "sonarjs/no-unused-vars",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 82,
+    "regla": "sonarjs/no-dead-store",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 137,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 201,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 218,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 222,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 222,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 232,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 232,
+    "regla": "sonarjs/cognitive-complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 232,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 241,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 242,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 243,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 244,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 245,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 246,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 270,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 271,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 272,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 273,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 274,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 275,
+    "regla": "sonarjs/no-duplicated-branches",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 280,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 294,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 305,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 305,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 305,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 306,
+    "regla": "security/detect-non-literal-regexp",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 344,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 354,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 368,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 403,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 408,
+    "regla": "security/detect-unsafe-regex",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 410,
+    "regla": "security/detect-unsafe-regex",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 410,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 410,
+    "regla": "sonarjs/duplicates-in-character-class",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 412,
+    "regla": "sonarjs/super-linear-regex",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 421,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 462,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 464,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 469,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 490,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 499,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 505,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 509,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 535,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 546,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 599,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 609,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 615,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 639,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 640,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 675,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 709,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 803,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 805,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 887,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1036,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1040,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1120,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1385,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/orders/OrderDetailModal.tsx",
+    "linea": 1791,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 4,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 4,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 13,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 56,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/payments/PaymentsView.tsx",
+    "linea": 111,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 2,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 2,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 2,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 2,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 21,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 21,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 26,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 26,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 74,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 74,
+    "regla": "sonarjs/cognitive-complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 74,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 297,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 329,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 383,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 383,
+    "regla": "sonarjs/no-nested-template-literals",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 460,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 462,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 467,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 478,
+    "regla": "max-lines",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 519,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 703,
+    "regla": "sonarjs/no-duplicate-string",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 744,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 793,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 821,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1308,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/quotes/QuoteBuilder.tsx",
+    "linea": 1308,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Badge.tsx",
+    "linea": 34,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Badge.tsx",
+    "linea": 35,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Button.tsx",
+    "linea": 43,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Button.tsx",
+    "linea": 43,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/ui/ErrorBoundary.tsx",
+    "linea": 8,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Input.tsx",
+    "linea": 13,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Input.tsx",
+    "linea": 50,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Lightbox.tsx",
+    "linea": 12,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/ui/Modal.tsx",
+    "linea": 65,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 2,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 2,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 6,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 6,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 16,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 21,
+    "regla": "sonarjs/cognitive-complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 21,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 30,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 94,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 129,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 320,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/MetalReturnModal.tsx",
+    "linea": 333,
+    "regla": "sonarjs/no-nested-conditional",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 3,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 3,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 15,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 15,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 17,
+    "regla": "@typescript-eslint/no-unused-vars",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 17,
+    "regla": "sonarjs/unused-import",
+    "categoria": "calidad"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 27,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 107,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/components/workbench/WorkbenchView.tsx",
+    "linea": 107,
+    "regla": "complexity",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 67,
+    "regla": "max-lines-per-function",
+    "categoria": "diseno"
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 141,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 173,
+    "regla": "@typescript-eslint/no-explicit-any",
+    "categoria": "estandares"
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 192,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 194,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  },
+  {
+    "archivo": "frontend/src/hooks/useAuth.tsx",
+    "linea": 196,
+    "regla": "security/detect-object-injection",
+    "categoria": "vulnerabilidades"
+  }
+]

@@ -1,0 +1,66 @@
+{
+  "estadisticas": {
+    "lines": 14014,
+    "tokens": 121630,
+    "sources": 99,
+    "clones": 10,
+    "duplicatedLines": 104,
+    "duplicatedTokens": 1089,
+    "percentage": 0.74,
+    "percentageTokens": 0.9,
+    "newDuplicatedLines": 0,
+    "newClones": 0
+  },
+  "clones": [
+    {
+      "lineas": 12,
+      "a": "frontend/src/components/orders/DeliveryActModal.tsx:287-298",
+      "b": "frontend/src/components/orders/DeliveryActModal.tsx:212-223"
+    },
+    {
+      "lineas": 11,
+      "a": "frontend/src/components/inventory/MaterialFormModal.tsx:224-234",
+      "b": "frontend/src/components/inventory/MaterialFormModal.tsx:204-214"
+    },
+    {
+      "lineas": 13,
+      "a": "frontend/src/components/dashboard/SalesDashboard.tsx:202-214",
+      "b": "frontend/src/components/dashboard/WorkshopDashboard.tsx:203-215"
+    },
+    {
+      "lineas": 10,
+      "a": "frontend/src/api/hooks.ts:111-120",
+      "b": "frontend/src/api/hooks.ts:59-68"
+    },
+    {
+      "lineas": 10,
+      "a": "frontend/src/api/hooks.ts:313-322",
+      "b": "frontend/src/api/hooks.ts:59-68"
+    },
+    {
+      "lineas": 11,
+      "a": "frontend/src/api/hooks.ts:326-336",
+      "b": "frontend/src/api/hooks.ts:72-82"
+    },
+    {
+      "lineas": 15,
+      "a": "backend/src/services/quote.service.ts:133-147",
+      "b": "backend/src/services/quote.service.ts:21-33"
+    },
+    {
+      "lineas": 10,
+      "a": "backend/src/services/order.service.ts:139-148",
+      "b": "backend/src/services/order.service.ts:43-52"
+    },
+    {
+      "lineas": 14,
+      "a": "backend/src/services/order.service.ts:274-287",
+      "b": "backend/src/services/order.service.ts:82-95"
+    },
+    {
+      "lineas": 8,
+      "a": "backend/src/controllers/audit.controller.ts:11-18",
+      "b": "backend/src/controllers/order.controller.ts:41-48"
+    }
+  ]
+}
