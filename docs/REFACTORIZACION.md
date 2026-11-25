@@ -92,7 +92,7 @@ if (data.newStatus === OrderStatus.ENTREGADO) {
 
 ## 3. Liquidación de metal
 
-**Problema:** `registerMetalReturn` ocupaba 107 líneas y hacía seis cosas; el umbral era un número sin nombre.
+**Problema:** `registerMetalReturn` ocupaba 110 líneas y hacía seis cosas; el umbral era un número sin nombre.
 **Archivos:** `backend/src/services/order.service.ts`, `backend/src/services/metal.service.ts` y `backend/src/domain/balance-metal.ts` (nuevos).
 
 Antes (fragmento):
@@ -203,7 +203,7 @@ export const obtenerJwtSecret = (): string => {
 };
 ```
 
-- **Técnica:** centralizar el manejo de errores, extraer función y dividir `errorHandler`, cuya complejidad bajó de 11 a 1 (la función más compleja que resultó tiene 7).
+- **Técnica:** centralizar el manejo de errores, extraer función y dividir `errorHandler`, cuya complejidad bajó de 11 a 2 (la función más compleja que resultó tiene 7).
 - **Principios:** DRY, responsabilidad única y configuración segura por defecto.
 - **Justificación:** `AppError` ya existía, pero los servicios no lo usaban.
 - **Beneficios:** respuestas uniformes y sin datos internos.

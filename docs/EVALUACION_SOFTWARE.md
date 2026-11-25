@@ -85,7 +85,7 @@ De las 55 posibles vulnerabilidades, 47 son de la regla `detect-object-injection
 |---|---|---|---|
 | 1 | Cálculo del saldo repetido cuatro veces | `backend/src/services/order.service.ts`: `addPayment`, `getOrderById`, `updateOrderStatus`, `getOrders` | Duplicación |
 | 2 | Regla de entrega fija y sin validar la secuencia de estados | `backend/src/services/order.service.ts`: `updateOrderStatus` (línea 140) | Diseño y defecto funcional |
-| 3 | Función de 107 líneas con varias responsabilidades y número mágico | `backend/src/services/order.service.ts`: `registerMetalReturn` (línea 376) | Diseño |
+| 3 | Función de 110 líneas con varias responsabilidades y número mágico | `backend/src/services/order.service.ts`: `registerMetalReturn` (línea 376) | Diseño |
 | 4 | Aplicación acoplada a Brevo | `backend/src/services/email.service.ts` y `controllers/material.controller.ts` | Diseño |
 | 5 | Manejo de errores repetido y secreto JWT de respaldo | `backend/src/controllers/*.ts`, `middlewares/error.middleware.ts`, `middlewares/auth.middleware.ts`, `services/auth.service.ts` | Calidad y seguridad |
 | 6 | Ítems y total de cotización calculados dos veces | `backend/src/services/quote.service.ts`: `createQuote`, `updateQuote` | Duplicación |
