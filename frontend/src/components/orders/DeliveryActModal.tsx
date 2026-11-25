@@ -342,7 +342,7 @@ export const DeliveryActModal: React.FC<DeliveryActModalProps> = ({
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-[#17211D] pb-5 gap-4">
             <div>
               <h2 className="font-serif text-2xl font-black tracking-widest text-[#17211D] uppercase">
-                ALKISU JOYERÍA
+                PAPOI JOYERÍA
               </h2>
               <p className="text-xs font-semibold text-[#A57525] tracking-wider uppercase mt-0.5">
                 Taller de Alta Gama & Orfebrería Fina
@@ -402,7 +402,7 @@ export const DeliveryActModal: React.FC<DeliveryActModalProps> = ({
                 ID Sistema: {order.id}
               </span>
               <p className="text-[#66736D]">
-                Orfebre Maestro: <strong className="text-[#17201D]">{order.artisan?.fullName || 'Taller Central Alkisu'}</strong>
+                Orfebre Maestro: <strong className="text-[#17201D]">{order.artisan?.fullName || 'Taller Central Papoi'}</strong>
               </p>
               <p className="text-[#66736D]">
                 Estado de la Orden: <strong className="text-[#17734B] uppercase">ENTREGADA A SATISFACCIÓN</strong>
@@ -586,10 +586,10 @@ export const DeliveryActModal: React.FC<DeliveryActModalProps> = ({
           <div className="pt-2 border-t border-[#DDE3E0] space-y-4">
             <div className="p-3.5 bg-[#FAF1DA]/40 border border-[#eedab1] rounded-xl">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#A57525] block mb-1.5">
-                Declaración de Conformidad y Garantía Oficial Alkisu:
+                Declaración de Conformidad y Garantía Oficial Papoi:
               </span>
               <p className="text-[11px] text-[#17201D] leading-relaxed text-justify">
-                "El cliente declara haber recibido a entera satisfacción la joya descrita en la presente acta, habiendo verificado su estado físico, peso, acabados y gemas montadas. La pieza cuenta con garantía de por vida sobre la ley del metal precioso (Oro 18K / Plata 925). La garantía no cubre desgaste natural, deformaciones por golpes o caídas, cortes accidentales, pérdida de gemas por tracción externa o manipulación por talleres ajenos a Alkisu."
+                "El cliente declara haber recibido a entera satisfacción la joya descrita en la presente acta, habiendo verificado su estado físico, peso, acabados y gemas montadas. La pieza cuenta con garantía de por vida sobre la ley del metal precioso (Oro 18K / Plata 925). La garantía no cubre desgaste natural, deformaciones por golpes o caídas, cortes accidentales, pérdida de gemas por tracción externa o manipulación por talleres ajenos a Papoi."
               </p>
             </div>
 
@@ -601,7 +601,7 @@ export const DeliveryActModal: React.FC<DeliveryActModalProps> = ({
                 <div className="space-y-1">
                   <div className="flex justify-between items-center">
                     <span className="text-xs font-bold text-[#17201D]">
-                      Alkisu Joyería Artesanal
+                      Papoi Joyería Artesanal
                     </span>
                     <span className="text-[9px] uppercase tracking-wider text-[#66736D] font-medium">
                       Control y Entrega
@@ -635,7 +635,7 @@ export const DeliveryActModal: React.FC<DeliveryActModalProps> = ({
                 <div className="space-y-1">
                   <div className="flex justify-between items-center">
                     <span className="text-xs font-bold text-[#17201D]">
-                      {order.client?.fullName || 'Cliente Alkisu'}
+                      {order.client?.fullName || 'Cliente Papoi'}
                     </span>
                     <span className="text-[9px] uppercase tracking-wider text-[#17734B] font-bold">
                       Recibido a Conformidad

@@ -1,10 +1,10 @@
-# Guía de Despliegue con Docker - Alkisu ERP
+# Guía de Despliegue con Docker - Papoi ERP
 
-Esta configuración implementa una arquitectura en contenedores desacoplada y de producción para **Alkisu ERP**:
+Esta configuración implementa una arquitectura en contenedores desacoplada y de producción para **Papoi ERP**:
 
 - **Frontend (`frontend/Dockerfile`):** Multi-stage build (Node 20 Alpine para compilación con Vite + Nginx Alpine para servir archivos estáticos con compresión gzip, caché de assets y proxy inverso a `/api`).
 - **Backend (`backend/Dockerfile`):** Multi-stage build (Node 20 Alpine con OpenSSL para Prisma ORM, compilación TypeScript, usuario sin privilegios `node` y healthcheck en `/api/health`).
-- **Orquestación (`docker-compose.yml`):** Coordina ambos contenedores en una red interna privada `alkisu-net`, mapeando el Frontend en el puerto `3000` y el Backend en el `4000`.
+- **Orquestación (`docker-compose.yml`):** Coordina ambos contenedores en una red interna privada `papoi-net`, mapeando el Frontend en el puerto `3000` y el Backend en el `4000`.
 
 ---
 
@@ -50,7 +50,7 @@ docker compose down
 
 ## 🌐 URLs de Acceso Local con Docker
 
-- **Frontend (Aplicación Web Alkisu):** [http://localhost:3000](http://localhost:3000)
+- **Frontend (Aplicación Web Papoi):** [http://localhost:3000](http://localhost:3000)
 - **Backend API:** [http://localhost:4000/api](http://localhost:4000/api)
 - **Documentación Swagger:** [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
 - **Healthcheck del Backend:** [http://localhost:4000/api/health](http://localhost:4000/api/health)

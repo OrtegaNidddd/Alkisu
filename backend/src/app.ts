@@ -46,9 +46,9 @@ if (!swaggerDocument) {
   swaggerDocument = {
     openapi: '3.0.0',
     info: {
-      title: 'Alkisu API - Taller de Joyería',
+      title: 'Papoi API - Taller de Joyería',
       version: '1.0.0',
-      description: 'Documentación técnica de los servicios del taller Alkisu',
+      description: 'Documentación técnica de los servicios del taller Papoi',
     },
     paths: {},
   };

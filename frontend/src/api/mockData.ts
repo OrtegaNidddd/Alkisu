@@ -4,19 +4,19 @@ export const MOCK_USERS: User[] = [
   {
     id: 'usr-admin-1',
     fullName: 'Alejandro Kisu (Director Creativo)',
-    email: 'admin@alkisu.com',
+    email: 'admin@papoi.com',
     role: 'ADMIN',
   },
   {
     id: 'usr-asesor-1',
     fullName: 'Valeria Morales (Asesora Comercial)',
-    email: 'asesor@alkisu.com',
+    email: 'asesor@papoi.com',
     role: 'ASESOR',
   },
   {
     id: 'usr-joyero-1',
     fullName: 'Maestro Mateo Rivera (Maestro Joyero)',
-    email: 'joyero@alkisu.com',
+    email: 'joyero@papoi.com',
     role: 'JOYERO',
   },
 ];
@@ -26,7 +26,7 @@ export const MOCK_CLIENTS: Client[] = [
     id: 'cli-defecto',
     fullName: 'Cliente General (Mostrador)',
     phone: '+57 300 000 0000',
-    email: 'general@alkisu.com',
+    email: 'general@papoi.com',
     documentId: '2222222222',
   },
   {
@@ -392,7 +392,7 @@ export const MOCK_ORDERS: Order[] = [
         fileUrl: 'https://images.unsplash.com/photo-1611591475152-478311382490?auto=format&fit=crop&w=1200&q=80',
         fileName: 'sello_caballero_entregado.jpg',
         fileType: 'CERTIFICADO',
-        description: 'Certificado de pureza 18k y autenticidad Alkisu',
+        description: 'Certificado de pureza 18k y autenticidad Papoi',
         createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
       },
     ],

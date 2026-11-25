@@ -238,7 +238,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
     return Number(Math.max(0, grossGrams - gramsNet).toFixed(2));
   }, [grossGrams, gramsNet]);
 
-  // Regla comercial Alkisu: la merma se contempla en el precio por gramo, no se le cobra adicional al cliente
+  // Regla comercial Papoi: la merma se contempla en el precio por gramo, no se le cobra adicional al cliente
   const metalSubtotal = useMemo(() => {
     return Math.round(gramsNet * (pricePerGram || 0));
   }, [gramsNet, pricePerGram]);
@@ -580,7 +580,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
           className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#FAF1DA] text-[#A57525] border border-[#eedab1] hover:bg-[#f6e5be] transition"
         >
           <HelpCircle className="w-4 h-4 text-[#A57525]" />
-          <span>¿Cómo se calculan los precios en Alkisu?</span>
+          <span>¿Cómo se calculan los precios en Papoi?</span>
           {showFormulaExplanation ? (
             <ChevronUp className="w-3.5 h-3.5 ml-1" />
           ) : (
@@ -594,7 +594,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
         <div className="p-5 bg-gradient-to-br from-[#FAF1DA]/80 to-[#F4F6F8] border border-[#eedab1] rounded-2xl text-xs space-y-4 animate-in fade-in">
           <div className="flex items-center space-x-2 text-[#A57525] font-bold text-sm">
             <Sparkle className="w-4 h-4" />
-            <span>Fórmula Estándar de Costeo de Alta Joyería (Taller Alkisu)</span>
+            <span>Fórmula Estándar de Costeo de Alta Joyería (Taller Papoi)</span>
           </div>
 
           <p className="text-[#4D5753] leading-relaxed">
@@ -759,7 +759,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({ onQuoteApproved }) =
                       </div>
 
                       <h4 className="text-sm font-bold text-[#17201D] line-clamp-1">
-                        {q.client?.fullName || 'Cliente Alkisu'}
+                        {q.client?.fullName || 'Cliente Papoi'}
                       </h4>
                       <p className="text-xs text-[#66736D] mt-0.5">
                         {q.client?.phone} {q.client?.documentId ? `• CC: ${q.client.documentId}` : ''}

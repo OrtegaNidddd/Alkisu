@@ -226,7 +226,7 @@ export const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({
           <div className="flex items-center space-x-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF1DA] text-[#A57525] border border-[#eedab1] uppercase tracking-wider flex items-center space-x-1">
               <Sparkles className="w-3 h-3" />
-              <span>Alta Dirección • Taller Central Alkisu</span>
+              <span>Alta Dirección • Taller Central Papoi</span>
             </span>
           </div>
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#17201D] mt-1">
@@ -704,7 +704,7 @@ export const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({
                   Equipo & Personal de Joyería Autorizado
                 </h3>
                 <p className="text-xs text-[#66736D]">
-                  {users.length} colaboradores activos con credenciales en Alkisu ERP.
+                  {users.length} colaboradores activos con credenciales en Papoi ERP.
                 </p>
               </div>
             </div>

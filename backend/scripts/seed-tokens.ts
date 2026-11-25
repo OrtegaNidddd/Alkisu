@@ -10,7 +10,7 @@ async function main() {
   // 1. Ensure Asesor exists
   let asesor = await prisma.user.findUnique({ where: { email: 'asesor@joyeria.com' } });
   if (!asesor) {
-    const hash = await bcrypt.hash('alkisu123', 10);
+    const hash = await bcrypt.hash('papoi123', 10);
     asesor = await prisma.user.create({
       data: {
         fullName: 'Valeria Morales (Asesora)',

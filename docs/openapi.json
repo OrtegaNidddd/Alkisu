@@ -1,15 +1,15 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Alkisu Jewelry Workshop API",
+    "title": "Papoi Jewelry Workshop API",
     "version": "1.0.0",
-    "description": "API RESTful de gestión integral para **Alkisu - Taller de Joyería de Alta Gama**.\n\nPermite controlar el ciclo completo del taller de orfebrería:\n- Autenticación y roles estrictos (`ADMIN`, `ASESOR`, `JOYERO`).\n- Directorio y ficha financiera de clientes con acumulados.\n- Cotizaciones inmutables con conversión automática a pedidos de taller.\n- Flujo de producción de pedidos con control de estados, saldo y cobros.\n- Inventario de metales (oro 10k-18k, plata 925, gemas) con alertas automáticas de stock crítico por Brevo.\n- Liquidación técnica de metales en mesa: cálculo de mermas, reintegración de limalla y auditoría forense.\n- Almacenamiento CDN de bocetos, renders 3D y controles de calidad en Supabase Storage.\n- Dashboard de métricas financieras y operativas en tiempo real.\n",
+    "description": "API RESTful de gestión integral para **Papoi - Taller de Joyería de Alta Gama**.\n\nPermite controlar el ciclo completo del taller de orfebrería:\n- Autenticación y roles estrictos (`ADMIN`, `ASESOR`, `JOYERO`).\n- Directorio y ficha financiera de clientes con acumulados.\n- Cotizaciones inmutables con conversión automática a pedidos de taller.\n- Flujo de producción de pedidos con control de estados, saldo y cobros.\n- Inventario de metales (oro 10k-18k, plata 925, gemas) con alertas automáticas de stock crítico por Brevo.\n- Liquidación técnica de metales en mesa: cálculo de mermas, reintegración de limalla y auditoría forense.\n- Almacenamiento CDN de bocetos, renders 3D y controles de calidad en Supabase Storage.\n- Dashboard de métricas financieras y operativas en tiempo real.\n",
     "contact": {
-      "name": "Soporte Técnico Alkisu",
-      "email": "soporte@alkisu.com"
+      "name": "Soporte Técnico Papoi",
+      "email": "soporte@papoi.com"
     },
     "license": {
-      "name": "Propiedad Privada - Alkisu Joyería",
+      "name": "Propiedad Privada - Papoi Joyería",
       "identifier": "Proprietary"
     }
   },
@@ -19,7 +19,7 @@
       "description": "Servidor de desarrollo local (Puerto 4000)"
     },
     {
-      "url": "https://api.alkisu.com",
+      "url": "https://api.papoi.com",
       "description": "Servidor de producción"
     }
   ],
@@ -1936,7 +1936,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "example": "andres.joyero@alkisu.com"
+            "example": "andres.joyero@papoi.com"
           },
           "password": {
             "type": "string",
@@ -1958,7 +1958,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "example": "admin@alkisu.com"
+            "example": "admin@papoi.com"
           },
           "password": {
             "type": "string",
@@ -1995,7 +1995,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "example": "carlos@alkisu.com"
+            "example": "carlos@papoi.com"
           },
           "role": {
             "$ref": "#/components/schemas/Role"

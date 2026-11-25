@@ -10,7 +10,7 @@ export const REAL_ROLE_TOKENS: Record<Role, string> = {
 export const DB_USERS: Record<Role, User> = {
   ADMIN: {
     id: '2834e71e-0185-4375-bc9a-3181364609ea',
-    fullName: 'Director General Alkisu',
+    fullName: 'Director General Papoi',
     email: 'admin@joyeria.com',
     role: 'ADMIN',
   },
@@ -66,13 +66,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
-    const savedToken = localStorage.getItem('alkisu_token');
+    const savedToken = localStorage.getItem('papoi_token');
     if (!savedToken || isTokenExpired(savedToken)) {
-      localStorage.removeItem('alkisu_user');
-      localStorage.removeItem('alkisu_token');
+      localStorage.removeItem('papoi_user');
+      localStorage.removeItem('papoi_token');
       return null;
     }
-    const saved = localStorage.getItem('alkisu_user');
+    const saved = localStorage.getItem('papoi_user');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -84,17 +84,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [token, setToken] = useState<string>(() => {
-    const saved = localStorage.getItem('alkisu_token') || '';
+    const saved = localStorage.getItem('papoi_token') || '';
     if (isTokenExpired(saved)) {
-      localStorage.removeItem('alkisu_token');
+      localStorage.removeItem('papoi_token');
       return '';
     }
     return saved;
   });
 
   const logout = useCallback(() => {
-    localStorage.removeItem('alkisu_user');
-    localStorage.removeItem('alkisu_token');
+    localStorage.removeItem('papoi_user');
+    localStorage.removeItem('papoi_token');
     setCurrentUser(null);
     setToken('');
   }, []);
@@ -105,18 +105,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       logout();
     };
 
-    window.addEventListener('alkisu:auth_expired', handleExpired);
+    window.addEventListener('papoi:auth_expired', handleExpired);
 
     // Verificación de expiración periódica cada 15 segundos
     const timer = setInterval(() => {
-      const current = localStorage.getItem('alkisu_token');
+      const current = localStorage.getItem('papoi_token');
       if (current && isTokenExpired(current)) {
         logout();
       }
     }, 15000);
 
     return () => {
-      window.removeEventListener('alkisu:auth_expired', handleExpired);
+      window.removeEventListener('papoi:auth_expired', handleExpired);
       clearInterval(timer);
     };
   }, [logout]);
@@ -136,20 +136,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const data = await res.json();
       setCurrentUser(data.user);
       setToken(data.token);
-      localStorage.setItem('alkisu_user', JSON.stringify(data.user));
-      localStorage.setItem('alkisu_token', data.token);
+      localStorage.setItem('papoi_user', JSON.stringify(data.user));
+      localStorage.setItem('papoi_token', data.token);
     } catch (e: any) {
       if (e.message && e.message !== 'Failed to fetch') {
         throw e;
       }
       // Demo fallback if backend is offline
       const mock = Object.values(DB_USERS).find((u) => u.email.toLowerCase() === email.toLowerCase());
-      if (mock && (password === 'alkisu123' || password === 'admin123')) {
+      if (mock && (password === 'papoi123' || password === 'admin123')) {
         const mockToken = REAL_ROLE_TOKENS[mock.role];
         setCurrentUser(mock);
         setToken(mockToken);
-        localStorage.setItem('alkisu_user', JSON.stringify(mock));
-        localStorage.setItem('alkisu_token', mockToken);
+        localStorage.setItem('papoi_user', JSON.stringify(mock));
+        localStorage.setItem('papoi_token', mockToken);
         return;
       }
       throw new Error(e.message || 'Error al iniciar sesión');
@@ -183,8 +183,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const mockToken = REAL_ROLE_TOKENS[payload.role];
       setCurrentUser(newUser);
       setToken(mockToken);
-      localStorage.setItem('alkisu_user', JSON.stringify(newUser));
-      localStorage.setItem('alkisu_token', mockToken);
+      localStorage.setItem('papoi_user', JSON.stringify(newUser));
+      localStorage.setItem('papoi_token', mockToken);
     }
   };
 
@@ -192,8 +192,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const user = DB_USERS[newRole];
     setCurrentUser(user);
     setToken(REAL_ROLE_TOKENS[newRole]);
-    localStorage.setItem('alkisu_user', JSON.stringify(user));
-    localStorage.setItem('alkisu_token', REAL_ROLE_TOKENS[newRole]);
+    localStorage.setItem('papoi_user', JSON.stringify(user));
+    localStorage.setItem('papoi_token', REAL_ROLE_TOKENS[newRole]);
   };
 
   const activeRole: Role = currentUser ? currentUser.role : 'ADMIN';

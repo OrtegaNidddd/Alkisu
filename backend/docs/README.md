@@ -1,6 +1,6 @@
-# 💎 Alkisu Jewelry Workshop API Documentation
+# 💎 Papoi Jewelry Workshop API Documentation
 
-Especificación formal e interactiva de la API RESTful para el **Sistema de Gestión de Taller de Alta Joyería Alkisu**.
+Especificación formal e interactiva de la API RESTful para el **Sistema de Gestión de Taller de Alta Joyería Papoi**.
 
 > 📖 **Manual de Arquitectura y Referencia Técnica Completa:** Consulta [`docs/ARCHITECTURE.md`](./ARCHITECTURE.md) para el análisis profundo de diseño, diagramas de topología, máquinas de estado y reglas de mermas.
 
@@ -67,7 +67,7 @@ El sistema implementa control de acceso basado en roles (**RBAC**):
    ```bash
    curl -X POST http://localhost:4000/api/auth/login \
      -H "Content-Type: application/json" \
-     -d '{"email": "admin@alkisu.com", "password": "TuPasswordSeguro"}'
+     -d '{"email": "admin@papoi.com", "password": "TuPasswordSeguro"}'
    ```
    **Respuesta:**
    ```json
@@ -76,7 +76,7 @@ El sistema implementa control de acceso basado en roles (**RBAC**):
      "user": {
        "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
        "fullName": "Administrador Principal",
-       "email": "admin@alkisu.com",
+       "email": "admin@papoi.com",
        "role": "ADMIN"
      }
    }
@@ -130,4 +130,4 @@ Abre directamente el archivo compilado en cualquier navegador:
 
 ---
 
-Desarrollado para el ecosistema **Alkisu Jewelry ERP**.
+Desarrollado para el ecosistema **Papoi Jewelry ERP**.

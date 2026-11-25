@@ -34,12 +34,12 @@ const API_BASE = rawBase.replace(/\/+$/, '');
 
 export const apiClient = {
   getToken(): string {
-    const token = localStorage.getItem('alkisu_token');
+    const token = localStorage.getItem('papoi_token');
     if (token && token !== 'undefined' && token !== 'null') {
       if (isTokenExpired(token)) {
         this.clearToken();
         if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('alkisu:auth_expired'));
+          window.dispatchEvent(new CustomEvent('papoi:auth_expired'));
         }
         return '';
       }
@@ -49,12 +49,12 @@ export const apiClient = {
   },
 
   setToken(token: string) {
-    localStorage.setItem('alkisu_token', token);
+    localStorage.setItem('papoi_token', token);
   },
 
   clearToken() {
-    localStorage.removeItem('alkisu_token');
-    localStorage.removeItem('alkisu_user');
+    localStorage.removeItem('papoi_token');
+    localStorage.removeItem('papoi_user');
   },
 
   async fetchWithAuth(url: string, options: RequestInit = {}): Promise<Response> {
@@ -69,7 +69,7 @@ export const apiClient = {
     if (res.status === 401) {
       this.clearToken();
       if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('alkisu:auth_expired'));
+        window.dispatchEvent(new CustomEvent('papoi:auth_expired'));
       }
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || 'Sesión expirada o token inválido. Inicie sesión de nuevo.');
@@ -80,7 +80,7 @@ export const apiClient = {
       if (err.error && err.error.toLowerCase().includes('token')) {
         this.clearToken();
         if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('alkisu:auth_expired'));
+          window.dispatchEvent(new CustomEvent('papoi:auth_expired'));
         }
         throw new Error('Token inválido o expirado');
       }
@@ -110,7 +110,7 @@ export const apiClient = {
       }
       // Demo fallback if network is unreachable
       const mock = Object.values(DB_USERS).find((u) => u.email.toLowerCase() === email.toLowerCase());
-      if (mock && (password === 'alkisu123' || password === 'admin123')) {
+      if (mock && (password === 'papoi123' || password === 'admin123')) {
         const token = REAL_ROLE_TOKENS[mock.role];
         this.setToken(token);
         return { token, user: mock };
@@ -435,7 +435,7 @@ export const apiClient = {
       id: `pay-${Date.now()}`,
       orderId,
       registeredById: 'current-user',
-      registeredBy: { fullName: 'Caja Alkisu' },
+      registeredBy: { fullName: 'Caja Papoi' },
       amount: data.amount,
       paymentMethod: data.paymentMethod,
       referenceNotes: data.referenceNotes,

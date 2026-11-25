@@ -2,11 +2,11 @@ import prisma from '../src/lib/prisma.js';
 import bcrypt from 'bcryptjs';
 
 async function main() {
-  const hash = await bcrypt.hash('alkisu123', 10);
+  const hash = await bcrypt.hash('papoi123', 10);
   
   // Ensure default users
   const defaultUsers = [
-    { email: 'admin@joyeria.com', fullName: 'Director General Alkisu (Admin)', role: 'ADMIN' },
+    { email: 'admin@joyeria.com', fullName: 'Director General Papoi (Admin)', role: 'ADMIN' },
     { email: 'asesor@joyeria.com', fullName: 'Valeria Morales (Asesora Comercial)', role: 'ASESOR' },
     { email: 'joyero@joyeria.com', fullName: 'Maestro Mateo Rivera (Joyero)', role: 'JOYERO' },
   ];

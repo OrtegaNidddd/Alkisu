@@ -72,7 +72,7 @@ if (doc && doc.paths) {
 endpoints.sort((a, b) => a.Módulo.localeCompare(b.Módulo) || a.Ruta.localeCompare(b.Ruta) || a.Método.localeCompare(b.Método));
 
 console.log('\n===================================================================================================');
-console.log('                       💎 ALKISU JEWELRY ERP — CATÁLOGO OFICIAL DE ENDPOINTS                       ');
+console.log('                       💎 PAPOI JEWELRY ERP — CATÁLOGO OFICIAL DE ENDPOINTS                       ');
 console.log('===================================================================================================\n');
 
 console.table(endpoints);

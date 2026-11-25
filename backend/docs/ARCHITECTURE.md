@@ -1,4 +1,4 @@
-# 🏛️ Alkisu Jewelry ERP Backend — Manual de Arquitectura y Referencia Técnica
+# 🏛️ Papoi Jewelry ERP Backend — Manual de Arquitectura y Referencia Técnica
 
 > **Versión del Documento:** 1.0.0  
 > **Estado del Sistema:** Producción / Desarrollo Activo  
@@ -31,12 +31,12 @@ La manufactura de joyería de alta gama presenta una dinámica operativa radical
 - **Inmutabilidad Financiera:** Las joyas sobre pedido implican cotizaciones aceptadas donde el precio pactado con el cliente debe permanecer inmutable ante las fluctuaciones del precio spot del metal en el mercado.
 - **Flujo de Pagos Progresivos:** Los clientes abonan anticipos para compra de materias primas y liquidan el saldo contra entrega. Las entregas deben estar blindadas contra deudas pendientes.
 
-El backend de **Alkisu** resuelve esta problemática centralizando el control de acceso basado en roles (**RBAC**), el flujo de taller, la gestión de inventarios con control de mermas, el registro inmutable de auditoría forense y la emisión de métricas operativas en tiempo real.
+El backend de **Papoi** resuelve esta problemática centralizando el control de acceso basado en roles (**RBAC**), el flujo de taller, la gestión de inventarios con control de mermas, el registro inmutable de auditoría forense y la emisión de métricas operativas en tiempo real.
 
 ### 1.2 Capacidades Clave del Sistema
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        CAPACIDADES CLAVE ALKISU                        │
+│                        CAPACIDADES CLAVE PAPOI                        │
 ├────────────────────────────────────────────────────────────────────────┤
 │  ✓ Control estricto de mermas y reingreso automático de limallas       │
 │  ✓ Inmutabilidad de cotizaciones aprobadas convertidas a pedidos       │
@@ -60,7 +60,7 @@ El sistema adopta una arquitectura multicapa desacoplada orientada a servicios (
 graph TD
     ClientApp["Clientes Web / SPA Frontend"] -->|"HTTPS / JSON"| APIGateway["Express 5 Gateway & Routing"]
 
-    subgraph "Backend Core (Alkisu Service Layer)"
+    subgraph "Backend Core (Papoi Service Layer)"
         APIGateway --> SecurityMW["Auth Middleware (JWT + RBAC)"]
         SecurityMW --> ValidationMW["Validation Middleware (Zod Schemas)"]
         ValidationMW --> Controllers["Controllers Layer"]
@@ -89,11 +89,11 @@ graph TD
 
 | Capa | Ubicación en Código | Responsabilidad Primaria |
 | :--- | :--- | :--- |
-| **Routing** | [`src/routes/*.routes.ts`](file:///c:/Proyectos/alkisu/backend/src/routes) | Definir URIs REST, asociar middlewares de seguridad y delegar en el controlador. |
-| **Middlewares** | [`src/middlewares/`](file:///c:/Proyectos/alkisu/backend/src/middlewares) | Extracción/verificación de tokens JWT, filtrado RBAC, validación asíncrona de DTOs con Zod, captura centralizada de excepciones. |
-| **Controladores** | [`src/controllers/*.controller.ts`](file:///c:/Proyectos/alkisu/backend/src/controllers) | Parsear parámetros HTTP (`req.params`, `req.query`, `req.body`), orquestar llamadas a servicios y estandarizar códigos de estado HTTP (200, 201, 204). |
-| **Servicios** | [`src/services/*.service.ts`](file:///c:/Proyectos/alkisu/backend/src/services) | **Núcleo de negocio:** Reglas del taller, validaciones de saldo, transacciones atómicas (`$transaction`), emisión de auditorías y cálculos matemáticos de mermas. |
-| **Acceso a Datos** | [`src/lib/prisma.ts`](file:///c:/Proyectos/alkisu/backend/src/lib/prisma.ts), [`prisma/schema.prisma`](file:///c:/Proyectos/alkisu/backend/prisma/schema.prisma) | Mapeo objeto-relacional mediante Prisma Client, asegurando consultas fuertemente tipadas y protección nativa contra inyecciones SQL. |
+| **Routing** | [`src/routes/*.routes.ts`](file:///c:/Proyectos/papoi/backend/src/routes) | Definir URIs REST, asociar middlewares de seguridad y delegar en el controlador. |
+| **Middlewares** | [`src/middlewares/`](file:///c:/Proyectos/papoi/backend/src/middlewares) | Extracción/verificación de tokens JWT, filtrado RBAC, validación asíncrona de DTOs con Zod, captura centralizada de excepciones. |
+| **Controladores** | [`src/controllers/*.controller.ts`](file:///c:/Proyectos/papoi/backend/src/controllers) | Parsear parámetros HTTP (`req.params`, `req.query`, `req.body`), orquestar llamadas a servicios y estandarizar códigos de estado HTTP (200, 201, 204). |
+| **Servicios** | [`src/services/*.service.ts`](file:///c:/Proyectos/papoi/backend/src/services) | **Núcleo de negocio:** Reglas del taller, validaciones de saldo, transacciones atómicas (`$transaction`), emisión de auditorías y cálculos matemáticos de mermas. |
+| **Acceso a Datos** | [`src/lib/prisma.ts`](file:///c:/Proyectos/papoi/backend/src/lib/prisma.ts), [`prisma/schema.prisma`](file:///c:/Proyectos/papoi/backend/prisma/schema.prisma) | Mapeo objeto-relacional mediante Prisma Client, asegurando consultas fuertemente tipadas y protección nativa contra inyecciones SQL. |
 
 ---
 
@@ -178,7 +178,7 @@ stateDiagram-v2
 ## 5. Inmersión Técnica en Componentes Principales
 
 ### 5.1 Motor de Órdenes y Liquidación de Mesa (`order.service.ts`)
-Ubicación: [`src/services/order.service.ts`](file:///c:/Proyectos/alkisu/backend/src/services/order.service.ts)
+Ubicación: [`src/services/order.service.ts`](file:///c:/Proyectos/papoi/backend/src/services/order.service.ts)
 
 El servicio orquesta toda la interacción del taller. Las funciones más destacadas son:
 
@@ -230,7 +230,7 @@ sequenceDiagram
 ---
 
 ### 5.2 Control de Inventario y Alertas Proactivas (`material.service.ts`)
-Ubicación: [`src/services/material.service.ts`](file:///c:/Proyectos/alkisu/backend/src/services/material.service.ts)
+Ubicación: [`src/services/material.service.ts`](file:///c:/Proyectos/papoi/backend/src/services/material.service.ts)
 
 - **Consumo en Pedidos (`consumeMaterialInOrder`):** Valida disponibilidad en stock antes de debitar. Dispara auditoría inmutable del despacho de material al joyero.
 - **Reabastecimiento (`restockMaterial`):** Entrada de material desde proveedores o fundiciones mayores con registro de usuario responsable e IP.
@@ -239,7 +239,7 @@ Ubicación: [`src/services/material.service.ts`](file:///c:/Proyectos/alkisu/bac
 ---
 
 ### 5.3 Motor de Dashboards y Analítica Operativa (`dashboard.service.ts`)
-Ubicación: [`src/services/dashboard.service.ts`](file:///c:/Proyectos/alkisu/backend/src/services/dashboard.service.ts)
+Ubicación: [`src/services/dashboard.service.ts`](file:///c:/Proyectos/papoi/backend/src/services/dashboard.service.ts)
 
 Consolida en una sola consulta de alto rendimiento los 4 cuadrantes clave para la toma de decisiones gerenciales:
 1. **Cuadrante Financiero:** Total Facturado, Total Recaudado, Cartera Pendiente (cuentas por cobrar).
@@ -373,7 +373,7 @@ erDiagram
 ## 7. Puntos de Integración con Terceros
 
 ### 7.1 Supabase Object Storage
-Ubicación: [`src/lib/supabase.ts`](file:///c:/Proyectos/alkisu/backend/src/lib/supabase.ts) / [`src/services/storage.service.ts`](file:///c:/Proyectos/alkisu/backend/src/services/storage.service.ts)
+Ubicación: [`src/lib/supabase.ts`](file:///c:/Proyectos/papoi/backend/src/lib/supabase.ts) / [`src/services/storage.service.ts`](file:///c:/Proyectos/papoi/backend/src/services/storage.service.ts)
 
 - **Objetivo:** Almacenamiento perenne de bocetos enviados por clientes, renders técnicos en 3D, fotografías de inspección de calidad y certificados gemológicos.
 - **Flujo:** Las cargas se procesan en memoria con `multer` (`storage: multer.memoryStorage()`, límite 10MB) y se suben directamente al bucket `jewelry-assets`.
@@ -381,7 +381,7 @@ Ubicación: [`src/lib/supabase.ts`](file:///c:/Proyectos/alkisu/backend/src/lib/
 - **Resolución de URL:** Se genera URL pública estandarizada para consumo directo desde interfaces web o móviles.
 
 ### 7.2 Brevo (Sendinblue) Transactional Email
-Ubicación: [`src/services/email.service.ts`](file:///c:/Proyectos/alkisu/backend/src/services/email.service.ts)
+Ubicación: [`src/services/email.service.ts`](file:///c:/Proyectos/papoi/backend/src/services/email.service.ts)
 
 - **Objetivo:** Notificaciones reactivas e inmediatas a la administración ante desabastecimiento de insumos críticos.
 - **Resiliencia Operativa:** Las alertas por correo se ejecutan dentro de bloques `try / catch` no bloqueantes. Si la API de Brevo sufre intermitencia o la clave no está configurada, el consumo de material en base de datos continúa de forma exitosa sin interrumpir la operación del taller.
@@ -437,7 +437,7 @@ A diferencia de los logs de consola que rotan y desaparecen, `AuditLog` es una t
 ## 9. Características de Rendimiento y Escalabilidad
 
 1. **Agrupación y Concurrencia de Consultas:**
-   En operaciones de alta demanda como [`getDashboardMetrics`](file:///c:/Proyectos/alkisu/backend/src/services/dashboard.service.ts#L4) y [`getOrders`](file:///c:/Proyectos/alkisu/backend/src/services/order.service.ts#L194), se utiliza `Promise.all` para ejecutar en paralelo las lecturas y conteos en PostgreSQL, reduciendo la latencia de respuesta hasta en un 60%.
+   En operaciones de alta demanda como [`getDashboardMetrics`](file:///c:/Proyectos/papoi/backend/src/services/dashboard.service.ts#L4) y [`getOrders`](file:///c:/Proyectos/papoi/backend/src/services/order.service.ts#L194), se utiliza `Promise.all` para ejecutar en paralelo las lecturas y conteos en PostgreSQL, reduciendo la latencia de respuesta hasta en un 60%.
 2. **Paginación Basada en Límites:**
    Los endpoints `/api/orders` y `/api/audit` implementan paginación obligatoria (`page` y `limit`), acotando el uso de memoria RAM del proceso Node.js y previniendo ataques de denegación de servicio (DoS) por sobrecarga de memoria al consultar miles de registros.
 3. **Manejo de Transacciones Ligeras:**
@@ -457,10 +457,10 @@ PORT=4000
 NODE_ENV=development
 
 # Base de Datos Relacional (PostgreSQL)
-DATABASE_URL="postgresql://usuario:password@localhost:5432/alkisu_db?schema=public"
+DATABASE_URL="postgresql://usuario:password@localhost:5432/papoi_db?schema=public"
 
 # Seguridad y Criptografía
-JWT_SECRET="super_secret_jwt_key_alkisu_2026"
+JWT_SECRET="super_secret_jwt_key_papoi_2026"
 
 # Supabase Object Storage
 SUPABASE_URL="https://xyzcompany.supabase.co"
@@ -469,9 +469,9 @@ SUPABASE_STORAGE_BUCKET="jewelry-assets"
 
 # Brevo (Email Transaccional)
 BREVO_API_KEY="xkeysib-..."
-BREVO_SENDER_EMAIL="notificaciones@alkisu.com"
-BREVO_SENDER_NAME="Alkisu Taller de Joyería"
-ADMIN_NOTIFICATION_EMAIL="gerencia@alkisu.com"
+BREVO_SENDER_EMAIL="notificaciones@papoi.com"
+BREVO_SENDER_NAME="Papoi Taller de Joyería"
+ADMIN_NOTIFICATION_EMAIL="gerencia@papoi.com"
 ```
 
 ### 10.2 Comandos Operativos y Migraciones
@@ -545,4 +545,4 @@ backend/
 ```
 
 ---
-*Manual elaborado conforme a los estándares de arquitectura de software para el taller de alta joyería Alkisu.*
+*Manual elaborado conforme a los estándares de arquitectura de software para el taller de alta joyería Papoi.*

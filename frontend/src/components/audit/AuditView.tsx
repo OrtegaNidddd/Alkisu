@@ -34,7 +34,7 @@ export const AuditView: React.FC = () => {
         id: log.id,
         createdAt: log.createdAt,
         orderId: log.orderId || (log.tableName === 'Order' ? log.recordId : null),
-        userName: log.user?.fullName || 'Sistema Alkisu',
+        userName: log.user?.fullName || 'Sistema Papoi',
         action: log.action,
         fromStatus: log.fromStatus,
         toStatus: log.toStatus,

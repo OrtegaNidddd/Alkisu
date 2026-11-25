@@ -1,7 +1,7 @@
 {
-  "name": "alkisu-monorepo",
+  "name": "papoi-monorepo",
   "version": "1.0.0",
-  "description": "Alkisu ERP Monorepo",
+  "description": "Papoi ERP Monorepo",
   "type": "module",
   "main": "index.js",
   "scripts": {

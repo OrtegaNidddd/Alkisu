@@ -144,7 +144,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 <div>
                   <h1 className="font-serif text-base tracking-[0.2em] font-bold text-[#EDF5F2] uppercase">
-                    ALKISU
+                    PAPOI
                   </h1>
                   <p className="text-[10px] tracking-widest text-[#9CA9A3] uppercase">
                     Alta Joyería ERP
@@ -234,7 +234,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 <div className="overflow-hidden">
                   <p className="text-xs font-semibold text-[#EDF5F2] truncate">
-                    {user?.fullName || 'Usuario Alkisu'}
+                    {user?.fullName || 'Usuario Papoi'}
                   </p>
                   <p className="text-[11px] text-[#9CA9A3] truncate">
                     {user?.email || 'sesion@joyeria.com'}

@@ -72,7 +72,7 @@ export const Navbar: React.FC = () => {
             </div>
             <div className="hidden sm:block text-left">
               <p className="text-xs font-bold text-[#17201D] leading-tight">
-                {user?.fullName || 'Usuario Alkisu'}
+                {user?.fullName || 'Usuario Papoi'}
               </p>
               <p className="text-[10px] text-[#66736D] leading-tight">
                 {user?.email || 'sesion@joyeria.com'}

@@ -37,14 +37,14 @@ const MainApp: React.FC = () => {
 
   // Estado de Sidebar colapsable / visible
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
-    const saved = localStorage.getItem('alkisu_sidebar_open');
+    const saved = localStorage.getItem('papoi_sidebar_open');
     if (saved !== null) return saved !== 'false';
     return typeof window !== 'undefined' ? window.innerWidth >= 768 : true;
   });
 
   const handleToggleSidebar = () => {
     setIsSidebarOpen((prev) => {
-      localStorage.setItem('alkisu_sidebar_open', String(!prev));
+      localStorage.setItem('papoi_sidebar_open', String(!prev));
       return !prev;
     });
   };
@@ -109,7 +109,7 @@ const MainApp: React.FC = () => {
           </button>
 
           <span className="font-serif text-xs font-bold tracking-widest text-[#17201D] uppercase">
-            ALKISU JOYERÍA
+            PAPOI JOYERÍA
           </span>
         </div>
 

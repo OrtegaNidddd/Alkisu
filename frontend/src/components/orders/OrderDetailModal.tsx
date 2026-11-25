@@ -642,7 +642,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
         id: newPayId,
         orderId: currentOrder.id,
         registeredById: createdPayment?.registeredById || 'current-user',
-        registeredBy: createdPayment?.registeredBy || { fullName: 'Caja Alkisu' },
+        registeredBy: createdPayment?.registeredBy || { fullName: 'Caja Papoi' },
         amount: amountNum,
         paymentMethod,
         referenceNotes: paymentNotes,
@@ -1680,7 +1680,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                             </span>
                           </td>
                           <td className="py-3 px-4 text-[#66736D] whitespace-nowrap">
-                            {pay.registeredBy?.fullName || 'Caja Alkisu'}
+                            {pay.registeredBy?.fullName || 'Caja Papoi'}
                           </td>
                           <td className="py-3 px-4 text-[#66736D]">
                             {pay.referenceNotes || 'Abono a orden'}
@@ -1833,7 +1833,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
         title={
           <div className="flex items-center justify-between w-full">
             <span className="font-serif font-bold text-base text-[#17201D]">
-              Comprobante Oficial de Caja - Alkisu Joyería
+              Comprobante Oficial de Caja - Papoi Joyería
             </span>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#E6F5ED] text-[#17734B] font-bold">
               Abono Registrado
@@ -1852,7 +1852,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-[#17211D] pb-5 gap-4">
                 <div>
                   <h2 className="font-serif text-2xl font-black tracking-widest text-[#17211D] uppercase">
-                    ALKISU JOYERÍA
+                    PAPOI JOYERÍA
                   </h2>
                   <p className="text-xs font-semibold text-[#A57525] tracking-wider uppercase mt-0.5">
                     Taller de Alta Gama & Orfebrería Fina
@@ -1884,7 +1884,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                     DATOS DEL CLIENTE
                   </span>
                   <p className="font-bold text-sm text-[#17201D]">
-                    {receiptPayment.client?.fullName || currentOrder.client?.fullName || 'Cliente Alkisu'}
+                    {receiptPayment.client?.fullName || currentOrder.client?.fullName || 'Cliente Papoi'}
                   </p>
                   <p className="text-[#66736D]">
                     CC/NIT: <strong className="text-[#17201D] font-mono">{receiptPayment.client?.documentId || currentOrder.client?.documentId || 'No registrado'}</strong>
@@ -1920,7 +1920,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                     </strong>
                   </p>
                   <p className="text-[#66736D]">
-                    Orfebre: <strong className="text-[#17201D]">{currentOrder.artisan?.fullName || 'Taller Central Alkisu'}</strong>
+                    Orfebre: <strong className="text-[#17201D]">{currentOrder.artisan?.fullName || 'Taller Central Papoi'}</strong>
                   </p>
                 </div>
               </div>
@@ -2023,7 +2023,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                     <div className="space-y-1">
                       <div className="flex justify-between items-center">
                         <span className="text-[11px] font-bold text-[#17201D]">
-                          Alkisu Joyería Artesanal
+                          Papoi Joyería Artesanal
                         </span>
                         <span className="text-[9px] uppercase tracking-wider text-[#66736D]">
                           Caja Autorizada
@@ -2052,7 +2052,7 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                     <div className="space-y-1">
                       <div className="flex justify-between items-center">
                         <span className="text-[11px] font-bold text-[#17201D]">
-                          {receiptPayment.client?.fullName || currentOrder.client?.fullName || 'Cliente Alkisu'}
+                          {receiptPayment.client?.fullName || currentOrder.client?.fullName || 'Cliente Papoi'}
                         </span>
                         <span className="text-[9px] uppercase tracking-wider text-[#66736D]">
                           Aceptación y Recibo Conforme

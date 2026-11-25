@@ -16,14 +16,14 @@ async function withRetry<T>(fn: () => Promise<T>, retries = 3): Promise<T> {
 
 async function main() {
   console.log('--- SEEDING COMPLETE WORKSHOP DATABASE ---');
-  const hash = await bcrypt.hash('alkisu123', 10);
+  const hash = await bcrypt.hash('papoi123', 10);
 
-  // 1. USUARIOS (Ambos dominios: @alkisu.com y @joyeria.com)
+  // 1. USUARIOS (Ambos dominios: @papoi.com y @joyeria.com)
   const usersToSeed = [
-    { email: 'admin@alkisu.com', fullName: 'Director General Alkisu (Admin)', role: Role.ADMIN },
-    { email: 'asesor@alkisu.com', fullName: 'Valeria Morales (Asesora Comercial)', role: Role.ASESOR },
-    { email: 'joyero@alkisu.com', fullName: 'Maestro Mateo Rivera (Joyero)', role: Role.JOYERO },
-    { email: 'admin@joyeria.com', fullName: 'Director General Alkisu (Admin)', role: Role.ADMIN },
+    { email: 'admin@papoi.com', fullName: 'Director General Papoi (Admin)', role: Role.ADMIN },
+    { email: 'asesor@papoi.com', fullName: 'Valeria Morales (Asesora Comercial)', role: Role.ASESOR },
+    { email: 'joyero@papoi.com', fullName: 'Maestro Mateo Rivera (Joyero)', role: Role.JOYERO },
+    { email: 'admin@joyeria.com', fullName: 'Director General Papoi (Admin)', role: Role.ADMIN },
     { email: 'asesor@joyeria.com', fullName: 'Valeria Morales (Asesora Comercial)', role: Role.ASESOR },
     { email: 'joyero@joyeria.com', fullName: 'Maestro Mateo Rivera (Joyero)', role: Role.JOYERO },
   ];
@@ -60,7 +60,7 @@ async function main() {
     {
       fullName: 'Cliente General (Mostrador)',
       phone: '+57 300 000 0000',
-      email: 'general@alkisu.com',
+      email: 'general@papoi.com',
       documentId: '2222222222',
     },
     {

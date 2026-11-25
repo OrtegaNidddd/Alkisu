@@ -51,7 +51,7 @@ export const AuthView: React.FC = () => {
             <span className="font-serif text-3xl font-extrabold text-white tracking-widest">A</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-widest text-[#EDF5F2] uppercase">
-            ALKISU JOYERÍA
+            PAPOI JOYERÍA
           </h1>
           <p className="text-xs sm:text-sm font-medium tracking-wide text-[#9CA9A3] mt-1">
             Sistema ERP de Alta Orfebrería & Control de Mermas
@@ -140,7 +140,7 @@ export const AuthView: React.FC = () => {
 
         {/* Footer Info */}
         <div className="text-center mt-6 text-[11px] text-[#66736D]">
-          Alkisu ERP v2.4 • Gestión Integral de Alta Joyería
+          Papoi ERP v2.4 • Gestión Integral de Alta Joyería
         </div>
       </div>
     </div>

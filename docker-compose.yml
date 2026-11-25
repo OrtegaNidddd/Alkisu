@@ -6,7 +6,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: alkisu-backend
+    container_name: papoi-backend
     restart: unless-stopped
     ports:
       - "4000:4000"
@@ -16,7 +16,7 @@ services:
       - NODE_ENV=production
       - PORT=4000
     networks:
-      - alkisu-net
+      - papoi-net
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4000/api/health"]
       interval: 30s
@@ -31,7 +31,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: alkisu-frontend
+    container_name: papoi-frontend
     restart: unless-stopped
     ports:
       - "3000:80"
@@ -39,7 +39,7 @@ services:
       backend:
         condition: service_healthy
     networks:
-      - alkisu-net
+      - papoi-net
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
       interval: 30s
@@ -48,5 +48,5 @@ services:
       start_period: 5s
 
 networks:
-  alkisu-net:
+  papoi-net:
     driver: bridge
