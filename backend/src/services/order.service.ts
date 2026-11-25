@@ -1,5 +1,12 @@
 import prisma from '../lib/prisma.js';
-import { OrderStatus, PaymentMethod } from '@prisma/client';
+import { AppError, pedidoNoEncontrado } from '../lib/errors.js';
+import { calcularSaldo } from '../domain/saldo.js';
+import { validarTransicion } from '../domain/transiciones-pedido.js';
+import {
+  IPoliticaEntregaStrategy,
+  PoliticaContadoEstrictoStrategy,
+} from '../domain/politica-entrega.js';
+import { OrderStatus, PaymentMethod, Prisma } from '@prisma/client';
 
 // 1. Crear pedido con precio pactado inmutable
 export const createOrder = async (data: {
@@ -47,16 +54,12 @@ export const addPayment = async (data: {
     include: { payments: true },
   });
 
-  if (!order) throw new Error('Pedido no encontrado');
+  if (!order) throw pedidoNoEncontrado();
 
-  const totalAbonado = order.payments.reduce(
-    (acc, curr) => acc + Number(curr.amount),
-    0
-  );
-  const saldoActual = Number(order.totalPactado) - totalAbonado;
+  const { saldoPendiente: saldoActual } = calcularSaldo(order);
 
   if (data.amount > saldoActual) {
-    throw new Error(`El abono ($${data.amount}) excede el saldo pendiente ($${saldoActual})`);
+    throw new AppError(`El abono ($${data.amount}) excede el saldo pendiente ($${saldoActual})`);
   }
 
   const payment = await prisma.payment.create({
@@ -97,17 +100,11 @@ export const getOrderById = async (id: string) => {
 
   if (!order) return null;
 
-  const totalAbonado = order.payments.reduce(
-    (acc, curr) => acc + Number(curr.amount),
-    0
-  );
-  const balance = Number(order.totalPactado) - totalAbonado;
+  const saldo = calcularSaldo(order);
 
   return {
     ...order,
-    totalPactado: Number(order.totalPactado),
-    totalAbonado,
-    saldoPendiente: balance,
+    ...saldo,
     payments: order.payments.map((p) => ({
       ...p,
       amount: Number(p.amount),
@@ -122,15 +119,16 @@ export const getOrderById = async (id: string) => {
       quantity: Number(m.quantity),
     })),
     financialSummary: {
-      totalPactado: Number(order.totalPactado),
-      totalAbonado,
-      saldoPendiente: balance,
-      estaLiquidado: balance <= 0,
+      ...saldo,
+      estaLiquidado: saldo.saldoPendiente <= 0,
     },
   };
 };
 
-// 4. Transición de estados con validación de saldo para entrega
+// Política vigente; cambiarla no exige modificar updateOrderStatus
+const politicaEntrega: IPoliticaEntregaStrategy = new PoliticaContadoEstrictoStrategy();
+
+// 4. Transición de estados con validación de secuencia y de entrega
 export const updateOrderStatus = async (data: {
   orderId: string;
   userId: string;
@@ -143,27 +141,25 @@ export const updateOrderStatus = async (data: {
     include: { payments: true },
   });
 
-  if (!order) throw new Error('Pedido no encontrado');
+  if (!order) throw pedidoNoEncontrado();
 
   // Determinar quién será el joyero (el actual o el nuevo que se asigne)
   const currentArtisanId = data.artisanId || order.artisanId;
 
   // REGLA 1: Para entrar a FABRICACIÓN debe haber un joyero asignado
   if (data.newStatus === OrderStatus.FABRICACION && !currentArtisanId) {
-    throw new Error('No se puede pasar a FABRICACIÓN: el pedido no tiene un joyero asignado.');
+    throw new AppError('No se puede pasar a FABRICACIÓN: el pedido no tiene un joyero asignado.');
   }
 
-  // REGLA 2: Bloqueo de entrega si hay saldo pendiente
+  // REGLA 2: la política de entrega decide si la pieza puede salir del taller
   if (data.newStatus === OrderStatus.ENTREGADO) {
-    const totalAbonado = order.payments.reduce(
-      (acc, curr) => acc + Number(curr.amount),
-      0
-    );
-    const balance = Number(order.totalPactado) - totalAbonado;
-
-    if (balance > 0) {
-      throw new Error(`Entrega rechazada: el pedido tiene un saldo pendiente de $${balance}`);
-    }
+    const { esValido, motivoRechazo } = politicaEntrega.validarEntrega({
+      status: order.status,
+      saldoPendiente: calcularSaldo(order).saldoPendiente,
+    });
+    if (!esValido) throw new AppError(motivoRechazo ?? 'Entrega rechazada');
+  } else {
+    validarTransicion(order.status, data.newStatus);
   }
 
   return await prisma.$transaction([
@@ -192,12 +188,12 @@ export const assignArtisan = async (orderId: string, artisanId: string, userId: 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
   });
-  if (!order) throw new Error('Pedido no encontrado');
+  if (!order) throw pedidoNoEncontrado();
 
   const artisan = await prisma.user.findUnique({
     where: { id: artisanId },
   });
-  if (!artisan) throw new Error('Joyero no encontrado');
+  if (!artisan) throw new AppError('Joyero no encontrado');
 
   return await prisma.$transaction(async (tx) => {
     const updated = await tx.order.update({
@@ -234,7 +230,7 @@ export const getOrderMaterials = async (orderId: string) => {
     select: { id: true },
   });
 
-  if (!order) throw new Error('Pedido no encontrado');
+  if (!order) throw pedidoNoEncontrado(404);
 
   return await prisma.orderMaterial.findMany({
     where: { orderId },
@@ -258,11 +254,11 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
   const limit = Math.min(Math.max(Number(filters.limit) || 100, 1), 200);
   const skip = (page - 1) * limit;
 
-  const whereClause: any = {};
-
-  if (filters.status) whereClause.status = filters.status;
-  if (filters.artisanId) whereClause.artisanId = filters.artisanId;
-  if (filters.clientId) whereClause.clientId = filters.clientId;
+  const whereClause: Prisma.OrderWhereInput = {
+    ...(filters.status && { status: filters.status }),
+    ...(filters.artisanId && { artisanId: filters.artisanId }),
+    ...(filters.clientId && { clientId: filters.clientId }),
+  };
 
   const [total, orders] = await Promise.all([
     prisma.order.count({ where: whereClause }),
@@ -292,12 +288,6 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
 
   // Formatear cada orden con su resumen financiero básico
   const items = orders.map((order) => {
-    const totalAbonado = order.payments.reduce(
-      (acc, curr) => acc + Number(curr.amount),
-      0
-    );
-    const balance = Number(order.totalPactado) - totalAbonado;
-
     return {
       id: order.id,
       description: order.description,
@@ -306,9 +296,7 @@ export const getOrders = async (filters: OrderFilterParams = {}) => {
       client: order.client,
       artisanId: order.artisanId,
       artisan: order.artisan,
-      totalPactado: Number(order.totalPactado),
-      totalAbonado,
-      saldoPendiente: balance,
+      ...calcularSaldo(order),
       estimatedDelivery: order.estimatedDelivery,
       createdAt: order.createdAt,
       materialsCount: order._count.materialsUsed,
@@ -346,14 +334,14 @@ export const cancelOrder = async (data: {
     where: { id: data.orderId },
   });
 
-  if (!order) throw new Error('Pedido no encontrado');
+  if (!order) throw pedidoNoEncontrado();
 
   if (order.status === OrderStatus.ENTREGADO) {
-    throw new Error('No se puede cancelar una joya que ya fue entregada al cliente');
+    throw new AppError('No se puede cancelar una joya que ya fue entregada al cliente');
   }
 
   if (order.status === OrderStatus.CANCELADO) {
-    throw new Error('El pedido ya se encuentra cancelado');
+    throw new AppError('El pedido ya se encuentra cancelado');
   }
 
   return await prisma.$transaction([
@@ -371,116 +359,4 @@ export const cancelOrder = async (data: {
       },
     }),
   ]);
-};
-
-export const registerMetalReturn = async (data: {
-  orderId: string;
-  materialId: string;
-  artisanId: string;
-  finalPieceWeight: number; // Peso de la joya terminada en gramos
-  scrapWeight: number;      // Limalla/retazos recuperados para bodega
-  notes?: string;
-  ipAddress?: string;
-}) => {
-  return await prisma.$transaction(async (tx) => {
-    // 1. Verificar la orden y sus consumos de este material
-    const order = await tx.order.findUnique({
-      where: { id: data.orderId },
-      include: {
-        materialsUsed: {
-          where: { materialId: data.materialId },
-        },
-      },
-    });
-
-    if (!order) throw new Error('Pedido no encontrado');
-
-    const totalEntregado = order.materialsUsed.reduce(
-      (acc, item) => acc + Number(item.quantity),
-      0
-    );
-
-    if (totalEntregado <= 0) {
-      throw new Error('Este pedido no tiene registros de consumo del material especificado');
-    }
-
-    const material = await tx.material.findUnique({
-      where: { id: data.materialId },
-    });
-
-    if (!material) throw new Error('Material no encontrado');
-
-    // 2. Cálculo del balance y la merma técnica
-    const pesoDevueltoTotal = data.finalPieceWeight + data.scrapWeight;
-
-    if (pesoDevueltoTotal > totalEntregado) {
-      throw new Error(
-        `El peso total devuelto (${pesoDevueltoTotal} ${material.unit}) excede el material entregado (${totalEntregado} ${material.unit})`
-      );
-    }
-
-    const merma = Number((totalEntregado - pesoDevueltoTotal).toFixed(3));
-    const porcentajeMerma = Number(((merma / totalEntregado) * 100).toFixed(2));
-    const mermaInusual = porcentajeMerma > 8.0; // Umbral de alerta estándar en taller (> 8%)
-
-    // 3. Reintegrar la limalla/retazos recuperados al inventario de bodega
-    let updatedMaterial = material;
-    if (data.scrapWeight > 0) {
-      updatedMaterial = await tx.material.update({
-        where: { id: data.materialId },
-        data: {
-          stock: {
-            increment: data.scrapWeight,
-          },
-        },
-      });
-    }
-
-    // 4. Registro inmutable en AuditLog de la liquidación de mesa
-    const audit = await tx.auditLog.create({
-      data: {
-        userId: data.artisanId,
-        action: 'LIQUIDACION_METAL_MERMA',
-        tableName: 'Order',
-        recordId: data.orderId,
-        ipAddress: data.ipAddress,
-        details: {
-          materialName: material.name,
-          unidad: material.unit,
-          metalEntregado: totalEntregado,
-          pesoJoyaFinal: data.finalPieceWeight,
-          limallaRetornada: data.scrapWeight,
-          mermaTecnica: merma,
-          porcentajeMerma: `${porcentajeMerma}%`,
-          alertaMermaInusual: mermaInusual,
-          observaciones: data.notes || 'Liquidación estándar de taller',
-        },
-      },
-    });
-
-    // 5. Dejar constancia en el historial de estados del pedido
-    await tx.orderStatusHistory.create({
-      data: {
-        orderId: data.orderId,
-        userId: data.artisanId,
-        fromStatus: order.status,
-        toStatus: order.status,
-        note: `Balance de metal cerrado: Joya ${data.finalPieceWeight}g, Limalla ${data.scrapWeight}g, Merma ${merma}g (${porcentajeMerma}%).`,
-      },
-    });
-
-    return {
-      balance: {
-        metalEntregado: totalEntregado,
-        pesoJoyaFinal: data.finalPieceWeight,
-        limallaRetornada: data.scrapWeight,
-        mermaTecnica: merma,
-        porcentajeMerma: `${porcentajeMerma}%`,
-        mermaInusual,
-      },
-      nuevoStockMaterial: Number(updatedMaterial.stock),
-      unidad: material.unit,
-      auditId: audit.id,
-    };
-  });
 };
