@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import app from './app.js';
+import { obtenerJwtSecret } from './config/jwt.js';
+
+obtenerJwtSecret(); // falla al arrancar si falta la configuración
 
 const PORT = Number(process.env.PORT) || 4000;
 

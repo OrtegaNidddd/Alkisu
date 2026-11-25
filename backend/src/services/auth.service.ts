@@ -1,6 +1,8 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../lib/prisma.js';
+import { AppError } from '../lib/errors.js';
+import { obtenerJwtSecret } from '../config/jwt.js';
 import { Role } from '@prisma/client';
 
 export const registerUser = async (data: {
@@ -14,7 +16,7 @@ export const registerUser = async (data: {
   });
 
   if (existingUser) {
-    throw new Error('El correo ya está registrado');
+    throw new AppError('El correo ya está registrado');
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -45,17 +47,17 @@ export const loginUser = async (email: string, password: string) => {
   });
 
   if (!user) {
-    throw new Error('Credenciales inválidas');
+    throw new AppError('Credenciales inválidas', 401);
   }
 
   const isMatch = await bcrypt.compare(password, user.passwordHash);
   if (!isMatch) {
-    throw new Error('Credenciales inválidas');
+    throw new AppError('Credenciales inválidas', 401);
   }
 
   const token = jwt.sign(
     { id: user.id, email: user.email, role: user.role },
-    process.env.JWT_SECRET || 'secret_fallback',
+    obtenerJwtSecret(),
     { expiresIn: '8h' }
   );
 

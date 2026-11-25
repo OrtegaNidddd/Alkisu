@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { Role } from '@prisma/client';
+import { obtenerJwtSecret } from '../config/jwt.js';
 
 export interface AuthenticatedUser {
   id: string;
@@ -29,7 +30,7 @@ export const authenticateToken = (
     return res.status(401).json({ error: 'Acceso denegado: Token no proporcionado' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET || 'secret_fallback', (err, decoded) => {
+  jwt.verify(token, obtenerJwtSecret(), (err, decoded) => {
     if (err) {
       return res.status(401).json({ error: 'Token inválido o expirado' });
     }
