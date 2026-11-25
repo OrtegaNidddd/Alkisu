@@ -1,4 +1,5 @@
 import prisma from '../lib/prisma.js';
+import { AppError } from '../lib/errors.js';
 export const getUsers = async (roleFilter) => {
     return await prisma.user.findMany({
         where: roleFilter ? { role: roleFilter } : undefined,
@@ -42,7 +43,7 @@ export const getUserById = async (id) => {
 export const updateUser = async (id, data) => {
     const user = await prisma.user.findUnique({ where: { id } });
     if (!user)
-        throw new Error('Usuario no encontrado');
+        throw new AppError('Usuario no encontrado');
     return await prisma.user.update({
         where: { id },
         data,

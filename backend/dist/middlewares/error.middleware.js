@@ -1,49 +1,48 @@
 import { ZodError } from 'zod';
 import { Prisma } from '@prisma/client';
-export class AppError extends Error {
-    statusCode;
-    constructor(message, statusCode = 400) {
-        super(message);
-        this.statusCode = statusCode;
-        Object.setPrototypeOf(this, new.target.prototype);
+import multer from 'multer';
+import { AppError } from '../lib/errors.js';
+const respuesta = (status, error) => ({ status, body: { error } });
+const desdeZod = (err) => ({
+    status: 400,
+    body: {
+        error: 'Error de validación en la petición',
+        details: err.issues.map((issue) => ({ field: issue.path.join('.'), message: issue.message })),
+    },
+});
+const desdePrisma = (err) => {
+    const target = err.meta?.target?.join(', ') || 'campo único';
+    switch (err.code) {
+        case 'P2002':
+            return respuesta(409, `Conflicto de unicidad: ya existe un registro con ese ${target}`);
+        case 'P2003':
+            return respuesta(400, 'La petición hace referencia a un registro que no existe');
+        case 'P2025':
+            return respuesta(404, 'El registro solicitado no fue encontrado en la base de datos');
+        default:
+            return null;
     }
-}
+};
+const traducir = (err) => {
+    if (err instanceof ZodError)
+        return desdeZod(err);
+    if (err instanceof AppError)
+        return respuesta(err.statusCode, err.message);
+    if (err instanceof multer.MulterError)
+        return respuesta(400, err.message);
+    if (err instanceof Prisma.PrismaClientKnownRequestError)
+        return desdePrisma(err);
+    if (err instanceof Prisma.PrismaClientValidationError) {
+        return respuesta(400, 'Los datos enviados no son válidos');
+    }
+    return null;
+};
+// Express reconoce el manejador de errores por sus cuatro parámetros.
 export const errorHandler = (err, _req, res, _next) => {
-    // 1. Errores de validación de Zod
-    if (err instanceof ZodError) {
-        const formattedErrors = err.issues.map((issue) => ({
-            field: issue.path.join('.'),
-            message: issue.message,
-        }));
-        return res.status(400).json({
-            error: 'Error de validación en la petición',
-            details: formattedErrors,
-        });
-    }
-    // 2. Errores de negocio controlados (AppError)
-    if (err instanceof AppError) {
-        return res.status(err.statusCode).json({
-            error: err.message,
-        });
-    }
-    // 3. Errores conocidos de Prisma ORM
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2002') {
-            const target = err.meta?.target?.join(', ') || 'campo único';
-            return res.status(409).json({
-                error: `Conflicto de unicidad: ya existe un registro con ese ${target}`,
-            });
-        }
-        if (err.code === 'P2025') {
-            return res.status(404).json({
-                error: 'El registro solicitado no fue encontrado en la base de datos',
-            });
-        }
-    }
-    // 4. Errores generales / no controlados (500)
+    const traducido = traducir(err);
+    if (traducido)
+        return res.status(traducido.status).json(traducido.body);
+    // El detalle queda solo en el log del servidor.
     console.error('[Error no controlado]:', err);
-    return res.status(500).json({
-        error: 'Ocurrió un error interno en el servidor',
-        message: err?.message || String(err),
-    });
+    return res.status(500).json({ error: 'Ocurrió un error interno en el servidor' });
 };

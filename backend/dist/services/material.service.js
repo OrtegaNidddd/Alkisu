@@ -1,4 +1,5 @@
 import prisma from '../lib/prisma.js';
+import { AppError } from '../lib/errors.js';
 export const createMaterial = async (data) => {
     return await prisma.material.create({
         data: {
@@ -14,7 +15,7 @@ export const updateMaterial = async (id, data, userId, ipAddress) => {
     return await prisma.$transaction(async (tx) => {
         const current = await tx.material.findUnique({ where: { id } });
         if (!current)
-            throw new Error('Material no encontrado');
+            throw new AppError('Material no encontrado');
         const updated = await tx.material.update({
             where: { id },
             data: {
@@ -70,14 +71,14 @@ export const getMaterials = async () => {
 // Reabastecimiento con Auditoría
 export const restockMaterial = async (data) => {
     if (data.quantity <= 0) {
-        throw new Error('La cantidad a ingresar debe ser mayor a 0');
+        throw new AppError('La cantidad a ingresar debe ser mayor a 0');
     }
     return await prisma.$transaction(async (tx) => {
         const current = await tx.material.findUnique({
             where: { id: data.materialId },
         });
         if (!current)
-            throw new Error('Material no encontrado');
+            throw new AppError('Material no encontrado');
         const updatedMaterial = await tx.material.update({
             where: { id: data.materialId },
             data: {
@@ -116,11 +117,11 @@ export const consumeMaterialInOrder = async (data) => {
             where: { id: data.materialId },
         });
         if (!material) {
-            throw new Error('Material no encontrado en inventario');
+            throw new AppError('Material no encontrado en inventario');
         }
         const currentStock = Number(material.stock);
         if (currentStock < data.quantity) {
-            throw new Error(`Stock insuficiente de ${material.name}. Disponible: ${currentStock} ${material.unit}, Solicitado: ${data.quantity} ${material.unit}`);
+            throw new AppError(`Stock insuficiente de ${material.name}. Disponible: ${currentStock} ${material.unit}, Solicitado: ${data.quantity} ${material.unit}`);
         }
         const orderMaterial = await tx.orderMaterial.create({
             data: {

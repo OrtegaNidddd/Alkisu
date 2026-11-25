@@ -18,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+app.disable('x-powered-by');
 // Carga resiliente de documentación OpenAPI sin bloquear el inicio del servidor
 let swaggerDocument = null;
 const possibleSwaggerPaths = [

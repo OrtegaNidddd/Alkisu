@@ -1,4 +1,5 @@
 import prisma from '../lib/prisma.js';
+import { AppError } from '../lib/errors.js';
 export const createClient = async (data) => {
     return await prisma.client.create({ data });
 };
@@ -63,7 +64,7 @@ export const getClientById = async (id) => {
 export const updateClient = async (id, data) => {
     const client = await prisma.client.findUnique({ where: { id } });
     if (!client)
-        throw new Error('Cliente no encontrado');
+        throw new AppError('Cliente no encontrado');
     return await prisma.client.update({
         where: { id },
         data,

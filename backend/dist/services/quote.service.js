@@ -1,22 +1,15 @@
 import prisma from '../lib/prisma.js';
+import { AppError } from '../lib/errors.js';
+import { construirItems } from '../domain/items-cotizacion.js';
 import { QuoteStatus, OrderStatus } from '@prisma/client';
 export const createQuote = async (data) => {
-    const totalAmount = data.items.reduce((acc, item) => acc + item.quantity * item.unitPrice, 0);
     return await prisma.quote.create({
         data: {
             clientId: data.clientId,
             createdById: data.createdById,
-            totalAmount,
             validUntil: data.validUntil,
             status: QuoteStatus.BORRADOR,
-            items: {
-                create: data.items.map((item) => ({
-                    description: item.description,
-                    quantity: item.quantity,
-                    unitPrice: item.unitPrice,
-                    subtotal: item.quantity * item.unitPrice,
-                })),
-            },
+            ...construirItems(data.items),
         },
         include: { items: true, client: true },
     });
@@ -49,9 +42,9 @@ export const approveQuoteAndConvertToOrder = async (quoteId, userId) => {
         include: { items: true },
     });
     if (!quote)
-        throw new Error('Cotización no encontrada');
+        throw new AppError('Cotización no encontrada');
     if (quote.status === QuoteStatus.APROBADA)
-        throw new Error('Esta cotización ya fue aprobada');
+        throw new AppError('Esta cotización ya fue aprobada');
     return await prisma.$transaction(async (tx) => {
         await tx.quote.update({
             where: { id: quoteId },
@@ -90,28 +83,19 @@ export const updateQuote = async (id, data) => {
         include: { items: true },
     });
     if (!existing)
-        throw new Error('Cotización no encontrada');
+        throw new AppError('Cotización no encontrada');
     if (existing.status === QuoteStatus.APROBADA) {
-        throw new Error('No se puede modificar una cotización ya aprobada');
+        throw new AppError('No se puede modificar una cotización ya aprobada');
     }
     return await prisma.$transaction(async (tx) => {
         if (data.items) {
             await tx.quoteItem.deleteMany({ where: { quoteId: id } });
-            const totalAmount = data.items.reduce((acc, item) => acc + item.quantity * item.unitPrice, 0);
             return await tx.quote.update({
                 where: { id },
                 data: {
                     clientId: data.clientId || existing.clientId,
-                    totalAmount,
                     validUntil: data.validUntil,
-                    items: {
-                        create: data.items.map((item) => ({
-                            description: item.description,
-                            quantity: item.quantity,
-                            unitPrice: item.unitPrice,
-                            subtotal: item.quantity * item.unitPrice,
-                        })),
-                    },
+                    ...construirItems(data.items),
                 },
                 include: { items: true, client: true },
             });
@@ -129,9 +113,9 @@ export const updateQuote = async (id, data) => {
 export const deleteQuote = async (id) => {
     const quote = await prisma.quote.findUnique({ where: { id } });
     if (!quote)
-        throw new Error('Cotización no encontrada');
+        throw new AppError('Cotización no encontrada');
     if (quote.status === QuoteStatus.APROBADA) {
-        throw new Error('No se puede eliminar una cotización aprobada');
+        throw new AppError('No se puede eliminar una cotización aprobada');
     }
     return await prisma.quote.delete({ where: { id } });
 };

@@ -1,11 +1,12 @@
 import prisma from '../lib/prisma.js';
+import { pedidoNoEncontrado } from '../lib/errors.js';
 import { AttachmentType } from '@prisma/client';
 export const addAttachmentToOrder = async (data) => {
     const order = await prisma.order.findUnique({
         where: { id: data.orderId },
     });
     if (!order)
-        throw new Error('Pedido no encontrado');
+        throw pedidoNoEncontrado();
     return await prisma.orderAttachment.create({
         data: {
             orderId: data.orderId,
