@@ -1,4 +1,5 @@
 import multer from 'multer';
+import { AppError } from '../lib/errors.js';
 
 const storage = multer.memoryStorage();
 
@@ -18,7 +19,7 @@ export const uploadMiddleware = multer({
     if (allowedMimeTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Tipo de archivo no permitido. Solo JPG, PNG, WEBP o PDF.'));
+      cb(new AppError('Tipo de archivo no permitido. Solo JPG, PNG, WEBP o PDF.'));
     }
   },
 });

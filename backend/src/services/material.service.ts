@@ -1,4 +1,5 @@
 import prisma from '../lib/prisma.js';
+import { AppError } from '../lib/errors.js';
 import { MaterialType, MeasurementUnit } from '@prisma/client';
 
 export const createMaterial = async (data: {
@@ -33,7 +34,7 @@ export const updateMaterial = async (
 ) => {
   return await prisma.$transaction(async (tx) => {
     const current = await tx.material.findUnique({ where: { id } });
-    if (!current) throw new Error('Material no encontrado');
+    if (!current) throw new AppError('Material no encontrado');
 
     const updated = await tx.material.update({
       where: { id },
@@ -100,7 +101,7 @@ export const restockMaterial = async (data: {
   ipAddress?: string;
 }) => {
   if (data.quantity <= 0) {
-    throw new Error('La cantidad a ingresar debe ser mayor a 0');
+    throw new AppError('La cantidad a ingresar debe ser mayor a 0');
   }
 
   return await prisma.$transaction(async (tx) => {
@@ -108,7 +109,7 @@ export const restockMaterial = async (data: {
       where: { id: data.materialId },
     });
 
-    if (!current) throw new Error('Material no encontrado');
+    if (!current) throw new AppError('Material no encontrado');
 
     const updatedMaterial = await tx.material.update({
       where: { id: data.materialId },
@@ -158,12 +159,12 @@ export const consumeMaterialInOrder = async (data: {
     });
 
     if (!material) {
-      throw new Error('Material no encontrado en inventario');
+      throw new AppError('Material no encontrado en inventario');
     }
 
     const currentStock = Number(material.stock);
     if (currentStock < data.quantity) {
-      throw new Error(
+      throw new AppError(
         `Stock insuficiente de ${material.name}. Disponible: ${currentStock} ${material.unit}, Solicitado: ${data.quantity} ${material.unit}`
       );
     }

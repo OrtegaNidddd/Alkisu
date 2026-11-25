@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase.js';
+import { AppError } from '../lib/errors.js';
 import crypto from 'node:crypto';
 import path from 'node:path';
 
@@ -20,7 +21,8 @@ export const uploadFileToStorage = async (
     });
 
   if (error) {
-    throw new Error(`Error al subir imagen a Supabase Storage: ${error.message}`);
+    console.error('[Storage] Error al subir archivo:', error.message);
+    throw new AppError('Error al subir imagen a Supabase Storage', 500);
   }
 
   // Obtener URL pública

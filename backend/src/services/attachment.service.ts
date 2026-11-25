@@ -1,4 +1,5 @@
 import prisma from '../lib/prisma.js';
+import { pedidoNoEncontrado } from '../lib/errors.js';
 import { AttachmentType } from '@prisma/client';
 
 export const addAttachmentToOrder = async (data: {
@@ -12,7 +13,7 @@ export const addAttachmentToOrder = async (data: {
     where: { id: data.orderId },
   });
 
-  if (!order) throw new Error('Pedido no encontrado');
+  if (!order) throw pedidoNoEncontrado();
 
   return await prisma.orderAttachment.create({
     data: {
