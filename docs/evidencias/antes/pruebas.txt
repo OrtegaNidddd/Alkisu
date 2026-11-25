@@ -1,0 +1,142 @@
+
+ RUN  v5.1.2 C:/Proyectos/alkisu/backend
+
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P18 descuenta stock, audita y envía la alerta al llegar al mínimo 71ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P19 no envía alerta si el stock queda sobre el mínimo 7ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P20 un fallo de Brevo no afecta el consumo 5ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P21 omite el correo si falta configuración 4ms
+ ✓ tests/inventario-cotizaciones.test.ts > Consumo de material y alerta de stock (Brevo simulado) > P22 rechaza un consumo mayor al stock 5ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P23 crea la cotización con subtotales y total 4ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P27 inicia sesión y entrega un token firmado con JWT_SECRET 72ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P28 responde 401 con credenciales inválidas 6ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P29 exige token y rechaza uno inválido 9ms
+ ✓ tests/seguridad-errores.test.ts > Autenticación y permisos > P30 no permite que un JOYERO registre abonos 5ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P01 registra un abono y devuelve el nuevo saldo 69ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P02 rechaza un abono mayor al saldo y no lo guarda 7ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P03 valida que el monto del abono sea positivo 6ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P04 el detalle del pedido incluye el resumen financiero 6ms
+ ✓ tests/pedidos.test.ts > Saldo y abonos > P05 la lista de pedidos calcula el saldo y la paginación 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P06 bloquea la entrega con saldo pendiente 5ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P24 al editar reemplaza los ítems y recalcula el total 4ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P25 no permite modificar una cotización aprobada 4ms
+ ✓ tests/inventario-cotizaciones.test.ts > Cotizaciones > P26 exige cliente y al menos un ítem 5ms
+ × tests/seguridad-errores.test.ts > Autenticación y permisos > P31 [defecto] sin JWT_SECRET no acepta tokens firmados con el secreto de respaldo 9ms
+   → expected 200 not to be 200 // Object.is equality
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P32 devuelve 404 si el pedido no existe 5ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P33 un fallo al consultar la base responde 500 sin revelar el detalle 5ms
+ × tests/seguridad-errores.test.ts > Manejo de errores > P34 [defecto] un fallo interno al abonar responde 500 sin revelar el detalle 10ms
+   → expected 400 to be 500 // Object.is equality
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P35 un correo de cliente repetido responde con un mensaje claro 5ms
+ ✓ tests/seguridad-errores.test.ts > Manejo de errores > P36 asignar un joyero inexistente responde con error de negocio 4ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P07 entrega un pedido pagado y deja historial 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P08 exige joyero para pasar a FABRICACION 5ms
+ ✓ tests/pedidos.test.ts > Estados y entrega > P09 permite el flujo normal CREADO -> FABRICACION -> CALIDAD 11ms
+ × tests/pedidos.test.ts > Estados y entrega > P10 [defecto] impide entregar un pedido que no pasó por CALIDAD 8ms
+   → expected 200 to be 400 // Object.is equality
+ × tests/pedidos.test.ts > Estados y entrega > P11 [defecto] impide reabrir un pedido ya entregado 5ms
+   → expected 200 to be 400 // Object.is equality
+ × tests/pedidos.test.ts > Estados y entrega > P12 [defecto] impide cancelar por la ruta de estados, que no exige motivo 5ms
+   → expected 200 to be 400 // Object.is equality
+ ✓ tests/pedidos.test.ts > Estados y entrega > P13 cancela con motivo y rechaza cancelar un pedido entregado 7ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P14 calcula la merma, reintegra la limalla y audita 4ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P15 umbral de merma del 8 por ciento: joya de 92 g, inusual false 3ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P15 umbral de merma del 8 por ciento: joya de 91.9 g, inusual true 5ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P16 rechaza devolver más metal del entregado 4ms
+ ✓ tests/pedidos.test.ts > Liquidación de metal > P17 rechaza liquidar un pedido sin consumos de ese material 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pedidos.test.ts > Estados y entrega > P10 [defecto] impide entregar un pedido que no pasó por CALIDAD
+AssertionError: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ tests/pedidos.test.ts:102:22
+    100|     db.order.findUnique.mockResolvedValue(pedido({ status: 'CREADO', p…
+    101|     const r = await cambiarEstado('ENTREGADO');
+    102|     expect(r.status).toBe(400);
+       |                      ^
+    103|     expect(db.order.update).not.toHaveBeenCalled();
+    104|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/pedidos.test.ts > Estados y entrega > P11 [defecto] impide reabrir un pedido ya entregado
+AssertionError: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ tests/pedidos.test.ts:108:57
+    106|   it('P11 [defecto] impide reabrir un pedido ya entregado', async () =…
+    107|     db.order.findUnique.mockResolvedValue(pedido({ status: 'ENTREGADO'…
+    108|     expect((await cambiarEstado('FABRICACION')).status).toBe(400);
+       |                                                         ^
+    109|   });
+    110|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/pedidos.test.ts > Estados y entrega > P12 [defecto] impide cancelar por la ruta de estados, que no exige motivo
+AssertionError: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ tests/pedidos.test.ts:113:55
+    111|   it('P12 [defecto] impide cancelar por la ruta de estados, que no exi…
+    112|     db.order.findUnique.mockResolvedValue(pedido({ status: 'CREADO' })…
+    113|     expect((await cambiarEstado('CANCELADO')).status).toBe(400);
+       |                                                       ^
+    114|   });
+    115|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/seguridad-errores.test.ts > Autenticación y permisos > P31 [defecto] sin JWT_SECRET no acepta tokens firmados con el secreto de respaldo
+AssertionError: expected 200 not to be 200 // Object.is equality
+ ❯ tests/seguridad-errores.test.ts:51:26
+     49|       .get('/api/orders')
+     50|       .set('Authorization', token('ADMIN', 'secret_fallback'));
+     51|     expect(r.status).not.toBe(200);
+       |                          ^
+     52|   });
+     53| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/seguridad-errores.test.ts > Manejo de errores > P34 [defecto] un fallo interno al abonar responde 500 sin revelar el detalle
+AssertionError: expected 400 to be 500 // Object.is equality
+
+- Expected
++ Received
+
+- 500
++ 400
+
+ ❯ tests/seguridad-errores.test.ts:76:22
+     74|       .set('Authorization', token())
+     75|       .send({ amount: 10, paymentMethod: 'EFECTIVO' });
+     76|     expect(r.status).toBe(500);
+       |                      ^
+     77|     expect(JSON.stringify(r.body)).not.toContain('db-interna');
+     78|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  5 failed | 32 passed (37)
+   Start at  14:50:16
+   Duration  3.55s (import 72%, setup 13%, transform 10%, tests 4%)
+
