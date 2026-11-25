@@ -1,0 +1,58 @@
+import EmbeddedPostgres from 'embedded-postgres';
+import { execFileSync, spawn } from 'node:child_process';
+import path from 'node:path';
+// Prueba de extremo a extremo: API compilada (backend/dist) + PostgreSQL local desechable.
+// Nunca usa la base de datos de backend/.env. Uso: node e2e.mjs
+import os from 'node:os';
+const B = path.resolve(import.meta.dirname, '../backend');
+const url = 'postgresql://postgres:pw@127.0.0.1:5999/e2e';
+const pg = new EmbeddedPostgres({ databaseDir: path.join(os.tmpdir(), 'papoi-e2e-' + Date.now()), user: 'postgres', password: 'pw', port: 5999, persistent: true, initdbFlags: ['--encoding=UTF8', '--locale=C'], onLog() {} });
+await pg.initialise(); await pg.start(); await pg.createDatabase('e2e');
+const env = { ...process.env, DATABASE_URL: url, DIRECT_URL: url, JWT_SECRET: 'e2e-local', PORT: '4777', BREVO_API_KEY: '', SUPABASE_URL: 'http://127.0.0.1:1', SUPABASE_SERVICE_ROLE_KEY: 'x' };
+let srv, ok = 0, mal = 0;
+try {
+  console.log(execFileSync(process.execPath, [B + '/node_modules/prisma/build/index.js', 'db', 'push', '--skip-generate', '--schema', B + '/prisma/schema.prisma'], { env, encoding: 'utf8' }).split('\n').filter((l) => /5999|sync/.test(l)).join('\n'));
+  srv = spawn(process.execPath, [B + '/index.js'], { env, cwd: import.meta.dirname, stdio: 'inherit' });
+  await new Promise((r) => setTimeout(r, 4000));
+  let tok;
+  const api = async (m, p, b) => { const r = await fetch('http://localhost:4777/api' + p, { method: m, headers: { 'Content-Type': 'application/json', ...(tok && { Authorization: 'Bearer ' + tok }) }, body: b && JSON.stringify(b) }); return { s: r.status, b: await r.json() }; };
+  const es = (n, r, s) => { (r.s === s ? ok++ : mal++); console.log(r.s === s ? 'OK ' : 'MAL', n, r.s, r.b.error ?? ''); return r.b; };
+  const clave = 'clave-e2e';
+  const u = (email, role) => api('POST', '/auth/register', { fullName: role, email, password: clave, role });
+  es('registrar admin', await u('a@example.com', 'ADMIN'), 201);
+  const j = es('registrar joyero', await u('j@example.com', 'JOYERO'), 201);
+  es('correo repetido', await u('a@example.com', 'ADMIN'), 400);
+  es('login malo', await api('POST', '/auth/login', { email: 'a@example.com', password: 'no' }), 401);
+  tok = es('login', await api('POST', '/auth/login', { email: 'a@example.com', password: clave }), 200).token;
+  const cl = es('cliente', await api('POST', '/clients', { fullName: 'Ana', phone: '300', documentId: '1' }), 201);
+  es('cliente repetido', await api('POST', '/clients', { fullName: 'Ana', phone: '300', documentId: '1' }), 400);
+  const q = es('cotizacion', await api('POST', '/quotes', { clientId: cl.id, items: [{ description: 'Anillo', quantity: 2, unitPrice: 500 }] }), 201);
+  es('editar cotizacion', await api('PUT', '/quotes/' + q.id, { items: [{ description: 'Anillo', quantity: 1, unitPrice: 1000 }] }), 200);
+  const o = es('aprobar', await api('POST', `/quotes/${q.id}/approve`), 200).order;
+  es('editar aprobada', await api('PUT', '/quotes/' + q.id, { items: [] }), 400);
+  const st = (s) => api('PATCH', `/orders/${o.id}/status`, { status: s });
+  es('FABRICACION sin joyero', await st('FABRICACION'), 400);
+  es('asignar joyero', await api('PATCH', `/orders/${o.id}/artisan`, { artisanId: j.id }), 200);
+  es('CREADO->ENTREGADO', await st('ENTREGADO'), 400);
+  es('FABRICACION', await st('FABRICACION'), 200);
+  const m = es('material', await api('POST', '/materials', { name: 'Oro', type: 'ORO_AMARILLO_18K', unit: 'GRAMOS', stock: 20, minStock: 15 }), 201);
+  es('material invalido', await api('POST', '/materials', { name: 'X', type: 'NADA', unit: 'GRAMOS', stock: 1, minStock: 1 }), 400);
+  es('consumo', await api('POST', `/orders/${o.id}/materials`, { materialId: m.id, quantity: 10 }), 200);
+  es('consumo excesivo', await api('POST', `/orders/${o.id}/materials`, { materialId: m.id, quantity: 100 }), 400);
+  const b = es('liquidar metal', await api('POST', `/orders/${o.id}/metal-return`, { materialId: m.id, finalPieceWeight: 8.5, scrapWeight: 0.5 }), 200);
+  console.log(JSON.stringify(b.balance), b.nuevoStockMaterial);
+  es('CALIDAD', await st('CALIDAD'), 200);
+  es('entregar con saldo', await st('ENTREGADO'), 400);
+  const pay = (a) => api('POST', `/orders/${o.id}/payments`, { amount: a, paymentMethod: 'EFECTIVO' });
+  es('abono excesivo', await pay(5000), 400);
+  es('abono', await pay(1000), 201);
+  es('entregar', await st('ENTREGADO'), 200);
+  es('reabrir', await st('FABRICACION'), 400);
+  es('cancelar entregado', await api('PATCH', `/orders/${o.id}/cancel`, { reason: 'x' }), 400);
+  const d = es('detalle', await api('GET', '/orders/' + o.id), 200);
+  console.log(JSON.stringify(d.financialSummary), d.statusHistory.length);
+  for (const p of ['/orders', '/clients', '/materials', '/quotes', '/users', '/audit', '/dashboard/stats', `/orders/${o.id}/materials`, `/orders/${o.id}/attachments`]) es('GET ' + p, await api('GET', p).catch((e) => ({ s: 0, b: { error: String(e) } })), 200);
+  es('materiales de pedido inexistente', await api('GET', '/orders/nada/materials'), 404);
+  console.log({ ok, mal });
+} finally { srv?.kill(); await pg.stop(); }
+process.exitCode = mal ? 1 : 0;

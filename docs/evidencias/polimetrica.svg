@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 970 490" width="970" height="490" font-family="Arial, sans-serif">
+<style>.v{font-size:11px;text-anchor:middle}.n{font-size:13px;font-weight:bold;text-anchor:middle}.l{font-size:12px}</style>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40" y="24" font-size="15" font-weight="bold">Representación polimétrica: ancho = funciones, alto = LOC, color = complejidad ciclomática total (CC)</text>
+<rect x="40" y="68" width="110" height="312" fill="#b42318" stroke="#333"/>
+<text x="95" y="62" class="v">416 LOC / 22 f</text>
+<text x="95" y="396" class="v">Antes</text>
+<text x="95" y="411" class="v">CC 52</text>
+<rect x="172.5" y="146.75" width="75" height="233.25" fill="#e07b39" stroke="#333"/>
+<text x="210" y="140.75" class="v">311 LOC / 15 f</text>
+<text x="210" y="396" class="v">Después</text>
+<text x="210" y="411" class="v">CC 40</text>
+<text x="145" y="434" class="n">order.service.ts</text>
+<rect x="302.5" y="266.75" width="65" height="113.25" fill="#f2c14e" stroke="#333"/>
+<text x="335" y="260.75" class="v">151 LOC / 13 f</text>
+<text x="335" y="396" class="v">Antes</text>
+<text x="335" y="411" class="v">CC 21</text>
+<rect x="412.5" y="283.25" width="45" height="96.75" fill="#4f9d69" stroke="#333"/>
+<text x="435" y="277.25" class="v">129 LOC / 9 f</text>
+<text x="435" y="396" class="v">Después</text>
+<text x="435" y="411" class="v">CC 17</text>
+<text x="385" y="434" class="n">quote.service.ts</text>
+<rect x="537.5" y="264.5" width="45" height="115.5" fill="#e07b39" stroke="#333"/>
+<text x="560" y="258.5" class="v">154 LOC / 9 f</text>
+<text x="560" y="396" class="v">Antes</text>
+<text x="560" y="411" class="v">CC 42</text>
+<rect x="637.5" y="291.5" width="45" height="88.5" fill="#f2c14e" stroke="#333"/>
+<text x="660" y="285.5" class="v">118 LOC / 9 f</text>
+<text x="660" y="396" class="v">Después</text>
+<text x="660" y="411" class="v">CC 30</text>
+<text x="610" y="434" class="n">order.controller.ts</text>
+<rect x="770" y="306.5" width="30" height="73.5" fill="#f2c14e" stroke="#333"/>
+<text x="785" y="300.5" class="v">98 LOC / 6 f</text>
+<text x="785" y="396" class="v">Antes</text>
+<text x="785" y="411" class="v">CC 28</text>
+<rect x="872.5" y="321.5" width="25" height="58.5" fill="#4f9d69" stroke="#333"/>
+<text x="885" y="315.5" class="v">78 LOC / 5 f</text>
+<text x="885" y="396" class="v">Después</text>
+<text x="885" y="411" class="v">CC 19</text>
+<text x="835" y="434" class="n">material.controller.ts</text>
+<rect x="40" y="455" width="14" height="14" fill="#4f9d69"/><text x="60" y="467" class="l">CC hasta 20</text><rect x="160" y="455" width="14" height="14" fill="#f2c14e"/><text x="180" y="467" class="l">21 a 30</text><rect x="280" y="455" width="14" height="14" fill="#e07b39"/><text x="300" y="467" class="l">31 a 45</text><rect x="400" y="455" width="14" height="14" fill="#b42318"/><text x="420" y="467" class="l">más de 45</text>
+</svg>
